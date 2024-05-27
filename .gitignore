@@ -40,3 +40,7 @@ yarn-error.log*
 .vscode/
 .vscode/launch.json
 launch.json
+
+# idx
+.idx/
+dev.nix

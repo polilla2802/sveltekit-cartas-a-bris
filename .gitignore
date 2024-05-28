@@ -46,6 +46,7 @@ launch.json
 dev.nix
 
 # firebase
+/.firebase/
 .firebase/
 
 # github

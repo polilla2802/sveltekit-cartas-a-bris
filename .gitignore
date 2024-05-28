@@ -44,3 +44,12 @@ launch.json
 # idx
 .idx/
 dev.nix
+
+# firebase
+.firebase/
+
+# github
+.github/
+.github/workflows/
+firebase-hosting-merge.yml
+firebase-hosting-pull-request.yml

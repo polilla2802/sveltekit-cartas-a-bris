@@ -1,0 +1,54 @@
+[
+	{
+		"id": 1,
+		"type": "romantic"
+	},
+	{
+		"id": 2,
+		"type": "galactic"
+	},
+	{
+		"id": 3,
+		"type": "funny"
+	},
+	{
+		"id": 4,
+		"type": "black&white"
+	},
+	{
+		"id": 5,
+		"type": "vintage"
+	},
+	{
+		"id": 6,
+		"type": "modern"
+	},
+	{
+		"id": 7,
+		"type": "classic"
+	},
+	{
+		"id": 8,
+		"type": "nature"
+	},
+	{
+		"id": 9,
+		"type": "minimalist"
+	},
+	{
+		"id": 10,
+		"type": "abstract"
+	},
+	{
+		"id": 11,
+		"type": "beach"
+	},
+	{
+		"id": 12,
+		"type": "christmas"
+	},
+	{
+		"id": 13,
+		"type": "badbunny"
+	}
+]

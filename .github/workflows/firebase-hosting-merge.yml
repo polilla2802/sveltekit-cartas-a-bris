@@ -18,5 +18,5 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CARTAS_A_BRIS }}
           channelId: live
           projectId: cartas-a-bris
-         env:
+        env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks

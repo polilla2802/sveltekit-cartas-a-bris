@@ -8,7 +8,12 @@ datasource db {
 }
 
 model frame_designs {
+  id     Int     @id @default(autoincrement())
+  url    String? @db.VarChar(255)
+  typeId Int?
+}
+
+model frame_types {
   id   Int     @id @default(autoincrement())
-  url  String? @db.VarChar(255)
-  type Int?
+  type String? @db.VarChar(255)
 }

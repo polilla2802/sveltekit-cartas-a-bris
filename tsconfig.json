@@ -14,13 +14,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"noEmit": true,
-		"baseUrl": "./",
-		"paths": {
-			"$lib/*": [
-				"src/lib/*"
-			]
-		}
+		"noEmit": true
 	},
 	"include": [
 		"src/**/*.ts",

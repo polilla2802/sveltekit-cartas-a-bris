@@ -1,15 +1,23 @@
 {
 	"name": "sveltekit-cartas-a-bris",
-	"version": "1.2.0+3",
+	"version": "1.3.0+4",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"dev": "dotenv -e .env.dev -- vite dev",
+		"build": "dotenv -e .env.prod -- vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"prisma:pull:dev": "dotenv -e .env.dev -- prisma db pull",
+		"prisma:pull:prod": "dotenv -e .env.prod -- prisma db pull",
+		"prisma:generate:dev": "dotenv -e .env.dev -- prisma generate",
+		"prisma:generate:prod": "dotenv -e .env.prod -- prisma generate",
+		"prisma:migrate:dev": "dotenv -e .env.dev -- prisma migrate dev",
+		"prisma:migrate:prod": "dotenv -e .env.prod -- prisma migrate deploy",
+		"prisma:reset:dev": "dotenv -e .env.dev -- prisma migrate reset",
+		"prisma:reset:prod": "dotenv -e .env.prod -- prisma migrate reset"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",

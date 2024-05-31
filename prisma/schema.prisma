@@ -24,7 +24,7 @@ model frame_types {
 }
 
 model frame_finalized {
-  id            BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  id            Int           @id @default(autoincrement())
   url           String        @db.VarChar(255)
   frameId       Int
   frame_designs frame_designs @relation(fields: [frameId], references: [id], onUpdate: Restrict, map: "fk_frame_design")

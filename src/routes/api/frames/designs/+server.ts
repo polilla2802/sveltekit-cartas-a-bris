@@ -4,6 +4,27 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import type { RequestHandler } from './$types';
 import prisma from '$lib/prisma';
 
+export const GET: RequestHandler = async () => {
+  try {
+    const framesDesigns = await prisma.frame_designs.findMany({
+      include: {
+        frame_finalized: true,
+        frame_types: true,
+      },
+    });
+
+    return json({ framesDesigns }, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    throw error(500, `Failed to retrieve frame_designs records: ${(err as Error).message}`);
+  }
+};
+
+
 export const POST: RequestHandler = async ({ request }) => {
   const data = await request.formData();
   const file = data.get('file') as File;
@@ -46,3 +67,4 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(500, `Upload failed: ${(err as Error).message}`);
   }
 };
+

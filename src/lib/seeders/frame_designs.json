@@ -3,5 +3,25 @@
 		"id": 1,
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fspace-design.png?alt=media&token=22619c3d-08b6-443f-bee5-fa66eb5c8b3d",
 		"typeId": 2
+	},
+	{
+		"id": 2,
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fchristmas-design.png?alt=media&token=5a9a5840-9f8a-4419-932a-21d9fd2944f2",
+		"typeId": 12
+	},
+	{
+		"id": 3,
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fchristmas-alt-design.png?alt=media&token=f25e7c4a-f08f-43f5-a2d2-65235b033899",
+		"typeId": 12
+	},
+	{
+		"id": 4,
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fpink-flowers-design.png?alt=media&token=bbc36538-8fce-456a-973e-335e0f4343f8",
+		"typeId": 1
+	},
+	{
+		"id": 5,
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris.appspot.com/o/frame_designs%2Fpink-flowers-design.png?alt=media&token=0e110964-3e28-40a4-aafb-d55f23540d3e",
+		"typeId": 1
 	}
 ]

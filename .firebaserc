@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "cartas-a-bris"
-  }
+    "default": "cartas-a-bris",
+    "dev": "cartas-a-bris-dev",
+    "prod": "cartas-a-bris"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

@@ -4,8 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "dotenv -e .env.dev -- vite dev",
-		"build": "dotenv -e .env.prod -- vite build",
-		"preview": "dotenv -e .env.prod -- vite preview",
+		"build": "vite build",
+		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check .",

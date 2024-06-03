@@ -29,7 +29,9 @@ yarn-error.log*
 .env*.local
 .env
 .env.prod
+.env.production
 .env.dev
+.env.development
 
 # vercel
 .vercel

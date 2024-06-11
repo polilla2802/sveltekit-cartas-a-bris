@@ -1,12 +1,14 @@
 <script lang="ts">
   import { page } from "$app/stores";
+
+  console.log($page.url.pathname);
 </script>
 
 <nav>
   <div class="left">
     <a class:active={$page.url.pathname === "/"} href="/">Todas</a>
-    <a class:active={$page.url.pathname === "/mis-cartas"} href="/mis-cartas"
-      >Mis Cartas</a
+    <a class:active={$page.url.pathname === "/dise%C3%B1os"} href="/diseños"
+      >Diseños</a
     >
   </div>
   <div class="right">

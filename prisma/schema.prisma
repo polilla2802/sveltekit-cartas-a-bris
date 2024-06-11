@@ -9,10 +9,14 @@ datasource db {
 
 model frame_designs {
   id              Int               @id @default(autoincrement())
+  name            String?           @db.VarChar(255)
   url             String?           @db.VarChar(255)
   typeId          Int?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   frame_types     frame_types?      @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_frame_design_type")
   frame_finalized frame_finalized[]
+
 
   @@index([typeId], map: "fk_frame_design_type")
 }
@@ -25,8 +29,11 @@ model frame_types {
 
 model frame_finalized {
   id            Int           @id @default(autoincrement())
+  name          String?       @db.VarChar(255)
   url           String        @db.VarChar(255)
   frameId       Int
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   frame_designs frame_designs @relation(fields: [frameId], references: [id], onUpdate: Restrict, map: "fk_frame_design")
 
   @@index([frameId], map: "fk_frame_design")

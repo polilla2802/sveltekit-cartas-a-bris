@@ -24,9 +24,11 @@ async function main() {
 		const frameDesign = await prisma.frame_designs.create({
 			data: {
 				id: d.id,
+				name: d.name,
 				url: d.url,
 				typeId: d.typeId,
-
+				createdAt: new Date(d.createdAt),
+				updatedAt: new Date(d.updatedAt)
 			}
 		})
 		console.log(`Created frameDesign with id: ${frameDesign.id}`)
@@ -36,9 +38,11 @@ async function main() {
 		const framesFinalized = await prisma.frame_finalized.create({
 			data: {
 				id: f.id,
+				name: f.name,
 				url: f.url,
 				frameId: f.frameId,
-
+				createdAt: new Date(f.createdAt),
+				updatedAt: new Date(f.updatedAt)
 			}
 		})
 		console.log(`Created framesFinalized with id: ${framesFinalized.id}`)

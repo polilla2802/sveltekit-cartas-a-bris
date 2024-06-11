@@ -2,22 +2,24 @@
   import {
     getTypeEnumByTypeId,
     getFrameStringByTypeEnum,
-    frameTypeEnum,
   } from "$lib/enums/frames";
   import { onMount } from "svelte";
+  import { formatDate } from "../utils/getDate";
+  import { sortFrames } from "../utils/sortFrames";
 
   let helloWorld = "Cartas a Bris <3";
   let novio = "Jose";
 
   let frames: any = [];
-
-  let myFrameType: frameTypeEnum;
+  let sortedFrames: any = [];
 
   async function getFrames() {
     try {
       const response = await fetch("/api/frames/finalized");
       let data = await response.json();
       frames = data.framesFinalized;
+
+      sortedFrames = sortFrames(frames);
     } catch (error) {
       console.log(error);
     }
@@ -31,20 +33,21 @@
 <h1>{helloWorld}</h1>
 <h2>De tu novio {novio}</h2>
 
-{#if frames !== undefined && frames.length > 0}
+{#if sortedFrames !== undefined && sortedFrames.length > 0}
   <!-- Render frames if frames is defined and not empty -->
   <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
   >
-    {#each frames as frame}
+    {#each sortedFrames as frame}
       <!-- Map frames to display images -->
       <div class="flex flex-col items-center">
         <a href={frame.url} target="_blank"
           ><img class="w-full h-auto" src={frame.url} alt="Frame" /></a
         >
+        <p>Nombre: <b><i>"{frame.name}"</i></b></p>
         {#if frame.frame_designs}
           <p>
-            Design Type: <a
+            Tipo de Diseño: <a
               href={frame.frame_designs.url}
               target="_blank"
               class="text-blue-500 underline"
@@ -54,6 +57,7 @@
             >
           </p>
         {/if}
+        <p>Creado: {formatDate(frame.createdAt)}</p>
       </div>
     {/each}
   </div>

@@ -22,9 +22,6 @@ export const GET: RequestHandler = async () => {
 
 
 export const POST: RequestHandler = async ({ request }) => {
-  // Get the current date
-const today = new Date()
-
   const data = await request.formData();
   const userNameValue = data.get('userName');
   const nameValue = data.get('name');
@@ -67,6 +64,28 @@ const today = new Date()
   const gender = (genderValue as string)
   try {
 
+    // Check if email or username already exist
+    const existingUserName = await prisma.user.findFirst({
+      where: {
+        userName: userName
+      },
+    });
+
+    if (existingUserName) {
+      throw new Error('User with the same userName already exists');
+    }
+
+    // Check if email or username already exist
+    const existingEmail = await prisma.user.findFirst({
+      where: {
+        email: email
+      },
+    });
+
+    if (existingEmail) {
+      throw new Error('User with the same email already exists');
+    }
+
     const user = await prisma.user.create({
       data: {
         userName: userName,
@@ -90,4 +109,3 @@ const today = new Date()
     throw error(500, `Upload failed: ${(err as Error).message}`);
   }
 };
-

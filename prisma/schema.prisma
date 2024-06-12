@@ -9,16 +9,18 @@ datasource db {
 
 model frame_designs {
   id              Int               @id @default(autoincrement())
-  name            String?           @db.VarChar(255)
   url             String?           @db.VarChar(255)
   typeId          Int?
   createdAt       DateTime          @default(now())
+  name            String?           @db.VarChar(255)
   updatedAt       DateTime          @updatedAt
+  userId          Int?
   frame_types     frame_types?      @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_frame_design_type")
+  User            User?             @relation(fields: [userId], references: [id])
   frame_finalized frame_finalized[]
 
-
   @@index([typeId], map: "fk_frame_design_type")
+  @@index([userId], map: "fk_frame_design_user")
 }
 
 model frame_types {
@@ -29,12 +31,30 @@ model frame_types {
 
 model frame_finalized {
   id            Int           @id @default(autoincrement())
-  name          String?       @db.VarChar(255)
   url           String        @db.VarChar(255)
   frameId       Int
   createdAt     DateTime      @default(now())
+  name          String?       @db.VarChar(255)
   updatedAt     DateTime      @updatedAt
+  userId        Int?
   frame_designs frame_designs @relation(fields: [frameId], references: [id], onUpdate: Restrict, map: "fk_frame_design")
+  User          User?         @relation(fields: [userId], references: [id])
 
   @@index([frameId], map: "fk_frame_design")
+  @@index([userId], map: "fk_frame_finalized_user")
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  userName        String            @unique @db.VarChar(255)
+  name            String            @db.VarChar(255)
+  email           String            @unique @db.VarChar(255)
+  password        String            @db.VarChar(255)
+  gender          String?           @db.VarChar(50)
+  age             Int
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime
+  phoneNumber     String?           @db.VarChar(20)
+  frame_designs   frame_designs[]
+  frame_finalized frame_finalized[]
 }

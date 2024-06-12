@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import * as dotenv from 'dotenv';
-import { resolve } from 'path';
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 

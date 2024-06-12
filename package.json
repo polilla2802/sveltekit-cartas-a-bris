@@ -3,9 +3,9 @@
 	"version": "1.4.0+5",
 	"private": true,
 	"scripts": {
-		"dev": "dotenv -e .env.development -- vite dev",
-		"build": "prisma generate && vite build",
-		"preview": "vite preview",
+		"dev": "vite --mode development",
+		"build": "prisma generate && vite build --mode production",
+		"preview": "vite preview --mode production",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check .",

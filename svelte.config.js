@@ -4,12 +4,7 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter({
-      // Configura el adaptador según tus necesidades
-      pages: 'build',
-      assets: 'build',
-      fallback: null // Utiliza 'index.html' si tu aplicación es una SPA
-    }),
+    adapter: adapter(),
     csrf: {
       checkOrigin: false,
     },

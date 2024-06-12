@@ -17,7 +17,9 @@
 		"prisma:migrate:dev": "dotenv -e .env.development -- prisma migrate dev --create-only",
 		"prisma:migrate:prod": "dotenv -e .env.production -- prisma migrate deploy",
 		"prisma:reset:dev": "dotenv -e .env.development -- prisma migrate reset",
-		"prisma:reset:prod": "dotenv -e .env.production -- prisma migrate reset"
+		"prisma:reset:prod": "dotenv -e .env.production -- prisma migrate reset",
+		"prisma:seed:dev": "dotenv -e .env.development -- tsx prisma/seed.ts",
+		"prisma:seed:prod": "dotenv -e .env.production -- tsx prisma/seed.ts"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",

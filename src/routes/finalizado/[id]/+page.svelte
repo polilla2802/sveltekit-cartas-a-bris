@@ -1,9 +1,5 @@
 <script lang="ts">
   import { page } from "$app/stores"; // Import the page store from SvelteKit
-  import {
-    getFrameStringByTypeEnum,
-    getTypeEnumByTypeId,
-  } from "$lib/enums/frames";
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
   import { formatDate } from "../../../utils/getDate";
   const baseUrl: string = $page.url.origin;

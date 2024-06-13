@@ -57,13 +57,11 @@
         <p>Nombre: <b><i>"{frame.name}"</i></b></p>
         {#if frame.frame_designs}
           <p>
-            Tipo de Diseño: <a
-              href={frame.frame_designs.url}
+            Diseño: <a
+            href={baseUrl + "/diseños/" + frame.frame_designs.id}
               target="_blank"
               class="text-blue-500 underline"
-              >{getFrameStringByTypeEnum(
-                getTypeEnumByTypeId(frame.frame_designs.typeId)
-              )}</a
+              >{frame.frame_designs.name}</a
             >
           </p>
         {/if}

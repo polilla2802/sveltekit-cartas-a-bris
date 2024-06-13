@@ -37,7 +37,6 @@
       {#if frameDesign.frame_types}
         <p>
           Tipo de Diseño: <a
-            href={frameDesign.frame_types.url}
             target="_blank"
             class="text-blue-500 underline"
             >{getFrameStringByTypeEnum(

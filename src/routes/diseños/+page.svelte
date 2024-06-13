@@ -55,10 +55,10 @@
         <p>Nombre: <b><i>"{design.name}"</i></b></p>
         {#if design.frame_types}
           <p>
-            Tipo de Diseño: <a class="text-blue-500 underline"
+            Tipo de Diseño:<span class="text-blue-500 underline"
               >{getFrameStringByTypeEnum(
                 getTypeEnumByTypeId(design.frame_types.id)
-              )}</a
+              )}</span
             >
           </p>
         {/if}

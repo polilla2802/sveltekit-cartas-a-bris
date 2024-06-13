@@ -1,0 +1,15 @@
+[
+	{
+		"id": 1,
+		"userName": "jose2802",
+		"name": "Joe",
+		"email": "polilla2802@gmail.com",
+		"phoneNumber": "9982287339",
+		"password": "12345678",
+		"gender": "M",
+		"age": 29,
+		"createdAt": 1703479505000,
+		"updatedAt": 1703479505000
+
+	}
+]

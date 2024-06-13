@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores'; // Import the page store from SvelteKit
+
   import {
     getTypeEnumByTypeId,
     getFrameStringByTypeEnum,
@@ -6,7 +8,9 @@
   import { onMount } from "svelte";
   import { formatDate } from "../utils/getDate";
   import { sortFrames } from "../utils/sortFrames";
+  import { base } from '$app/paths';
 
+	const baseUrl: string = $page.url.origin;
   let helloWorld = "Cartas a Bris <3";
   let novio = "Jose";
 
@@ -41,7 +45,8 @@
     {#each sortedFrames as frame}
       <!-- Map frames to display images -->
       <div class="flex flex-col items-center">
-        <a href={frame.url} target="_blank"
+
+        <a href={baseUrl+"/finalizado/"+frame.id} target="_blank"
           ><img class="w-full h-auto" src={frame.url} alt="Frame" /></a
         >
         <p>Nombre: <b><i>"{frame.name}"</i></b></p>

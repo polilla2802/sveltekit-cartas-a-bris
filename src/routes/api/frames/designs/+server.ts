@@ -10,6 +10,7 @@ export const GET: RequestHandler = async () => {
       include: {
         frame_finalized: true,
         frame_types: true,
+        User:true
       },
     });
 

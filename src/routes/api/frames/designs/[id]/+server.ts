@@ -17,7 +17,8 @@ export const GET: RequestHandler = async ({ params }) => {
         id: parseInt(frameId),
       },
       include: {
-        frame_types: true
+        frame_types: true,
+        User: true
       }
     });
 

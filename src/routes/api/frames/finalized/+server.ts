@@ -9,6 +9,7 @@ export const GET: RequestHandler = async () => {
     const framesFinalized = await prisma.frame_finalized.findMany({
       include: {
         frame_designs: true,
+        User:true
       },
     });
 

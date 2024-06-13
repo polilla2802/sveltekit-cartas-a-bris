@@ -16,8 +16,9 @@ export const GET: RequestHandler = async ({ params }) => {
 			where: {
 				id: parseInt(frameId),
 			},
-			include:{
-				frame_designs:true
+			include: {
+				frame_designs: true,
+				User: true
 			}
 		});
 
@@ -65,7 +66,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 		const snapshot = await uploadBytes(storageRef, fileValue);
 		const downloadURL = await getDownloadURL(snapshot.ref);
 		const name = (nameValue as string)
-		
+
 		let frameDesignId;
 		let userId;
 

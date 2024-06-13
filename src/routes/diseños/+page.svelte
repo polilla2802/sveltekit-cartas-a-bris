@@ -31,8 +31,8 @@
   });
 </script>
 
-<h1>{helloWorld}</h1>
-<h2>De tu novio {novio}</h2>
+<h1 class="text-center md:text-left md:pl-5">{helloWorld}</h1>
+<h2 class="text-center md:text-left md:pl-5">De tu novio {novio}</h2>
 
 {#if sortedDesigns !== undefined && sortedDesigns.length > 0}
   <!-- Render frames if frames is defined and not empty -->

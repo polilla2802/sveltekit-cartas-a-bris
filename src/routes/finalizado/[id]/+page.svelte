@@ -18,7 +18,7 @@
   {#if frameFinalized}
     <!-- Map frames to display images -->
     <div class="flex flex-col items-center self-center">
-      <div class="w-2/6">
+      <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6">
         <a href={frameFinalized.url} class="frame-link"
           ><img class="w-full h-auto" src={frameFinalized.url} alt="Frame" /></a
         >

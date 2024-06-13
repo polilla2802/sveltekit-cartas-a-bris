@@ -11,13 +11,23 @@
       >Diseños</a
     >
   </div>
-  <div class="right">
+  <div class="right flex flex-col md:block">
     <a href="/signup">Inicia Sesión</a>
-    <a href="/create">+ Crear Carta</a>
+    <a href="/create" class="crear-carta">+ Crear Carta</a>
   </div>
 </nav>
 
 <style>
+  @media only screen and (max-width: 768px) {
+    .crear-carta {
+      margin-left: 0 !important;
+    }
+  }
+
+  .crear-carta {
+    margin-left: 1rem;
+  }
+
   nav {
     display: flex;
     padding: 2rem;

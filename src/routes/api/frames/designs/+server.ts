@@ -28,19 +28,32 @@ export const GET: RequestHandler = async () => {
 export const POST: RequestHandler = async ({ request }) => {
   const data = await request.formData();
   const file = data.get('file') as File;
+  const nameValue = data.get('name');
   const typeIdValue = data.get('typeId');
+  const userIdValue = data.get('userId');
 
   if (!file) {
     throw error(400, 'File not provided');
   }
 
   if (!typeIdValue) {
-    throw error(400, 'TypeId not provided');
+    throw error(400, 'typeId not provided');
   }
+
+  if (!userIdValue) {
+    throw error(400, 'userId not provided');
+  }
+
+  const name = (nameValue as string);
 
   const typeId = parseInt(typeIdValue as string);
   if (isNaN(typeId)) {
-    throw error(400, 'TypeId must be a valid number');
+    throw error(400, 'typeId must be a valid number');
+  }
+
+  const userId = parseInt(userIdValue as string);
+  if (isNaN(userId)) {
+    throw error(400, 'userId must be a valid number');
   }
 
   const storageRef = ref(storage, `frame_designs/${file.name}`);
@@ -49,14 +62,19 @@ export const POST: RequestHandler = async ({ request }) => {
     const snapshot = await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(snapshot.ref);
 
-    await prisma.frame_designs.create({
+    const frameDesign = await prisma.frame_designs.create({
       data: {
         url: downloadURL,
-        typeId: typeId
+        name: name,
+        typeId: typeId,
+        userId: userId
       },
+      include: {
+        frame_types:true
+      }
     });
 
-    return json({ message: 'Frame design uploaded with the url:', url: downloadURL }, {
+    return json({frameDesign: frameDesign, message: 'Frame design uploaded with the url:', url: downloadURL }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },

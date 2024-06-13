@@ -5,7 +5,7 @@
     getFrameStringByTypeEnum,
   } from "$lib/enums/frames";
   import { onMount } from "svelte";
-  import { formatDate } from "../../utils/getDate";
+  import { formatToEST } from "../../utils/getESTTime";
   import { sortFrames } from "../../utils/sortFrames";
 
   const baseUrl: string = $page.url.origin;
@@ -42,7 +42,7 @@
     {#each sortedDesigns as design}
       <!-- Map frames to display images -->
       <div class="flex flex-col items-center">
-        <a href={baseUrl + "/diseños/" + design.id} target="_blank"
+        <a href={baseUrl + "/diseños/" + design.id}
           ><img class="w-full h-auto" src={design.url} alt="Design" /></a
         >
         {#if design.User}
@@ -55,16 +55,14 @@
         <p>Nombre: <b><i>"{design.name}"</i></b></p>
         {#if design.frame_types}
           <p>
-            Tipo de Diseño: <a
-              target="_blank"
-              class="text-blue-500 underline"
+            Tipo de Diseño: <a class="text-blue-500 underline"
               >{getFrameStringByTypeEnum(
                 getTypeEnumByTypeId(design.frame_types.id)
               )}</a
             >
           </p>
         {/if}
-        <p>Creado: {formatDate(design.createdAt)}</p>
+        <p>Creado: {formatToEST(design.createdAt)}</p>
       </div>
     {/each}
   </div>

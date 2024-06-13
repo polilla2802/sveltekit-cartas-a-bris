@@ -1,12 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores"; // Import the page store from SvelteKit
 
-  import {
-    getTypeEnumByTypeId,
-    getFrameStringByTypeEnum,
-  } from "$lib/enums/frames";
   import { onMount } from "svelte";
-  import { formatDate } from "../utils/getDate";
+  import { formatToEST } from "../utils/getESTTime";
   import { sortFrames } from "../utils/sortFrames";
 
   const baseUrl: string = $page.url.origin;
@@ -44,28 +40,26 @@
     {#each sortedFrames as frame}
       <!-- Map frames to display images -->
       <div class="flex flex-col items-center">
-        <a href={baseUrl + "/finalizado/" + frame.id} target="_blank"
+        <a href={baseUrl + "/finalizado/" + frame.id}
           ><img class="w-full h-auto" src={frame.url} alt="Frame" /></a
         >
         {#if frame.User}
           <p>Autor: <b>{frame.User.userName}</b></p>
         {:else}
-        <div>
-          <p>Autor: <b>Desconocido</b></p>
-        </div>
+          <div>
+            <p>Autor: <b>Desconocido</b></p>
+          </div>
         {/if}
         <p>Nombre: <b><i>"{frame.name}"</i></b></p>
         {#if frame.frame_designs}
           <p>
             Diseño: <a
-            href={baseUrl + "/diseños/" + frame.frame_designs.id}
-              target="_blank"
-              class="text-blue-500 underline"
-              >{frame.frame_designs.name}</a
+              href={baseUrl + "/diseños/" + frame.frame_designs.id}
+              class="text-blue-500 underline">{frame.frame_designs.name}</a
             >
           </p>
         {/if}
-        <p>Creado: {formatDate(frame.createdAt)}</p>
+        <p>Creado: {formatToEST(frame.createdAt)}</p>
       </div>
     {/each}
   </div>

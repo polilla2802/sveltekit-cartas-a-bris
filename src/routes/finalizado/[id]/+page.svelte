@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
-  import { formatDate } from "../../../utils/getDate";
+  import { formatToEST } from "../../../utils/getESTTime";
   const baseUrl: string = $page.url.origin;
 
   // Use the `$page` store to get the data returned by the load function
@@ -19,7 +19,7 @@
     <!-- Map frames to display images -->
     <div class="flex flex-col items-center self-center">
       <div class="w-2/6">
-        <a href={frameFinalized.url} target="_blank" class="frame-link"
+        <a href={frameFinalized.url} class="frame-link"
           ><img class="w-full h-auto" src={frameFinalized.url} alt="Frame" /></a
         >
       </div>
@@ -35,13 +35,12 @@
         <p>
           Diseño: <a
             href={baseUrl + "/diseños/" + frameFinalized.frame_designs.id}
-            target="_blank"
             class="text-blue-500 underline"
             >{frameFinalized.frame_designs.name}</a
           >
         </p>
       {/if}
-      <p>Creado: {formatDate(frameFinalized.createdAt)}</p>
+      <p>Creado: {formatToEST(frameFinalized.createdAt)}</p>
     </div>
   {/if}
 </section>

@@ -2,14 +2,40 @@
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
   import { formatToEST } from "../../../utils/getESTTime";
-  const baseUrl: string = $page.url.origin;
 
   // Use the `$page` store to get the data returned by the load function
   const { frameFinalized } = $page.data.frameFinalized;
 
+  let qrCode: string;
+  let qrCodeLoading: string =
+    "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris.appspot.com/o/qr%2Fqr-loading.gif?alt=media&token=9de90db0-b6f6-4f4d-8970-b8e7f24afcf7";
+
+  // Construct the base URL based on page url origin
+  const baseUrl: string = $page.url.origin;
+
+  // Extract the `frameId` from URL parameters
+  let frameId: string = $page.params.id;
+
+  const QR_API_URL: string =
+    "https://api.qrserver.com/v1/create-qr-code/?data=";
+
+  async function getQRCode() {
+    try {
+      const response = await fetch(
+        `${QR_API_URL}${baseUrl}/finalizado/${frameId}`
+      );
+      qrCode = response.url;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // Optional: If you need to perform any action on mount
   onMount(() => {
     console.log("Component has mounted", frameFinalized);
+    setTimeout(() => {
+      getQRCode();
+    }, 1000); // 2500 milliseconds (2.5 seconds) delay
   });
 </script>
 
@@ -42,8 +68,42 @@
       {/if}
       <p>Creado: {formatToEST(frameFinalized.createdAt)}</p>
     </div>
+    {#if qrCode}
+      <div class="qr-container">
+        <img src={qrCode} alt="QR code" />
+      </div>
+    {:else}
+      <div class="qr-container-loading">
+        <img src={qrCodeLoading} alt="QR code" />
+      </div>
+    {/if}
   {/if}
 </section>
 
 <style>
+  .qr-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .qr-container-loading {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .qr-container img {
+    background-color: white;
+    padding: 48px;
+    width: 350px;
+    height: 350px;
+  }
+
+  .qr-container-loading img {
+    width: 350px;
+    height: 350px;
+  }
 </style>

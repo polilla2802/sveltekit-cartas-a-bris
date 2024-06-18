@@ -44,22 +44,22 @@
           ><img class="w-full h-auto" src={frame.url} alt="Frame" /></a
         >
         {#if frame.User}
-          <p>Autor: <b>{frame.User.userName}</b></p>
+          <p class="text-center">Autor: <b>{frame.User.userName}</b></p>
         {:else}
           <div>
-            <p>Autor: <b>Desconocido</b></p>
+            <p class="text-center">Autor: <b>Desconocido</b></p>
           </div>
         {/if}
-        <p>Nombre: <b><i>"{frame.name}"</i></b></p>
+        <p class="text-center">Nombre: <b><i>"{frame.name}"</i></b></p>
         {#if frame.frame_designs}
-          <p>
+          <p class="text-center">
             Diseño: <a
               href={baseUrl + "/diseños/" + frame.frame_designs.id}
               class="text-blue-500 underline">{frame.frame_designs.name}</a
             >
           </p>
         {/if}
-        <p>Creado: {formatToEST(frame.createdAt)}</p>
+        <p class="text-center">Creado: {formatToEST(frame.createdAt)}</p>
       </div>
     {/each}
   </div>

@@ -46,21 +46,21 @@
           ><img class="w-full h-auto" src={design.url} alt="Design" /></a
         >
         {#if design.User}
-          <p>Autor: <b>{design.User.userName}</b></p>
+          <p class="text-center">Autor: <b>{design.User.userName}</b></p>
         {:else}
           <div>
-            <p>Autor: <b>Desconocido</b></p>
+            <p class="text-center">Autor: <b>Desconocido</b></p>
           </div>
         {/if}
-        <p>Nombre: <b><i>"{design.name}"</i></b></p>
+        <p class="text-center">Nombre: <b><i>"{design.name}"</i></b></p>
         {#if design.frame_types}
-          <p>
+          <p class="text-center">
             Tipo de Diseño: <span class="text-blue-500 underline"
               >{design.frame_types.type}</span
             >
           </p>
         {/if}
-        <p>Creado: {formatToEST(design.createdAt)}</p>
+        <p class="text-center">Creado: {formatToEST(design.createdAt)}</p>
       </div>
     {/each}
   </div>

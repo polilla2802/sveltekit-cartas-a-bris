@@ -50,15 +50,15 @@
         >
       </div>
       {#if frameFinalized.User}
-        <p>Autor: <b>{frameFinalized.User.userName}</b></p>
+        <p class="text-center">Autor: <b>{frameFinalized.User.userName}</b></p>
       {:else}
         <div>
-          <p>Autor: <b>Desconocido</b></p>
+          <p class="text-center">Autor: <b>Desconocido</b></p>
         </div>
       {/if}
-      <p>Nombre: <b><i>"{frameFinalized.name}"</i></b></p>
+      <p class="text-center">Nombre: <b><i>"{frameFinalized.name}"</i></b></p>
       {#if frameFinalized.frame_designs}
-        <p>
+        <p class="text-center">
           Diseño: <a
             href={baseUrl + "/diseños/" + frameFinalized.frame_designs.id}
             class="text-blue-500 underline"
@@ -66,7 +66,7 @@
           >
         </p>
       {/if}
-      <p>Creado: {formatToEST(frameFinalized.createdAt)}</p>
+      <p class="text-center">Creado: {formatToEST(frameFinalized.createdAt)}</p>
     </div>
     {#if qrCode}
       <div class="qr-container">

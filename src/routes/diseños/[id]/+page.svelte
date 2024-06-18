@@ -52,21 +52,21 @@
         >
       </div>
       {#if frameDesign.User}
-        <p>Autor: <b>{frameDesign.User.userName}</b></p>
+        <p class="text-center">Autor: <b>{frameDesign.User.userName}</b></p>
       {:else}
         <div>
-          <p>Autor: <b>Desconocido</b></p>
+          <p class="text-center">Autor: <b>Desconocido</b></p>
         </div>
       {/if}
-      <p>Nombre: <b><i>"{frameDesign.name}"</i></b></p>
+      <p class="text-center">Nombre: <b><i>"{frameDesign.name}"</i></b></p>
       {#if frameDesign.frame_types}
-        <p>
+        <p class="text-center">
           Tipo de Diseño: <span class="text-blue-500 underline"
             >{frameDesign.frame_types.type}</span
           >
         </p>
       {/if}
-      <p>Creado: {formatToEST(frameDesign.createdAt)}</p>
+      <p class="text-center">Creado: {formatToEST(frameDesign.createdAt)}</p>
     </div>
     {#if qrCode}
       <div class="qr-container">

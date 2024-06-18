@@ -55,6 +55,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const nameValue = data.get("name");
   const frameDesignIdValue = data.get("designId");
   const userIdValue = data.get("userId");
+  const createdAtValue = data.get("createdAt");
 
   try {
     // Fetch the existing frame finalized by ID
@@ -98,6 +99,19 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         ? parseInt(userIdValue as string)
         : existingFrameFinalized.userId;
 
+    // Parse createdAt
+    let createdAt: Date | undefined;
+
+    if (createdAtValue !== null && createdAtValue !== undefined) {
+      const parsedCreatedAt = new Date(parseInt(createdAtValue as string));
+      if (isNaN(parsedCreatedAt.getTime())) {
+        throw error(400, "Invalid createdAt");
+      }
+      createdAt = parsedCreatedAt;
+    } else {
+      createdAt = existingFrameFinalized.createdAt;
+    }
+
     // Update the frame finalized in the database
     const updatedFrameFinalized = await prisma.frame_finalized.update({
       where: {
@@ -108,6 +122,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         name: name,
         designId: frameDesignId,
         userId: userId,
+        createdAt: createdAt
       },
     });
 

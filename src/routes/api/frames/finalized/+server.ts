@@ -9,7 +9,7 @@ export const GET: RequestHandler = async () => {
     const framesFinalized = await prisma.frame_finalized.findMany({
       include: {
         frame_designs: true,
-        User:true
+        User: true
       },
     });
 
@@ -31,6 +31,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const nameValue = data.get('name');
   const designIdValue = data.get('designId');
   const userIdValue = data.get('userId');
+  const createdAtValue = data.get("createdAt");
 
   if (!file) {
     throw error(400, 'File not provided');
@@ -56,6 +57,20 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'userId must be a valid number');
   }
 
+  // Parse createdAt
+  let createdAt: Date | undefined;
+
+  if (createdAtValue !== null && createdAtValue !== undefined) {
+    // Attempt to parse createdAtValue as a date
+    const parsedCreatedAt = new Date(parseInt(createdAtValue as string));
+    if (isNaN(parsedCreatedAt.getTime())) {
+      throw error(400, "Invalid createdAt");
+    }
+    createdAt = parsedCreatedAt;
+  } else {
+    // Default to current date/time if createdAtValue is not provided
+    createdAt = new Date();
+  }
 
   const storageRef = ref(storage, `frame_finalized/${file.name}`);
 
@@ -68,14 +83,15 @@ export const POST: RequestHandler = async ({ request }) => {
         url: downloadURL,
         name: name,
         designId: designId,
-        userId: userId
+        userId: userId,
+        createdAt: createdAt
       },
       include: {
         frame_designs: true,
       },
     });
 
-    return json({ message: 'Frame finalized uploaded with the url:', url: downloadURL, frameDesign: newFrameFinalized.frame_designs, }, {
+    return json({ frameFinalized: newFrameFinalized, message: 'Frame finalized uploaded with the url:', url: downloadURL }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },

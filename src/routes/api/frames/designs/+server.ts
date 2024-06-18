@@ -10,7 +10,7 @@ export const GET: RequestHandler = async () => {
       include: {
         frame_finalized: true,
         frame_types: true,
-        User:true
+        User: true
       },
     });
 
@@ -32,6 +32,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const nameValue = data.get('name');
   const typeIdValue = data.get('typeId');
   const userIdValue = data.get('userId');
+  const createdAtValue = data.get("createdAt");
 
   if (!file) {
     throw error(400, 'File not provided');
@@ -43,6 +44,21 @@ export const POST: RequestHandler = async ({ request }) => {
 
   if (!userIdValue) {
     throw error(400, 'userId not provided');
+  }
+
+  // Parse createdAt
+  let createdAt: Date | undefined;
+
+  if (createdAtValue !== null && createdAtValue !== undefined) {
+    // Attempt to parse createdAtValue as a date
+    const parsedCreatedAt = new Date(parseInt(createdAtValue as string));
+    if (isNaN(parsedCreatedAt.getTime())) {
+      throw error(400, "Invalid createdAt");
+    }
+    createdAt = parsedCreatedAt;
+  } else {
+    // Default to current date/time if createdAtValue is not provided
+    createdAt = new Date();
   }
 
   const name = (nameValue as string);
@@ -68,14 +84,15 @@ export const POST: RequestHandler = async ({ request }) => {
         url: downloadURL,
         name: name,
         typeId: typeId,
-        userId: userId
+        userId: userId,
+        createdAt: createdAt
       },
       include: {
-        frame_types:true
+        frame_types: true
       }
     });
 
-    return json({frameDesign: frameDesign, message: 'Frame design uploaded with the url:', url: downloadURL }, {
+    return json({ frameDesign: frameDesign, message: 'Frame design uploaded with the url:', url: downloadURL }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
@@ -86,4 +103,3 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(500, `Upload failed: ${(err as Error).message}`);
   }
 };
-

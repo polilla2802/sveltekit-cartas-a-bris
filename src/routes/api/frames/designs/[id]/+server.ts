@@ -52,6 +52,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const nameValue = data.get("name");
   const frameTypeIdValue = data.get("typeId");
   const userIdValue = data.get("userId");
+  const createdAtValue = data.get("createdAt");
 
   try {
     // Fetch the existing frame design by ID
@@ -87,6 +88,19 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       ? parseInt(userIdValue as string)
       : existingFrameDesign.userId;
 
+    // Parse createdAt
+    let createdAt: Date | undefined;
+
+    if (createdAtValue !== null && createdAtValue !== undefined) {
+      const parsedCreatedAt = new Date(parseInt(createdAtValue as string));
+      if (isNaN(parsedCreatedAt.getTime())) {
+        throw error(400, "Invalid createdAt");
+      }
+      createdAt = parsedCreatedAt;
+    } else {
+      createdAt = existingFrameDesign.createdAt;
+    }
+
     // Update the frame design in the database
     const updatedFrameDesign = await prisma.frame_designs.update({
       where: {
@@ -97,6 +111,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         name: name,
         typeId: frameTypeId,
         userId: userId,
+        createdAt: createdAt
       },
     });
 

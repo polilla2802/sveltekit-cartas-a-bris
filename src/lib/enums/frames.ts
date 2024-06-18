@@ -12,7 +12,8 @@ export enum frameTypeEnum {
 	beach,
 	christmas,
 	badbunny,
-	sexy
+	sexy,
+	flowers
 }
 
 export function getTypeEnumByTypeId(FrameTypeId: number) {
@@ -45,6 +46,8 @@ export function getTypeEnumByTypeId(FrameTypeId: number) {
 			return frameTypeEnum.badbunny;
 		case 14:
 			return frameTypeEnum.sexy;
+		case 15:
+			return frameTypeEnum.flowers;
 		default:
 			return frameTypeEnum.badbunny;
 	}
@@ -80,6 +83,8 @@ export function getFrameStringByTypeEnum(FrametypeEnum: frameTypeEnum) {
 			return "Bad Bunny";
 		case frameTypeEnum.sexy:
 			return "Sexy";
+		case frameTypeEnum.flowers:
+			return "Flowers";
 		default:
 			return "Unknown";
 	}

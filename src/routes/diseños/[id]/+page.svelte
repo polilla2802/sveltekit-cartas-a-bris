@@ -62,9 +62,7 @@
       {#if frameDesign.frame_types}
         <p>
           Tipo de Diseño: <span class="text-blue-500 underline"
-            >{getFrameStringByTypeEnum(
-              getTypeEnumByTypeId(frameDesign.frame_types.id)
-            )}</span
+            >{frameDesign.frame_types.type}</span
           >
         </p>
       {/if}

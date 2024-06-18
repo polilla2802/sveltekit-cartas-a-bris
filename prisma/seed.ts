@@ -60,7 +60,7 @@ async function main() {
         id: f.id,
         name: f.name,
         url: f.url,
-        frameId: f.frameId,
+        designId: f.designId,
         userId: f.userId,
         createdAt: new Date(f.createdAt),
         updatedAt: new Date(f.updatedAt),

@@ -13,8 +13,8 @@
   // Construct the base URL based on page url origin
   const baseUrl: string = $page.url.origin;
 
-  // Extract the `frameId` from URL parameters
-  let frameId: string = $page.params.id;
+  // Extract the `designId` from URL parameters
+  let designId: string = $page.params.id;
 
   const QR_API_URL: string =
     "https://api.qrserver.com/v1/create-qr-code/?data=";
@@ -22,7 +22,7 @@
   async function getQRCode() {
     try {
       const response = await fetch(
-        `${QR_API_URL}${baseUrl}/finalizado/${frameId}`
+        `${QR_API_URL}${baseUrl}/finalizado/${designId}`
       );
       qrCode = response.url;
     } catch (error) {

@@ -29,15 +29,15 @@ export const POST: RequestHandler = async ({ request }) => {
   const data = await request.formData();
   const file = data.get('file') as File;
   const nameValue = data.get('name');
-  const frameIdValue = data.get('frameId');
+  const designIdValue = data.get('designId');
   const userIdValue = data.get('userId');
 
   if (!file) {
     throw error(400, 'File not provided');
   }
 
-  if (!frameIdValue) {
-    throw error(400, 'frameId not provided');
+  if (!designIdValue) {
+    throw error(400, 'designId not provided');
   }
 
   if (!userIdValue) {
@@ -46,13 +46,13 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const name = (nameValue as string);
 
-  const frameId = parseInt(frameIdValue as string);
-  if (isNaN(frameId)) {
-    throw error(400, 'frameId must be a valid number');
+  const designId = parseInt(designIdValue as string);
+  if (isNaN(designId)) {
+    throw error(400, 'designId must be a valid number');
   }
 
   const userId = parseInt(userIdValue as string);
-  if (isNaN(frameId)) {
+  if (isNaN(designId)) {
     throw error(400, 'userId must be a valid number');
   }
 
@@ -67,7 +67,7 @@ export const POST: RequestHandler = async ({ request }) => {
       data: {
         url: downloadURL,
         name: name,
-        frameId: frameId,
+        designId: designId,
         userId: userId
       },
       include: {

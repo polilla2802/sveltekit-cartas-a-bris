@@ -4,9 +4,9 @@ import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const GET: RequestHandler = async ({ params }) => {
-  const frameId = params.id;
+  const designId = params.id;
 
-  if (!frameId) {
+  if (!designId) {
     throw error(400, "Frame Finalized ID not provided");
   }
 
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ params }) => {
     // Fetch the Frame Finalized by ID
     const frameFinalized = await prisma.frame_finalized.findUnique({
       where: {
-        id: parseInt(frameId),
+        id: parseInt(designId),
       },
       include: {
         frame_designs: true,
@@ -53,7 +53,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const data = await request.formData();
   const fileValue = data.get("file") as File | null; // File can be optional
   const nameValue = data.get("name");
-  const frameDesignIdValue = data.get("frameId");
+  const frameDesignIdValue = data.get("designId");
   const userIdValue = data.get("userId");
 
   try {
@@ -86,10 +86,10 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     const frameDesignId =
       frameDesignIdValue !== null && frameDesignIdValue !== undefined
         ? parseInt(frameDesignIdValue as string)
-        : existingFrameFinalized.frameId;
+        : existingFrameFinalized.designId;
 
     if (isNaN(frameDesignId)) {
-      throw error(400, "Invalid frameId");
+      throw error(400, "Invalid designId");
     }
 
     // Ensure userId is a number or fallback to existing value
@@ -106,7 +106,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       data: {
         url: downloadURL,
         name: name,
-        frameId: frameDesignId,
+        designId: frameDesignId,
         userId: userId,
       },
     });

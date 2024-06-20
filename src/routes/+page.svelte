@@ -24,6 +24,15 @@
     }
   }
 
+  function isNew(date: string): boolean {
+    const frameDate = new Date(date);
+    const currentDate = new Date();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000; // One week in milliseconds
+
+    // Check if the frame is less than or equal to one week old
+    return currentDate.getTime() - frameDate.getTime() <= oneWeek;
+  }
+
   onMount(() => {
     getFrames();
   });
@@ -39,7 +48,15 @@
   >
     {#each sortedFrames as frame}
       <!-- Map frames to display images -->
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center relative">
+        <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+        {#if isNew(frame.createdAt)}
+          <img
+            class="w-20 absolute new-logo"
+            src={"/images/new-styled.png"}
+            alt="new"
+          />
+        {/if}
         <a href={baseUrl + "/finalizado/" + frame.id}
           ><img class="w-full h-auto" src={frame.url} alt="Frame" /></a
         >
@@ -67,3 +84,10 @@
   <!-- Render a message if frames is undefined or empty -->
   <p class="text-center text-gray-500 mt-4">No frames available.</p>
 {/if}
+
+<style>
+  .new-logo {
+    top: -15px;
+    left: -15px;
+  }
+</style>

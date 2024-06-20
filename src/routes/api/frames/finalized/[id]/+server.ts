@@ -4,9 +4,9 @@ import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const GET: RequestHandler = async ({ params }) => {
-  const designId = params.id;
+  const frameFinalizedId = params.id;
 
-  if (!designId) {
+  if (!frameFinalizedId) {
     throw error(400, "Frame Finalized ID not provided");
   }
 
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ params }) => {
     // Fetch the Frame Finalized by ID
     const frameFinalized = await prisma.frame_finalized.findUnique({
       where: {
-        id: parseInt(designId),
+        id: parseInt(frameFinalizedId),
       },
       include: {
         frame_designs: true,

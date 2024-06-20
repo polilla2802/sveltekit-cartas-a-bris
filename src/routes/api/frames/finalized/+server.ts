@@ -53,7 +53,7 @@ export const POST: RequestHandler = async ({ request }) => {
   }
 
   const userId = parseInt(userIdValue as string);
-  if (isNaN(designId)) {
+  if (isNaN(userId)) {
     throw error(400, 'userId must be a valid number');
   }
 

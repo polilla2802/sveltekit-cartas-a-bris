@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
-  import { formatToEST } from "../../../utils/getESTTime";
-  import { isNew } from "../../../utils/isNew";
+  import { formatToEST } from "$utils/getESTTime";
+  import { isNew } from "$utils/isNew";
 
   // Use the `$page` store to get the data returned by the load function
   const { frameFinalized } = $page.data.frameFinalized;
@@ -58,8 +58,8 @@
           ><img class="w-full h-auto" src={frameFinalized.url} alt="Frame" /></a
         >
       </div>
-      {#if frameFinalized.User}
-        <p class="text-center">Autor: <b>{frameFinalized.User.userName}</b></p>
+      {#if frameFinalized.user}
+        <p class="text-center">Autor: <b>{frameFinalized.user.userName}</b></p>
       {:else}
         <div>
           <p class="text-center">Autor: <b>Desconocido</b></p>

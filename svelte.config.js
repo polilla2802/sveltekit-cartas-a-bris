@@ -9,7 +9,9 @@ const config = {
       checkOrigin: false,
     },
     alias: {
-      $lib: 'src/lib'
+      $lib: 'src/lib',
+      $utils: 'src/utils'
+
     }
   },
   preprocess: vitePreprocess(),

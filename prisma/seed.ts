@@ -12,7 +12,7 @@ async function main() {
   console.log(`Start seeding ...`);
 
   for (const u of userData) {
-    const framesFinalized = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         id: u.id,
         userName: u.userName,
@@ -26,7 +26,7 @@ async function main() {
         updatedAt: new Date(u.updatedAt),
       },
     });
-    console.log(`Created user with id: ${framesFinalized.id}`);
+    console.log(`Created user with id: ${user.id}`);
   }
 
   for (const t of frameTypesData) {

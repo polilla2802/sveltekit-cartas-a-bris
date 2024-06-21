@@ -1,13 +1,20 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 import prisma from '$lib/prisma';
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async () => {
   try {
-    const users = await prisma.user.findMany({
+    const usersValue = await prisma.user.findMany({
       include: {
         frame_finalized: true,
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(usersValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const users = JSON.parse(serializedData);
 
     return json({ users }, {
       headers: {
@@ -72,7 +79,7 @@ export const POST: RequestHandler = async ({ request }) => {
     });
 
     if (existingUserName) {
-      throw new Error('User with the same userName already exists');
+      throw new Error('user with the same userName already exists');
     }
 
     // Check if email or username already exist
@@ -83,10 +90,10 @@ export const POST: RequestHandler = async ({ request }) => {
     });
 
     if (existingEmail) {
-      throw new Error('User with the same email already exists');
+      throw new Error('user with the same email already exists');
     }
 
-    const user = await prisma.user.create({
+    const userValvue = await prisma.user.create({
       data: {
         userName: userName,
         name: name,
@@ -98,7 +105,13 @@ export const POST: RequestHandler = async ({ request }) => {
       },
     });
 
-    return json({ message: 'User uploaded:', user }, {
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(userValvue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const user = JSON.parse(serializedData);
+
+    return json({ message: 'user uploaded:', user }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },

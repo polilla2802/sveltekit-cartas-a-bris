@@ -3,58 +3,58 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
 model frame_designs {
-  id              Int               @id @default(autoincrement())
-  url             String?           @db.VarChar(255)
-  typeId          Int?
+  id              BigInt            @id @default(autoincrement())
+  url             String?           @db.String(255)
+  typeId          BigInt?
   createdAt       DateTime          @default(now())
-  name            String?           @db.VarChar(255)
+  name            String?           @db.String(255)
   updatedAt       DateTime          @updatedAt
-  userId          Int?
-  frame_types     frame_types?      @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_frame_design_type")
-  User            User?             @relation(fields: [userId], references: [id])
+  userId          BigInt?
+  frame_types     frame_types?      @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_frame_designs_type") // Renamed map attribute to ensure uniqueness
+  user            user?             @relation(fields: [userId], references: [id], map: "fk_frame_designs_user") // Renamed map attribute to ensure uniqueness
   frame_finalized frame_finalized[] // Updated relation to match renamed field
 
-  @@index([typeId], map: "fk_frame_design_type")
-  @@index([userId], map: "fk_frame_design_user")
+  @@index([typeId], map: "idx_frame_designs_type") // Renamed index to ensure uniqueness
+  @@index([userId], map: "idx_frame_designs_user") // Renamed index to ensure uniqueness
 }
 
 model frame_types {
-  id            Int             @id @default(autoincrement())
-  type          String?         @db.VarChar(255)
+  id            BigInt            @id @default(autoincrement())
+  type          String?           @db.String(255)
   frame_designs frame_designs[]
 }
 
 model frame_finalized {
-  id            Int           @id @default(autoincrement())
-  url           String        @db.VarChar(255)
-  designId      Int           // Renamed from frameId to designId
-  createdAt     DateTime      @default(now())
-  name          String?       @db.VarChar(255)
-  updatedAt     DateTime      @updatedAt
-  userId        Int?
-  frame_designs frame_designs @relation(fields: [designId], references: [id], onUpdate: Restrict, map: "fk_frame_design") // Updated relation field and mapping
-  User          User?         @relation(fields: [userId], references: [id])
+  id            BigInt          @id @default(autoincrement())
+  url           String          @db.String(255)
+  designId      BigInt
+  createdAt     DateTime        @default(now())
+  name          String?         @db.String(255)
+  updatedAt     DateTime        @updatedAt
+  userId        BigInt?
+  frame_designs frame_designs   @relation(fields: [designId], references: [id], onUpdate: Restrict, map: "fk_frame_finalized_design") // Updated relation field and mapping with unique name
+  user          user?           @relation(fields: [userId], references: [id], map: "fk_frame_finalized_user") // Renamed map attribute to ensure uniqueness
 
-  @@index([designId], map: "fk_frame_design") // Updated index to use designId
-  @@index([userId], map: "fk_frame_finalized_user")
+  @@index([designId], map: "idx_frame_finalized_design") // Renamed index to ensure uniqueness
+  @@index([userId], map: "idx_frame_finalized_user") // Renamed index to ensure uniqueness
 }
 
-model User {
-  id              Int               @id @default(autoincrement())
-  userName        String            @unique @db.VarChar(255)
-  name            String            @db.VarChar(255)
-  email           String            @unique @db.VarChar(255)
-  password        String            @db.VarChar(255)
-  gender          String?           @db.VarChar(50)
+model user {
+  id              BigInt            @id @default(autoincrement())
+  userName        String            @unique @db.String(255)
+  name            String            @db.String(255)
+  email           String            @unique @db.String(255)
+  password        String            @db.String(255)
+  gender          String?           @db.String(50)
   age             Int
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  phoneNumber     String?           @db.VarChar(20)
+  phoneNumber     String?           @db.String(20)
   frame_designs   frame_designs[]
   frame_finalized frame_finalized[]
 }

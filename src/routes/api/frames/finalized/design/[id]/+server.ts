@@ -1,5 +1,6 @@
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async ({ params }) => {
   const designId = params.id;
@@ -10,15 +11,21 @@ export const GET: RequestHandler = async ({ params }) => {
 
   try {
     // Fetch the Frame Finalized by ID
-    const framesFinalized = await prisma.frame_finalized.findMany({
+    const framesFinalizedValue = await prisma.frame_finalized.findMany({
       where: {
-        designId: parseInt(designId)
+        designId: BigInt(designId)
       },
       include: {
         frame_designs: true,
-        User: true,
+        user: true,
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(framesFinalizedValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const framesFinalized = JSON.parse(serializedData);
 
     if (!framesFinalized) {
       throw new Error("Frames Finalized not found");
@@ -52,7 +59,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     // Check if the Frame Finalized exists
     const existingFrameFinalized = await prisma.frame_finalized.findMany({
       where: {
-        designId: parseInt(designId),
+        designId: BigInt(designId),
       },
     });
 
@@ -62,11 +69,9 @@ export const DELETE: RequestHandler = async ({ params }) => {
     // Delete the frames
     const framesDeleted = await prisma.frame_finalized.deleteMany({
       where: {
-        designId: parseInt(designId),
+        designId: BigInt(designId),
       },
     });
-
-    console.log(framesDeleted);
 
     return json(
       {

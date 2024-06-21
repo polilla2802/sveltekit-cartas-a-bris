@@ -2,6 +2,7 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
 import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async ({ params }) => {
   const frameFinalizedId = params.id;
@@ -12,15 +13,21 @@ export const GET: RequestHandler = async ({ params }) => {
 
   try {
     // Fetch the Frame Finalized by ID
-    const frameFinalized = await prisma.frame_finalized.findUnique({
+    const frameFinalizedValue = await prisma.frame_finalized.findUnique({
       where: {
-        id: parseInt(frameFinalizedId),
+        id: BigInt(frameFinalizedId),
       },
       include: {
         frame_designs: true,
-        User: true,
+        user: true,
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(frameFinalizedValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const frameFinalized = JSON.parse(serializedData);
 
     if (!frameFinalized) {
       throw new Error("Frame Finalized not found");
@@ -50,6 +57,8 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     throw error(400, "Frame Finalized ID not provided");
   }
 
+  console.log(frameFinalizedId);
+
   const data = await request.formData();
   const fileValue = data.get("file") as File | null; // File can be optional
   const nameValue = data.get("name");
@@ -61,7 +70,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     // Fetch the existing frame finalized by ID
     const existingFrameFinalized = await prisma.frame_finalized.findUnique({
       where: {
-        id: parseInt(frameFinalizedId),
+        id: BigInt(frameFinalizedId),
       },
     });
 
@@ -83,20 +92,18 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       ? (nameValue as string)
       : existingFrameFinalized.name;
 
+
     // Ensure frameDesignId is a number or fallback to existing value
     const frameDesignId =
       frameDesignIdValue !== null && frameDesignIdValue !== undefined
-        ? parseInt(frameDesignIdValue as string)
+        ? BigInt(frameDesignIdValue as string)
         : existingFrameFinalized.designId;
 
-    if (isNaN(frameDesignId)) {
-      throw error(400, "Invalid designId");
-    }
 
     // Ensure userId is a number or fallback to existing value
     const userId =
       userIdValue !== null && userIdValue !== undefined
-        ? parseInt(userIdValue as string)
+        ? BigInt(userIdValue as string)
         : existingFrameFinalized.userId;
 
     // Parse createdAt
@@ -113,9 +120,9 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     }
 
     // Update the frame finalized in the database
-    const updatedFrameFinalized = await prisma.frame_finalized.update({
+    const updatedFrameFinalizedValue = await prisma.frame_finalized.update({
       where: {
-        id: parseInt(frameFinalizedId),
+        id: BigInt(frameFinalizedId),
       },
       data: {
         url: downloadURL,
@@ -125,6 +132,12 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         createdAt: createdAt
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(updatedFrameFinalizedValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const updatedFrameFinalized = JSON.parse(serializedData);
 
     return json(
       {
@@ -157,7 +170,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     // Check if the Frame Finalized exists
     const existingFrameFinalized = await prisma.frame_finalized.findUnique({
       where: {
-        id: parseInt(frameFinalizedId),
+        id: BigInt(frameFinalizedId),
       },
     });
 
@@ -167,7 +180,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     // Delete the user
     await prisma.frame_finalized.delete({
       where: {
-        id: parseInt(frameFinalizedId),
+        id: BigInt(frameFinalizedId),
       },
     });
 

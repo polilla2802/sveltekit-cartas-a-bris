@@ -1,23 +1,30 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 import prisma from '$lib/prisma';
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async ({ params }) => {
 	const userId = params.id;
 
 	if (!userId) {
-		throw error(400, 'User ID not provided');
+		throw error(400, 'user ID not provided');
 	}
 
 	try {
 		// Fetch the user by ID
-		const user = await prisma.user.findUnique({
+		const userValue = await prisma.user.findUnique({
 			where: {
-				id: parseInt(userId),
+				id: BigInt(userId),
 			},
 		});
 
+		// Serialize with the custom replacer to convert BigInt to Number
+		const serializedData = JSON.stringify(userValue, bigIntToString);
+
+		// Parse the serialized data back to an object (optional step)
+		const user = JSON.parse(serializedData);
+
 		if (!user) {
-			throw new Error('User not found');
+			throw new Error('user not found');
 		}
 
 		return json({ user }, {
@@ -36,7 +43,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 	const userId = params.id;
 
 	if (!userId) {
-		throw error(400, 'User ID not provided');
+		throw error(400, 'user ID not provided');
 	}
 
 	const data = await request.formData();
@@ -52,12 +59,12 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 		// Fetch the user by ID
 		const existingUser = await prisma.user.findUnique({
 			where: {
-				id: parseInt(userId),
+				id: BigInt(userId),
 			},
 		});
 
 		if (!existingUser) {
-			throw new Error('User not found');
+			throw new Error('user not found');
 		}
 
 		if (!ageValue) {
@@ -74,9 +81,9 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 		const gender = (genderValue as string)
 
 		// Update user fields
-		const updatedUser = await prisma.user.update({
+		const updatedUserValue = await prisma.user.update({
 			where: {
-				id: parseInt(userId),
+				id: BigInt(userId),
 			},
 			data: {
 				userName: userName ?? existingUser.userName,
@@ -89,7 +96,13 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 			},
 		});
 
-		return json({ message: 'User updated:', user: updatedUser }, {
+		// Serialize with the custom replacer to convert BigInt to Number
+		const serializedData = JSON.stringify(updatedUserValue, bigIntToString);
+
+		// Parse the serialized data back to an object (optional step)
+		const updatedUser = JSON.parse(serializedData);
+
+		return json({ message: 'user updated:', user: updatedUser }, {
 			headers: {
 				'Access-Control-Allow-Origin': '*',
 			},
@@ -106,29 +119,29 @@ export const DELETE: RequestHandler = async ({ params }) => {
 	const userId = params.id;
 
 	if (!userId) {
-		throw error(400, 'User ID not provided');
+		throw error(400, 'user ID not provided');
 	}
 
 	try {
 		// Check if the user exists
 		const existingUser = await prisma.user.findUnique({
 			where: {
-				id: parseInt(userId),
+				id: BigInt(userId),
 			},
 		});
 
 		if (!existingUser) {
-			throw new Error('User not found');
+			throw new Error('user not found');
 		}
 
 		// Delete the user
 		await prisma.user.delete({
 			where: {
-				id: parseInt(userId),
+				id: BigInt(userId),
 			},
 		});
 
-		return json({ message: `User with ID ${userId} deleted successfully` }, {
+		return json({ message: `user with ID ${userId} deleted successfully` }, {
 			headers: {
 				'Access-Control-Allow-Origin': '*',
 			},

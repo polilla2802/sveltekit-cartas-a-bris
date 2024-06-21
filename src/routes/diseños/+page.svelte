@@ -5,9 +5,9 @@
     getFrameStringByTypeEnum,
   } from "$lib/enums/frames";
   import { onMount } from "svelte";
-  import { formatToEST } from "../../utils/getESTTime";
-  import { sortFrames } from "../../utils/sortFrames";
-  import { isNew } from "../../utils/isNew";
+  import { formatToEST } from "$utils/getESTTime";
+  import { sortFrames } from "$utils/sortFrames";
+  import { isNew } from "$utils/isNew";
 
   const baseUrl: string = $page.url.origin;
   let helloWorld = "Cartas a Bris <3";
@@ -54,8 +54,8 @@
         <a href={baseUrl + "/diseños/" + design.id}
           ><img class="w-full h-auto" src={design.url} alt="Design" /></a
         >
-        {#if design.User}
-          <p class="text-center">Autor: <b>{design.User.userName}</b></p>
+        {#if design.user}
+          <p class="text-center">Autor: <b>{design.user.userName}</b></p>
         {:else}
           <div>
             <p class="text-center">Autor: <b>Desconocido</b></p>

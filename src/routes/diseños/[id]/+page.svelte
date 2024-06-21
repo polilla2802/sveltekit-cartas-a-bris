@@ -5,19 +5,19 @@
     getTypeEnumByTypeId,
   } from "$lib/enums/frames";
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
-  import { formatToEST } from "../../../utils/getESTTime";
-  import { isNew } from "../../../utils/isNew";
+  import { formatToEST } from "$utils/getESTTime";
+  import { isNew } from "$utils/isNew";
 
   // Use the `$page` store to get the data returned by the load function
   const { frameDesign } = $page.data.frameDesign;
+  // Construct the base URL based on page url origin
+  const baseUrl: string = $page.url.origin;
+  // Extract the `designId` from URL parameters
+  let designId: string = $page.params.id;
+
   let qrCode: string;
   let qrCodeLoading: string =
     "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris.appspot.com/o/qr%2Fqr-loading.gif?alt=media&token=9de90db0-b6f6-4f4d-8970-b8e7f24afcf7";
-  // Construct the base URL based on page url origin
-  const baseUrl: string = $page.url.origin;
-
-  // Extract the `designId` from URL parameters
-  let designId: string = $page.params.id;
 
   const QR_API_URL: string =
     "https://api.qrserver.com/v1/create-qr-code/?data=";
@@ -60,8 +60,8 @@
           ><img class="w-full h-auto" src={frameDesign.url} alt="Frame" /></a
         >
       </div>
-      {#if frameDesign.User}
-        <p class="text-center">Autor: <b>{frameDesign.User.userName}</b></p>
+      {#if frameDesign.user}
+        <p class="text-center">Autor: <b>{frameDesign.user.userName}</b></p>
       {:else}
         <div>
           <p class="text-center">Autor: <b>Desconocido</b></p>

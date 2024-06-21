@@ -6,6 +6,7 @@
   } from "$lib/enums/frames";
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
   import { formatToEST } from "../../../utils/getESTTime";
+  import { isNew } from "../../../utils/isNew";
 
   // Use the `$page` store to get the data returned by the load function
   const { frameDesign } = $page.data.frameDesign;
@@ -46,7 +47,15 @@
   {#if frameDesign}
     <!-- Map frames to display images -->
     <div class="flex flex-col items-center self-center">
-      <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6">
+      <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
+        <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+        {#if isNew(frameDesign.createdAt)}
+          <img
+            class="w-20 md:w-32 absolute new-logo-single"
+            src={"/images/new-styled.png"}
+            alt="new"
+          />
+        {/if}
         <a href={frameDesign.url} class="frame-link"
           ><img class="w-full h-auto" src={frameDesign.url} alt="Frame" /></a
         >

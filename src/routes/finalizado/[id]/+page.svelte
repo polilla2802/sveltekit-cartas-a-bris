@@ -2,6 +2,7 @@
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
   import { formatToEST } from "../../../utils/getESTTime";
+  import { isNew } from "../../../utils/isNew";
 
   // Use the `$page` store to get the data returned by the load function
   const { frameFinalized } = $page.data.frameFinalized;
@@ -44,7 +45,15 @@
   {#if frameFinalized}
     <!-- Map frames to display images -->
     <div class="flex flex-col items-center self-center">
-      <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6">
+      <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
+        <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+        {#if isNew(frameFinalized.createdAt)}
+          <img
+            class="w-20 md:w-32 absolute new-logo-single"
+            src={"/images/new-styled.png"}
+            alt="new"
+          />
+        {/if}
         <a href={frameFinalized.url} class="frame-link"
           ><img class="w-full h-auto" src={frameFinalized.url} alt="Frame" /></a
         >

@@ -29,3 +29,13 @@ textarea {
 button {
   cursor: pointer;
 }
+
+.new-logo {
+  top: -20px;
+  left: -20px;
+}
+
+.new-logo-single {
+  top: -35px;
+  left: -35px;
+}

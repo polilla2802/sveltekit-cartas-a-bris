@@ -7,6 +7,7 @@
   import { onMount } from "svelte";
   import { formatToEST } from "../../utils/getESTTime";
   import { sortFrames } from "../../utils/sortFrames";
+  import { isNew } from "../../utils/isNew";
 
   const baseUrl: string = $page.url.origin;
   let helloWorld = "Cartas a Bris <3";
@@ -41,7 +42,15 @@
   >
     {#each sortedDesigns as design}
       <!-- Map frames to display images -->
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center relative">
+        <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+        {#if isNew(design.createdAt)}
+          <img
+            class="w-20 absolute new-logo"
+            src={"/images/new-styled.png"}
+            alt="new"
+          />
+        {/if}
         <a href={baseUrl + "/diseños/" + design.id}
           ><img class="w-full h-auto" src={design.url} alt="Design" /></a
         >

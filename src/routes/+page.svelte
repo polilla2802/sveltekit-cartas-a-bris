@@ -4,6 +4,7 @@
   import { onMount } from "svelte";
   import { formatToEST } from "../utils/getESTTime";
   import { sortFrames } from "../utils/sortFrames";
+  import { isNew } from "../utils/isNew";
 
   const baseUrl: string = $page.url.origin;
   let helloWorld = "Cartas a Bris <3";
@@ -22,15 +23,6 @@
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function isNew(date: string): boolean {
-    const frameDate = new Date(date);
-    const currentDate = new Date();
-    const oneWeek = 7 * 24 * 60 * 60 * 1000; // One week in milliseconds
-
-    // Check if the frame is less than or equal to one week old
-    return currentDate.getTime() - frameDate.getTime() <= oneWeek;
   }
 
   onMount(() => {
@@ -84,10 +76,3 @@
   <!-- Render a message if frames is undefined or empty -->
   <p class="text-center text-gray-500 mt-4">No frames available.</p>
 {/if}
-
-<style>
-  .new-logo {
-    top: -15px;
-    left: -15px;
-  }
-</style>

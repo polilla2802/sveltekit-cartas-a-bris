@@ -2,8 +2,8 @@
   import { page } from "$app/stores"; // Import the page store from SvelteKit
 
   import { onMount } from "svelte";
-  import { formatToEST } from "../utils/getESTTime";
-  import { sortFrames } from "../utils/sortFrames";
+  import { formatToEST } from "$utils/getESTTime";
+  import { sortFrames } from "$utils/sortFrames";
 
   const baseUrl: string = $page.url.origin;
   let helloWorld = "Cartas a Bris <3";
@@ -60,8 +60,8 @@
         <a href={baseUrl + "/finalizado/" + frame.id}
           ><img class="w-full h-auto" src={frame.url} alt="Frame" /></a
         >
-        {#if frame.User}
-          <p class="text-center">Autor: <b>{frame.User.userName}</b></p>
+        {#if frame.user}
+          <p class="text-center">Autor: <b>{frame.user.userName}</b></p>
         {:else}
           <div>
             <p class="text-center">Autor: <b>Desconocido</b></p>

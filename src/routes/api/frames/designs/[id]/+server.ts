@@ -2,6 +2,7 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
 import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async ({ params }) => {
   const frameDesignId = params.id;
@@ -12,15 +13,21 @@ export const GET: RequestHandler = async ({ params }) => {
 
   try {
     // Fetch the Frame Design by ID
-    const frameDesign = await prisma.frame_designs.findUnique({
+    const frameDesignValue = await prisma.frame_designs.findUnique({
       where: {
-        id: parseInt(frameDesignId),
+        id: BigInt(frameDesignId),
       },
       include: {
         frame_types: true,
-        User: true,
+        user: true,
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(frameDesignValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const frameDesign = JSON.parse(serializedData);
 
     if (!frameDesign) {
       throw new Error("Frame Design not found");
@@ -58,7 +65,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     // Fetch the existing frame design by ID
     const existingFrameDesign = await prisma.frame_designs.findUnique({
       where: {
-        id: parseInt(frameDesignId),
+        id: BigInt(frameDesignId),
       },
     });
 
@@ -80,12 +87,12 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 
     // Ensure frameTypeId is a number
     const frameTypeId = frameTypeIdValue
-      ? parseInt(frameTypeIdValue as string)
+      ? BigInt(frameTypeIdValue as string)
       : existingFrameDesign.typeId;
 
     // Ensure userId is a number
     const userId = userIdValue
-      ? parseInt(userIdValue as string)
+      ? BigInt(userIdValue as string)
       : existingFrameDesign.userId;
 
     // Parse createdAt
@@ -102,9 +109,9 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     }
 
     // Update the frame design in the database
-    const updatedFrameDesign = await prisma.frame_designs.update({
+    const updatedFrameDesignValue = await prisma.frame_designs.update({
       where: {
-        id: parseInt(frameDesignId),
+        id: BigInt(frameDesignId),
       },
       data: {
         url: downloadURL,
@@ -114,6 +121,12 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         createdAt: createdAt
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(updatedFrameDesignValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const updatedFrameDesign = JSON.parse(serializedData);
 
     return json(
       {
@@ -145,7 +158,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     // Check if the Frame Design exists
     const existingFrameDesign = await prisma.frame_designs.findUnique({
       where: {
-        id: parseInt(frameDesignId),
+        id: BigInt(frameDesignId),
       },
     });
 
@@ -155,7 +168,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     // Delete the user
     await prisma.frame_designs.delete({
       where: {
-        id: parseInt(frameDesignId),
+        id: BigInt(frameDesignId),
       },
     });
 

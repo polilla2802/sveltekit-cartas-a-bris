@@ -3,16 +3,23 @@ import { storage } from '$lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import type { RequestHandler } from './$types';
 import prisma from '$lib/prisma';
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async () => {
   try {
-    const framesDesigns = await prisma.frame_designs.findMany({
+    const framesDesignsValue = await prisma.frame_designs.findMany({
       include: {
         frame_finalized: true,
         frame_types: true,
-        User: true
+        user: true
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(framesDesignsValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const framesDesigns = JSON.parse(serializedData);
 
     return json({ framesDesigns }, {
       headers: {
@@ -79,7 +86,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const snapshot = await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(snapshot.ref);
 
-    const frameDesign = await prisma.frame_designs.create({
+    const frameDesignValue = await prisma.frame_designs.create({
       data: {
         url: downloadURL,
         name: name,
@@ -91,6 +98,12 @@ export const POST: RequestHandler = async ({ request }) => {
         frame_types: true
       }
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(frameDesignValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const frameDesign = JSON.parse(serializedData);
 
     return json({ frameDesign: frameDesign, message: 'Frame design uploaded with the url:', url: downloadURL }, {
       headers: {

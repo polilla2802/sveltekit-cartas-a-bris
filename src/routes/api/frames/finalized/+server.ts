@@ -3,15 +3,23 @@ import { storage } from '$lib/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import type { RequestHandler } from './$types';
 import prisma from '$lib/prisma';
+import { bigIntToString } from "$utils/bigIntToString";
+import { Prisma } from '@prisma/client';
 
 export const GET: RequestHandler = async () => {
   try {
-    const framesFinalized = await prisma.frame_finalized.findMany({
+    const framesFinalizedVlue = await prisma.frame_finalized.findMany({
       include: {
         frame_designs: true,
-        User: true
+        user: true
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(framesFinalizedVlue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const framesFinalized = JSON.parse(serializedData);
 
     return json({ framesFinalized }, {
       headers: {
@@ -47,16 +55,24 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const name = (nameValue as string);
 
-  const designId = parseInt(designIdValue as string);
-  if (isNaN(designId)) {
-    throw error(400, 'designId must be a valid number');
+  let designId: bigint;
+  let userId: bigint;
+
+  try {
+    designId = BigInt(designIdValue as string);
+    // You can now use designId as a BigInt
+    console.log(designId);
+  } catch (e) {
+    throw error(500, `designId must be a valid number: ${(e as Error).message}`);
   }
 
-  const userId = parseInt(userIdValue as string);
-  if (isNaN(userId)) {
-    throw error(400, 'userId must be a valid number');
+  try {
+    userId = BigInt(userIdValue as string);
+    // You can now use designId as a BigInt
+    console.log(userId);
+  } catch (e) {
+    throw error(500, `userId must be a valid number: ${(e as Error).message}`);
   }
-
   // Parse createdAt
   let createdAt: Date | undefined;
 
@@ -74,11 +90,12 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const storageRef = ref(storage, `frame_finalized/${file.name}`);
 
+
   try {
     const snapshot = await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(snapshot.ref);
 
-    const newFrameFinalized = await prisma.frame_finalized.create({
+    const newFrameFinalizedValue = await prisma.frame_finalized.create({
       data: {
         url: downloadURL,
         name: name,
@@ -91,6 +108,14 @@ export const POST: RequestHandler = async ({ request }) => {
       },
     });
 
+    console.log(newFrameFinalizedValue);
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(newFrameFinalizedValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const newFrameFinalized = JSON.parse(serializedData);
+
     return json({ frameFinalized: newFrameFinalized, message: 'Frame finalized uploaded with the url:', url: downloadURL }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -98,7 +123,13 @@ export const POST: RequestHandler = async ({ request }) => {
     });
 
   } catch (err) {
-    console.error(err);
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      if (err.code === 'P2003') {
+        throw error(400, 'Invalid foreign key value: Either designId or userId does not exist');
+      }
+    }
+
+    console.log(err);
     throw error(500, `Upload failed: ${(err as Error).message}`);
   }
 };

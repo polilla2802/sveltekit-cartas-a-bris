@@ -1,16 +1,21 @@
 import { error, json } from '@sveltejs/kit';
-import { storage } from '$lib/firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import type { RequestHandler } from './$types';
 import prisma from '$lib/prisma';
+import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async () => {
   try {
-    const framesTypes = await prisma.frame_types.findMany({
+    const framesTypesValue = await prisma.frame_types.findMany({
       include: {
-        frame_designs:true
+        frame_designs: true
       },
     });
+
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(framesTypesValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const framesTypes = JSON.parse(serializedData);
 
     return json({ framesTypes }, {
       headers: {
@@ -36,13 +41,19 @@ export const POST: RequestHandler = async ({ request }) => {
 
   try {
 
-    const typeCreated = await prisma.frame_types.create({
+    const typeCreatedValue = await prisma.frame_types.create({
       data: {
         type: type,
       },
     });
 
-    return json({ message: 'Frame type uploaded with the id:', id: typeCreated.id }, {
+    // Serialize with the custom replacer to convert BigInt to Number
+    const serializedData = JSON.stringify(typeCreatedValue, bigIntToString);
+
+    // Parse the serialized data back to an object (optional step)
+    const typeCreated = JSON.parse(serializedData);
+
+    return json({ message: 'Frame type uploaded with the id:', id: typeCreated.id}, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },

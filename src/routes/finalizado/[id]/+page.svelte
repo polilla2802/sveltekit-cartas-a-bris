@@ -79,7 +79,9 @@
     </div>
     {#if qrCode}
       <div class="qr-container">
-        <img src={qrCode} alt="QR code" />
+        <a href={qrCode} class="frame-link">
+          <img src={qrCode} alt="QR code" />
+        </a>
       </div>
     {:else}
       <div class="qr-container-loading">

@@ -1,10 +1,12 @@
 <script lang="ts">
-  import Header from "$lib/components/Header.svelte";
+  import Welcome from "$lib/components/messages/Welcome.svelte";
+  import Header from "$lib/components/navigation/Header.svelte";
   import "$lib/styles/app.css";
 </script>
 
 <div class="layout">
   <Header />
+  <Welcome />
   <div class="container mx-auto px-4"><slot /></div>
 </div>
 

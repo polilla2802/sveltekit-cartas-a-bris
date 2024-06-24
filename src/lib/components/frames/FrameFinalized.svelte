@@ -71,13 +71,15 @@
       </div>
     {/if}
     <p class="text-center">Nombre: <b><i>"{data.name}"</i></b></p>
-    {#if data.frame_types}
-      <p class="text-center">
-        Tipo de Diseño: <span class="text-blue-500 underline"
-          >{data.frame_types.type}</span
-        >
-      </p>
-    {/if}
+    {#if data.frame_designs}
+    <p class="text-center">
+      Diseño: <a
+        href={baseUrl + "/diseños/" + data.frame_designs.id}
+        class="text-blue-500 underline"
+        >{data.frame_designs.name}</a
+      >
+    </p>
+  {/if}
     <p class="text-center">Creado: {formatToEST(data.createdAt)}</p>
   </div>
   {#await qrCode}

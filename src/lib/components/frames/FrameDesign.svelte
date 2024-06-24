@@ -1,49 +1,95 @@
 <script lang="ts">
   import { formatToEST } from "$utils/getESTTime";
+  import { FrameTypes, getQRCode, qrCodeLoading } from "$utils/getQRcode";
   import { isNew } from "$utils/isNew";
+  import { onMount } from "svelte";
+  export let data;
+  export let baseUrl: string;
+  export let designId: string = "";
+  export let isSingle: boolean = false;
+  let qrCode: Promise<string>;
 
-  // Define your prop types
-  interface FrameProps {
-    data: any;
-    baseUrl: string;
-    designId?: string; // Make designId optional by adding ?
-    isSingle: boolean;
-  }
-
-  // Use the interface to type your component props
-  export let props: FrameProps;
+  // Optional: If you need to perform any action on mount
+  onMount(() => {
+    qrCode = getQRCode(baseUrl, designId, FrameTypes.designs);
+  });
 </script>
 
-<!-- Map frames to display images -->
-<div class="flex flex-col items-center relative">
-  <!-- Check if the frame is new and conditionally render "Nuevo!" -->
-  {#if isNew(props.data.createdAt)}
-    <img
-      class="w-20 absolute new-logo"
-      src={"/images/new-styled.png"}
-      alt="new"
-    />
-  {/if}
-  <a href={props.baseUrl + "/diseños/" + props.data.id}
-    ><img class="w-full h-auto" src={props.data.url} alt="Design" /></a
-  >
-  {#if props.data.user}
-    <p class="text-center">Autor: <b>{props.data.user.userName}</b></p>
-  {:else}
-    <div>
-      <p class="text-center">Autor: <b>Desconocido</b></p>
-    </div>
-  {/if}
-  <p class="text-center">Nombre: <b><i>"{props.data.name}"</i></b></p>
-  {#if props.data.frame_types}
-    <p class="text-center">
-      Tipo de Diseño: <span class="text-blue-500 underline"
-        >{props.data.frame_types.type}</span
+{#if !isSingle}
+  <!-- Map frames to display images -->
+  <div class="flex flex-col items-center relative">
+    <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+    {#if isNew(data.createdAt)}
+      <img
+        class="w-20 absolute new-logo"
+        src={"/images/new-styled.png"}
+        alt="new"
+      />
+    {/if}
+    <a href={baseUrl + "/diseños/" + data.id}
+      ><img class="w-full h-auto" src={data.url} alt="Design" /></a
+    >
+    {#if data.user}
+      <p class="text-center">Autor: <b>{data.user.userName}</b></p>
+    {:else}
+      <div>
+        <p class="text-center">Autor: <b>Desconocido</b></p>
+      </div>
+    {/if}
+    <p class="text-center">Nombre: <b><i>"{data.name}"</i></b></p>
+    {#if data.frame_types}
+      <p class="text-center">
+        Tipo de Diseño: <span class="text-blue-500 underline"
+          >{data.frame_types.type}</span
+        >
+      </p>
+    {/if}
+    <p class="text-center">Creado: {formatToEST(data.createdAt)}</p>
+  </div>
+{:else}
+  <!-- Map frames to display images -->
+  <div class="flex flex-col items-center self-center">
+    <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
+      <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+      {#if isNew(data.createdAt)}
+        <img
+          class="w-20 md:w-28 absolute new-logo-single"
+          src={"/images/new-styled.png"}
+          alt="new"
+        />
+      {/if}
+      <a href={data.url} class="frame-link"
+        ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
       >
-    </p>
-  {/if}
-  <p class="text-center">Creado: {formatToEST(props.data.createdAt)}</p>
-</div>
-
-<style>
-</style>
+    </div>
+    {#if data.user}
+      <p class="text-center">Autor: <b>{data.user.userName}</b></p>
+    {:else}
+      <div>
+        <p class="text-center">Autor: <b>Desconocido</b></p>
+      </div>
+    {/if}
+    <p class="text-center">Nombre: <b><i>"{data.name}"</i></b></p>
+    {#if data.frame_types}
+      <p class="text-center">
+        Tipo de Diseño: <span class="text-blue-500 underline"
+          >{data.frame_types.type}</span
+        >
+      </p>
+    {/if}
+    <p class="text-center">Creado: {formatToEST(data.createdAt)}</p>
+  </div>
+  {#await qrCode}
+    <div class="qr-container-loading">
+      <img src={qrCodeLoading} alt="QR code" />
+    </div>
+  {:then string}
+    <div class="qr-container">
+      <a href={string} class="frame-link">
+        <img src={string} alt="QR code" />
+      </a>
+    </div>
+  {:catch error}
+    <p style="color: red">{error.message}</p>
+  {/await}
+{/if}

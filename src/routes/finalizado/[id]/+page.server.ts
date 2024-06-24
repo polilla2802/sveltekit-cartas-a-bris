@@ -13,6 +13,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 			throw new Error(`Failed to fetch Frame Finalized with id ${id}`);
 		}
 
+		console.log()
 		const frameFinalized = await response.json();
 		return { frameFinalized };
 	} catch (error) {

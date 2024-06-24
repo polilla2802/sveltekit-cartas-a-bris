@@ -39,3 +39,29 @@ button {
   top: -35px;
   left: -35px;
 }
+
+.qr-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.qr-container-loading {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.qr-container img {
+  background-color: white;
+  padding: 48px;
+  width: 350px;
+  height: 350px;
+}
+
+.qr-container-loading img {
+  width: 350px;
+  height: 350px;
+}

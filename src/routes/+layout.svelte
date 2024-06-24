@@ -7,7 +7,7 @@
 <div class="layout">
   <Header />
   <Welcome />
-  <div class="container mx-auto px-4"><slot /></div>
+  <div class="container mx-auto px-4 py-4"><slot /></div>
 </div>
 
 <style>

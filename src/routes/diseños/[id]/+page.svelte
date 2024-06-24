@@ -1,7 +1,7 @@
 <script lang="ts">
+  import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
-  import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
 
   // Use the `$page` store to get the data returned by the load function
   const { frameDesign } = $page.data.frameDesign;

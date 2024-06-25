@@ -10,13 +10,16 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 		const response = await fetch(`/api/frames/designs/${id}`);
 		console.log(response)
 		if (!response.ok) {
+			console.log(`Failed to fetch Frame Design with id ${id}`);
 			throw new Error(`Failed to fetch Frame Design with id ${id}`);
 		}
 
 		const frameDesign = await response.json();
+
+		console.log(frameDesign)
 		return { frameDesign };
 	} catch (error) {
-		console.error('Error loading user:', error);
-		throw new Error(`Error loading user: ${error}`);
+		console.log('Error loading frame design:', error);
+		return { frameDesign: {}, error: 'Failed to load frame design. Please try again later.' };
 	}
 };

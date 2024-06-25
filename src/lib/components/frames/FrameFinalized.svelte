@@ -5,13 +5,13 @@
   import { onMount } from "svelte";
   export let data;
   export let baseUrl: string;
-  export let designId: string = "";
+  export let finalizedId: string = "";
   export let isSingle: boolean = false;
   let qrCode: Promise<string>;
 
   // Optional: If you need to perform any action on mount
   onMount(() => {
-    qrCode = getQRCode(baseUrl, designId, FrameTypes.finalized);
+    qrCode = getQRCode(baseUrl, finalizedId, FrameTypes.finalized);
   });
 </script>
 

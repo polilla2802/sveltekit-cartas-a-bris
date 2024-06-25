@@ -16,12 +16,29 @@
   });
 </script>
 
-<!-- Now you can use the `user` data in your component -->
 <section class="pb-10">
-  {#if frameDesign}
-    <FrameDesign data={frameDesign} {baseUrl} isSingle={true} {designId} />
-  {/if}
+  {#await $page.data.frameDesign}
+    <!-- Render a loader while fetching data -->
+    <p class="text-center text-gray-500 mt-4">Loading frames...</p>
+  {:then data}
+    {#if data.error}
+      <!-- Render an error message if there is an error -->
+      <p class="text-center text-red-500 mt-4">{data.error}</p>
+    {:else if data}
+      <FrameDesign
+        data={data.frameDesign}
+        {baseUrl}
+        isSingle={true}
+        {designId}
+      />
+    {:else}
+      <!-- Render a message if frames is undefined or empty -->
+      <p class="text-center text-gray-500 mt-4">No frame design available.</p>
+    {/if}
+  {:catch error}
+    <!-- This block should rarely be reached if we handle errors properly in load -->
+    <p class="text-center text-red-500 mt-4">
+      Unexpected error. Please try again later.
+    </p>
+  {/await}
 </section>
-
-<style>
-</style>

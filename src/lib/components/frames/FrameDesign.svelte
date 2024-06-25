@@ -11,6 +11,7 @@
 
   // Optional: If you need to perform any action on mount
   onMount(() => {
+    console.log(data);
     qrCode = getQRCode(baseUrl, designId, FrameTypes.designs);
   });
 </script>

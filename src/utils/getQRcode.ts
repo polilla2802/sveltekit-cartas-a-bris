@@ -10,12 +10,12 @@ export let qrCodeLoading: string =
 const QR_API_URL: string =
   "https://api.qrserver.com/v1/create-qr-code/?data=";
 
-export async function getQRCode(baseUrl: string, designId: string, frameType: FrameTypes): Promise<string> {
+export async function getQRCode(baseUrl: string, frameId: string, frameType: FrameTypes): Promise<string> {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
         const response = await fetch(
-          `${QR_API_URL}${baseUrl}/${frameType}/${designId}`
+          `${QR_API_URL}${baseUrl}/${frameType}/${frameId}`
         );
         resolve(response.url);
       } catch (error) {

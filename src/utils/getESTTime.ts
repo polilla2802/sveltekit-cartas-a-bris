@@ -1,13 +1,26 @@
-// Convert the createdAt and updatedAt timestamps to EST
 export function formatToEST(dateString: string): string {
   const date = new Date(dateString);
-  const options = { timeZone: "America/New_York" };
+  
+  // Subtract one hour
+  date.setHours(date.getHours() - 1);
+
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: "America/New_York",
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  };
+
   const dateInEST = new Intl.DateTimeFormat("en-US", options).format(date);
-  const estDate = new Date(dateInEST);
+  
+  // Split the dateInEST into components
+  const [month, day, year, hour, minute] = dateInEST.match(/\d+/g)!;
 
-  const day = estDate.getUTCDate().toString().padStart(2, "0");
-  const month = (estDate.getUTCMonth() + 1).toString().padStart(2, "0");
-  const year = estDate.getUTCFullYear();
+  return `${day}-${month}-${year} ${hour}:${minute}`;
 
-  return `${day}-${month}-${year}`;
+  // return `${day}-${month}-${year}`;
+
 }

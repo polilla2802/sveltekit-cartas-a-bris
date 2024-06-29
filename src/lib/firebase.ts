@@ -13,9 +13,9 @@ export const getApp = () => {
   return firebaseApp;
 };
 
-const storage = getStorage(firebaseApp);
-
 // Initialize Firebase services as needed
 export const auth = getAuth(getApp());
+export const app = firebaseApp;
 
+const storage = getStorage(firebaseApp);
 export { storage };

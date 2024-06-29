@@ -1,12 +1,17 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { signOutUser } from "$lib/auth"; // Adjust path as per your project structure
-  import { goto } from "$app/navigation"; // Import goto for navigation
+  import { signOutUser } from "$lib/auth";
+  import { goto } from "$app/navigation"; // Ensure goto is imported for navigation
 
   // Perform logout on component mount
   onMount(async () => {
-    await signOutUser(); // Call signOutUser function from auth.ts
-    goto("/"); // Redirect to home page after logout
+    try {
+      await signOutUser();
+      goto("/"); // Redirect to home page after successful logout
+    } catch (error) {
+      console.error("Error logging out:", error);
+      // Handle error, such as showing a message to the user
+    }
   });
 </script>
 

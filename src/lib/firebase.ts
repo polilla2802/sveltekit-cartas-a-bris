@@ -1,15 +1,16 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getStorage } from 'firebase/storage';
+// src/lib/firebase.ts
+import { initializeApp, type FirebaseApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import firebaseConfig from "./firebaseConfig";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+let firebaseApp: FirebaseApp | undefined;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
+export const getApp = () => {
+  if (!firebaseApp) {
+    firebaseApp = initializeApp(firebaseConfig);
+  }
+  return firebaseApp;
+};
 
-export { storage };
+// Initialize Firebase services as needed
+export const auth = getAuth(getApp());

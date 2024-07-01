@@ -1,42 +1,61 @@
 <!-- src/routes/Register.svelte -->
 <script lang="ts">
-  import { createUserWithEmailAndPassword } from "firebase/auth";
   import { auth } from "$lib/firebase";
   import { goto } from "$app/navigation";
+  import { createUserWithEmailAndPassword } from "firebase/auth";
 
   let email = "";
   let password = "";
-  let confirmPassword = "";
   let error: string | undefined; // Define error as string or undefined
 
-  const navigateToHome = () => {
-    goto("/");
+  let registering = false;
+
+  const navigateToHome = async () => {
+    await goto("/");
   };
 
   const registerUser = async (email: string, password: string) => {
+    registering = true;
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
+      console.log(userCredential);
       console.log("User registered successfully:", userCredential.user);
-    } catch (error) {
-      console.error("Error registering user:", error);
+
+      if (userCredential) {
+        await navigateToHome();
+      }
+    } catch (e: any) {
+      registering = false;
+      error = e.message;
     }
   };
 </script>
 
 <h1>Register</h1>
 
-<form on:submit|preventDefault={() => registerUser(email, password)}>
-  <label>
-    Email:
-    <input type="email" bind:value={email} required />
-  </label>
-  <label>
-    Password:
-    <input type="password" bind:value={password} required />
-  </label>
-  <button type="submit">Register</button>
-</form>
+{#if registering}
+  Registering...
+{:else}
+  <form
+    on:submit|preventDefault={async () => await registerUser(email, password)}
+  >
+    <label>
+      Email:
+      <input type="email" bind:value={email} required />
+    </label>
+    <label>
+      Password:
+      <input type="password" bind:value={password} required />
+    </label>
+    <button type="submit">Register</button>
+    {#if error}
+      <p style="color: red;">{error}</p>
+    {/if}
+  </form>
+{/if}

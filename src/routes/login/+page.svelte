@@ -8,11 +8,15 @@
   let password = "";
   let error: string | undefined; // Define error as string or undefined
 
+  let logging = false;
+
   const navigateToHome = async () => {
     await goto("/");
   };
 
   const login = async () => {
+    logging = true;
+
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -25,16 +29,23 @@
         await navigateToHome();
       }
     } catch (e: any) {
+      logging = false;
       error = e.message;
     }
   };
 </script>
 
-<form on:submit|preventDefault={await login}>
-  <input type="email" bind:value={email} placeholder="Email" />
-  <input type="password" bind:value={password} placeholder="Password" />
-  <button type="submit">Login</button>
-  {#if error}
-    <p style="color: red;">{error}</p>
-  {/if}
-</form>
+<h1>Login</h1>
+
+{#if logging}
+  Logging In...
+{:else}
+  <form on:submit|preventDefault={login}>
+    <input type="email" bind:value={email} placeholder="Email" />
+    <input type="password" bind:value={password} placeholder="Password" />
+    <button type="submit">Login</button>
+    {#if error}
+      <p style="color: red;">{error}</p>
+    {/if}
+  </form>
+{/if}

@@ -1,7 +1,7 @@
 // src/lib/auth.ts
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import type { User } from "firebase/auth"; // Use type-only import for User
-import { auth } from "./firebase";
+import { auth } from "$lib/firebase";
 
 // Sign In Function
 export async function signIn(
@@ -16,7 +16,7 @@ export async function signIn(
     );
     return userCredential.user;
   } catch (error) {
-    console.error("Error signing in:", error);
+    console.log("Error signing in:", error);
     return null;
   }
 }

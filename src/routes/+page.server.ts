@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	let sortedFinalized: any = [];
 	try {
 		const response = await fetch(`/api/frames/finalized`);
-		console.log(response)
+		// console.log(response)
 		if (!response.ok) {
 			throw new Error(`Failed to fetch Frame Finalized`);
 		}
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		// Sort frames by createdAt field
 		sortedFinalized = sortFrames(finalized);
 
-		console.log(sortedFinalized)
+		// console.log(sortedFinalized)
 		return { sortedFinalized };
 	} catch (error) {
 		console.log('Error loading frames finalized:', error);

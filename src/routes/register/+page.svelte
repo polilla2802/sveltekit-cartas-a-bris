@@ -24,8 +24,8 @@
         password
       );
 
-      console.log(userCredential);
-      console.log("User registered successfully:", userCredential.user);
+      // console.log(userCredential);
+      // console.log("User registered successfully:", userCredential.user);
 
       if (userCredential) {
         await navigateToHome();
@@ -42,9 +42,7 @@
 {#if registering}
   Registering...
 {:else}
-  <form
-    on:submit|preventDefault={async () => await registerUser(email, password)}
-  >
+  <form on:submit|preventDefault={() => registerUser(email, password)}>
     <label>
       Email:
       <input type="email" bind:value={email} required />

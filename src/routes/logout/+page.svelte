@@ -9,7 +9,7 @@
       await signOutUser();
       goto("/"); // Redirect to home page after successful logout
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.log("Error logging out:", error);
       // Handle error, such as showing a message to the user
     }
   });

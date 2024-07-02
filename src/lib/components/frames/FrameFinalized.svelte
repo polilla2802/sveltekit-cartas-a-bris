@@ -18,19 +18,19 @@
 <!-- Map frames to display images -->
 <div class="flex flex-col items-center relative">
   {#if isSingle}
-  <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
-    <!-- Check if the frame is new and conditionally render "Nuevo!" -->
-    {#if isNew(data.createdAt)}
-      <img
-        class="w-20 md:w-28 absolute new-logo-single"
-        src={"/images/new-styled.png"}
-        alt="new"
-      />
-    {/if}
+    <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
+      <!-- Check if the frame is new and conditionally render "Nuevo!" -->
+      {#if isNew(data.createdAt)}
+        <img
+          class="w-20 md:w-28 absolute new-logo-single"
+          src={"/images/new-styled.png"}
+          alt="new"
+        />
+      {/if}
 
-    <a href={data.url} class="frame-link"
-      ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
-    >
+      <a href={data.url} class="frame-link"
+        ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
+      >
     </div>
   {:else}
     {#if isNew(data.createdAt)}
@@ -51,6 +51,9 @@
     <div>
       <p class="text-center">Autor: <b>Desconocido</b></p>
     </div>
+  {/if}
+  {#if data.userFor}
+    <p class="text-center">Para: <b>{data.userFor.userName}</b></p>
   {/if}
   <p class="text-center">Nombre: <b><i>"{data.name}"</i></b></p>
   {#if data.frame_designs}

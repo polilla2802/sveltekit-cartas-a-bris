@@ -8,15 +8,16 @@ datasource db {
 }
 
 model frame_designs {
-  id              BigInt            @id @default(autoincrement())
-  url             String?           @db.String(255)
-  typeId          BigInt?
-  createdAt       DateTime          @default(now())
-  name            String?           @db.String(255)
-  updatedAt       DateTime          @updatedAt
-  createdBy       BigInt?           @map("userId") // Renamed field
-  frame_types     frame_types?      @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_frame_designs_type")
-  user            user?             @relation(fields: [createdBy], references: [id], map: "fk_frame_designs_user")
+  id               BigInt             @id @default(autoincrement())
+  url              String?            @db.String(255)
+  typeId           BigInt?
+  createdAt        DateTime           @default(now())
+  name             String?            @db.String(255)
+  updatedAt        DateTime           @updatedAt
+  createdBy        BigInt?            @map("userId") // Renamed field
+  isPublic         Boolean?           @default(false) // New field
+  frame_types      frame_types?       @relation(fields: [typeId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_frame_designs_type")
+  user             user?              @relation(fields: [createdBy], references: [id], map: "fk_frame_designs_user")
   frames_finalized frames_finalized[] // Updated relation to renamed model
 
   @@index([typeId], map: "idx_frame_designs_type")
@@ -24,42 +25,43 @@ model frame_designs {
 }
 
 model frame_types {
-  id               BigInt          @id @default(autoincrement())
-  type             String?         @db.String(255)
-  frame_designs    frame_designs[]
+  id            BigInt          @id @default(autoincrement())
+  type          String?         @db.String(255)
+  frame_designs frame_designs[]
 }
 
-model frames_finalized { // Renamed model
-  id               BigInt        @id @default(autoincrement())
-  url              String        @db.String(255)
-  designId         BigInt
-  createdAt        DateTime      @default(now())
-  name             String?       @db.String(255)
-  updatedAt        DateTime      @updatedAt
-  createdBy        BigInt?       @map("userId") // Renamed field
-  createdFor       BigInt?       @map("forUserId") // New field for referencing another user
-  frame_designs    frame_designs @relation(fields: [designId], references: [id], onUpdate: Restrict, map: "fk_frames_finalized_design") // Updated relation field and mapping with unique name
-  userCreator      user?         @relation("CreatedByUser", fields: [createdBy], references: [id], map: "fk_frames_finalized_user") // Renamed map attribute and added relation name
-  userFor          user?         @relation("CreatedForUser", fields: [createdFor], references: [id], map: "fk_frames_finalized_for_user") // New relation to user model
+model frames_finalized {
+  id            BigInt        @id @default(autoincrement())
+  url           String        @db.String(255)
+  designId      BigInt
+  createdAt     DateTime      @default(now())
+  name          String?       @db.String(255)
+  updatedAt     DateTime      @updatedAt
+  createdBy     BigInt?       @map("userId") // Renamed field
+  createdFor    BigInt?       @map("forUserId") // New field for referencing another user
+  isPublic      Boolean?      @default(false) // New field
+  frame_designs frame_designs @relation(fields: [designId], references: [id], onUpdate: Restrict, map: "fk_frames_finalized_design") // Updated relation field and mapping with unique name
+  userCreator   user?         @relation("CreatedByUser", fields: [createdBy], references: [id], map: "fk_frames_finalized_user") // Renamed map attribute and added relation name
+  userFor       user?         @relation("CreatedForUser", fields: [createdFor], references: [id], map: "fk_frames_finalized_for_user") // New relation to user model
 
   @@index([designId], map: "idx_frames_finalized_design")
   @@index([createdBy], map: "idx_frames_finalized_user")
-  @@index([createdFor], map: "idx_frames_finalized_for_user") 
+  @@index([createdFor], map: "idx_frames_finalized_for_user")
 }
 
 model user {
-  id                BigInt            @id @default(autoincrement())
-  firebaseUid       String            @unique @db.String(255)
-  userName          String            @unique @db.String(255)
-  name              String            @db.String(255)
-  email             String            @unique @db.String(255)
-  password          String            @db.String(255)
-  gender            String?           @db.String(50)
-  age               Int
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
-  phoneNumber       String?           @db.String(20)
-  frame_designs     frame_designs[]
-  frames_finalized  frames_finalized[] @relation("CreatedByUser") // Updated relation to renamed model
-  frames_for_me     frames_finalized[] @relation("CreatedForUser") // Updated relation to renamed model
+  id               BigInt             @id @default(autoincrement())
+  firebaseUid      String             @unique @db.String(255)
+  userName         String             @unique @db.String(255)
+  name             String             @db.String(255)
+  email            String             @unique @db.String(255)
+  password         String             @db.String(255)
+  gender           String?            @db.String(50)
+  age              Int
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  phoneNumber      String?            @db.String(20)
+  frame_designs    frame_designs[]
+  frames_finalized frames_finalized[] @relation("CreatedByUser") // Updated relation to renamed model
+  frames_for_me    frames_finalized[] @relation("CreatedForUser") // Updated relation to renamed model
 }

@@ -45,8 +45,8 @@
       ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
     >
   {/if}
-  {#if data.user}
-    <p class="text-center">Autor: <b>{data.user.userName}</b></p>
+  {#if data.userCreator}
+    <p class="text-center">Autor: <b>{data.userCreator.userName}</b></p>
   {:else}
     <div>
       <p class="text-center">Autor: <b>Desconocido</b></p>

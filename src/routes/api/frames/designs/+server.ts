@@ -9,7 +9,7 @@ export const GET: RequestHandler = async () => {
   try {
     const framesDesignsValue = await prisma.frame_designs.findMany({
       include: {
-        frame_finalized: true,
+        frames_finalized: true,
         frame_types: true,
         user: true
       },
@@ -91,7 +91,7 @@ export const POST: RequestHandler = async ({ request }) => {
         url: downloadURL,
         name: name,
         typeId: typeId,
-        userId: userId,
+        createdBy: userId,
         createdAt: createdAt
       },
       include: {

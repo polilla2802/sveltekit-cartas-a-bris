@@ -3,7 +3,7 @@
 import { PrismaClient } from "@prisma/client";
 import frameTypesData from "../src/lib/seeders/frame_types.json" assert { type: "json" };
 import frameDesignsData from "../src/lib/seeders/frame_designs.json" assert { type: "json" };
-import frameFinalizedData from "../src/lib/seeders/frame_finalized.json" assert { type: "json" };
+import frameFinalizedData from "../src/lib/seeders/frames_finalized.json" assert { type: "json" };
 import userData from "../src/lib/seeders/users.json" assert { type: "json" };
 
 const prisma = new PrismaClient();

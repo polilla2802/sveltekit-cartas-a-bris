@@ -11,13 +11,14 @@ export const GET: RequestHandler = async ({ params }) => {
 
   try {
     // Fetch the Frame Finalized by ID
-    const framesFinalizedValue = await prisma.frame_finalized.findMany({
+    const framesFinalizedValue = await prisma.frames_finalized.findMany({
       where: {
         designId: BigInt(designId)
       },
       include: {
         frame_designs: true,
-        user: true,
+        userCreator: true,
+        userFor: true
       },
     });
 
@@ -57,7 +58,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
 
   try {
     // Check if the Frame Finalized exists
-    const existingFrameFinalized = await prisma.frame_finalized.findMany({
+    const existingFrameFinalized = await prisma.frames_finalized.findMany({
       where: {
         designId: BigInt(designId),
       },
@@ -67,7 +68,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
       throw new Error("Frames Finalized not found");
     }
     // Delete the frames
-    const framesDeleted = await prisma.frame_finalized.deleteMany({
+    const framesDeleted = await prisma.frames_finalized.deleteMany({
       where: {
         designId: BigInt(designId),
       },

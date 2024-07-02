@@ -1,7 +1,7 @@
 /*
   Warnings:
 
-  - You are about to drop the `frame_finalized` table. If the table is not empty, all the data it contains will be lost.
+  - You are about to drop the `frames_finalized` table. If the table is not empty, all the data it contains will be lost.
   - A unique constraint covering the columns `[firebaseUid]` on the table `user` will be added. If there are existing duplicate values, this will fail.
   - Added the required column `firebaseUid` to the `user` table without a default value. This is not possible if the table is not empty.
 
@@ -26,12 +26,12 @@ ALTER TABLE "user" ALTER COLUMN "firebaseUid" SET NOT NULL;
 -- Step 6: Add the unique constraint on the firebaseUid column
 CREATE UNIQUE INDEX "user_firebaseUid_key" ON "user"("firebaseUid");
 
--- Step 7: Drop the foreign keys associated with the `frame_finalized` table
-ALTER TABLE "frame_finalized" DROP CONSTRAINT "fk_frame_finalized_design";
-ALTER TABLE "frame_finalized" DROP CONSTRAINT "fk_frame_finalized_user";
+-- Step 7: Drop the foreign keys associated with the `frames_finalized` table
+ALTER TABLE "frames_finalized" DROP CONSTRAINT "fk_frame_finalized_design";
+ALTER TABLE "frames_finalized" DROP CONSTRAINT "fk_frame_finalized_user";
 
--- Step 8: Drop the old `frame_finalized` table
-DROP TABLE "frame_finalized";
+-- Step 8: Drop the old `frames_finalized` table
+DROP TABLE "frames_finalized";
 
 -- Step 9: Create the new `frames_finalized` table
 CREATE TABLE "frames_finalized" (

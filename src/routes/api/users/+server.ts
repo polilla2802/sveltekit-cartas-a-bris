@@ -6,7 +6,7 @@ export const GET: RequestHandler = async () => {
   try {
     const usersValue = await prisma.user.findMany({
       include: {
-        frame_finalized: true,
+        frames_finalized: true,
       },
     });
 

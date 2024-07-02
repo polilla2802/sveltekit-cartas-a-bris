@@ -2,7 +2,7 @@
 	{
 		"id": 1,
 		"name": "De aqui al espacio cideral",
-		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_finalized%2Fspace-finalized.png?alt=media&token=9a8a6966-f862-40a9-864d-424686ba3548",
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frames_finalized%2Fspace-finalized.png?alt=media&token=9a8a6966-f862-40a9-864d-424686ba3548",
 		"designId": 1,
 		"createdBy" : 1,
 		"createdFor" : 2,
@@ -12,7 +12,7 @@
 	{
 		"id": 2,
 		"name": "Navidad de ensueño",
-		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_finalized%2Fchristmas-finalized.png?alt=media&token=c743f657-24f6-4603-8169-ecffe92b5436",
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frames_finalized%2Fchristmas-finalized.png?alt=media&token=c743f657-24f6-4603-8169-ecffe92b5436",
 		"designId": 2,
 		"createdBy" : 1,
 		"createdFor" : 2,
@@ -22,7 +22,7 @@
 	{
 		"id": 3,
 		"name": "Una navidad de locos",
-		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_finalized%2Fchristmas-alt-finalized.png?alt=media&token=e6ee0233-6cf3-4d77-90f9-6d7a87a1b396",
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frames_finalized%2Fchristmas-alt-finalized.png?alt=media&token=e6ee0233-6cf3-4d77-90f9-6d7a87a1b396",
 		"designId": 3,
 		"createdBy" : 1,
 		"createdFor" : 2,
@@ -32,7 +32,7 @@
 	{
 		"id": 4,
 		"name": "Amor meloso",
-		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_finalized%2Fpink-flowers-finalized.png?alt=media&token=4762bb14-d38a-40e7-bc4d-1e74b5cfc97d",
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frames_finalized%2Fpink-flowers-finalized.png?alt=media&token=4762bb14-d38a-40e7-bc4d-1e74b5cfc97d",
 		"designId": 4,
 		"createdBy" : 1,
 		"createdFor" : 2,
@@ -42,7 +42,7 @@
 	{
 		"id": 5,
 		"name": "Flores para Bris",
-		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_finalized%2Fpink-finalized.png?alt=media&token=f15bca22-a939-4d09-b663-967303d6a182",
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frames_finalized%2Fpink-finalized.png?alt=media&token=f15bca22-a939-4d09-b663-967303d6a182",
 		"designId": 5,
 		"createdBy" : 1,
 		"createdFor" : 2,
@@ -52,7 +52,7 @@
 	{
 		"id": 6,
 		"name": "Chocolate antiguo",
-		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_finalized%2Fchocolate-finalized.png?alt=media&token=f9b665c9-0d4a-4690-90c8-55705eca5954",
+		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frames_finalized%2Fchocolate-finalized.png?alt=media&token=f9b665c9-0d4a-4690-90c8-55705eca5954",
 		"designId": 6,
 		"createdBy" : 1,
 		"createdFor" : 2,

@@ -13,13 +13,14 @@ export const GET: RequestHandler = async ({ params }) => {
 
   try {
     // Fetch the Frame Finalized by ID
-    const frameFinalizedValue = await prisma.frame_finalized.findUnique({
+    const frameFinalizedValue = await prisma.frames_finalized.findUnique({
       where: {
         id: BigInt(frameFinalizedId),
       },
       include: {
         frame_designs: true,
-        user: true,
+        userCreator: true,
+        userFor: true
       },
     });
 
@@ -68,7 +69,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 
   try {
     // Fetch the existing frame finalized by ID
-    const existingFrameFinalized = await prisma.frame_finalized.findUnique({
+    const existingFrameFinalized = await prisma.frames_finalized.findUnique({
       where: {
         id: BigInt(frameFinalizedId),
       },
@@ -82,7 +83,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 
     // Handle file upload if a new file is provided
     if (fileValue) {
-      const storageRef = ref(storage, `frame_finalized/${fileValue.name}`);
+      const storageRef = ref(storage, `frames_finalized/${fileValue.name}`);
       const snapshot = await uploadBytes(storageRef, fileValue);
       downloadURL = await getDownloadURL(snapshot.ref);
     }
@@ -104,7 +105,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     const userId =
       userIdValue !== null && userIdValue !== undefined
         ? BigInt(userIdValue as string)
-        : existingFrameFinalized.userId;
+        : existingFrameFinalized.createdBy;
 
     // Parse createdAt
     let createdAt: Date | undefined;
@@ -120,7 +121,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     }
 
     // Update the frame finalized in the database
-    const updatedFrameFinalizedValue = await prisma.frame_finalized.update({
+    const updatedFrameFinalizedValue = await prisma.frames_finalized.update({
       where: {
         id: BigInt(frameFinalizedId),
       },
@@ -128,7 +129,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         url: downloadURL,
         name: name,
         designId: frameDesignId,
-        userId: userId,
+        createdBy: userId,
         createdAt: createdAt
       },
     });
@@ -168,7 +169,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
 
   try {
     // Check if the Frame Finalized exists
-    const existingFrameFinalized = await prisma.frame_finalized.findUnique({
+    const existingFrameFinalized = await prisma.frames_finalized.findUnique({
       where: {
         id: BigInt(frameFinalizedId),
       },
@@ -178,7 +179,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
       throw new Error("Frame Finalized not found");
     }
     // Delete the user
-    await prisma.frame_finalized.delete({
+    await prisma.frames_finalized.delete({
       where: {
         id: BigInt(frameFinalizedId),
       },

@@ -93,7 +93,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     // Ensure userId is a number
     const userId = userIdValue
       ? BigInt(userIdValue as string)
-      : existingFrameDesign.userId;
+      : existingFrameDesign.createdBy;
 
     // Parse createdAt
     let createdAt: Date | undefined;
@@ -117,7 +117,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         url: downloadURL,
         name: name,
         typeId: frameTypeId,
-        userId: userId,
+        createdBy: userId,
         createdAt: createdAt
       },
     });

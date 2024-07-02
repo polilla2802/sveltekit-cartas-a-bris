@@ -8,10 +8,11 @@ import { Prisma } from '@prisma/client';
 
 export const GET: RequestHandler = async () => {
   try {
-    const framesFinalizedVlue = await prisma.frame_finalized.findMany({
+    const framesFinalizedVlue = await prisma.frames_finalized.findMany({
       include: {
         frame_designs: true,
-        user: true
+        userCreator: true,
+        userFor: true
       },
     });
 
@@ -28,7 +29,7 @@ export const GET: RequestHandler = async () => {
     });
   } catch (err) {
     console.error(err);
-    throw error(500, `Failed to retrieve frame_finalized records: ${(err as Error).message}`);
+    throw error(500, `Failed to retrieve frames_finalized records: ${(err as Error).message}`);
   }
 };
 
@@ -88,19 +89,19 @@ export const POST: RequestHandler = async ({ request }) => {
     createdAt = new Date();
   }
 
-  const storageRef = ref(storage, `frame_finalized/${file.name}`);
+  const storageRef = ref(storage, `frames_finalized/${file.name}`);
 
 
   try {
     const snapshot = await uploadBytes(storageRef, file);
     const downloadURL = await getDownloadURL(snapshot.ref);
 
-    const newFrameFinalizedValue = await prisma.frame_finalized.create({
+    const newFrameFinalizedValue = await prisma.frames_finalized.create({
       data: {
         url: downloadURL,
         name: name,
         designId: designId,
-        userId: userId,
+        createdBy: userId,
         createdAt: createdAt
       },
       include: {

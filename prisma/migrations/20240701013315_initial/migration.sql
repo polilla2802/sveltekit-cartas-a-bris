@@ -20,7 +20,7 @@ CREATE TABLE "frame_types" (
 );
 
 -- CreateTable
-CREATE TABLE "frame_finalized" (
+CREATE TABLE "frames_finalized" (
     "id" INT8 NOT NULL DEFAULT unique_rowid(),
     "url" STRING(255) NOT NULL,
     "designId" INT8 NOT NULL,
@@ -55,10 +55,10 @@ CREATE INDEX "idx_frame_designs_type" ON "frame_designs"("typeId");
 CREATE INDEX "idx_frame_designs_user" ON "frame_designs"("userId");
 
 -- CreateIndex
-CREATE INDEX "idx_frame_finalized_design" ON "frame_finalized"("designId");
+CREATE INDEX "idx_frame_finalized_design" ON "frames_finalized"("designId");
 
 -- CreateIndex
-CREATE INDEX "idx_frame_finalized_user" ON "frame_finalized"("userId");
+CREATE INDEX "idx_frame_finalized_user" ON "frames_finalized"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_userName_key" ON "user"("userName");
@@ -73,7 +73,7 @@ ALTER TABLE "frame_designs" ADD CONSTRAINT "fk_frame_designs_type" FOREIGN KEY (
 ALTER TABLE "frame_designs" ADD CONSTRAINT "fk_frame_designs_user" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "frame_finalized" ADD CONSTRAINT "fk_frame_finalized_design" FOREIGN KEY ("designId") REFERENCES "frame_designs"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE "frames_finalized" ADD CONSTRAINT "fk_frame_finalized_design" FOREIGN KEY ("designId") REFERENCES "frame_designs"("id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE "frame_finalized" ADD CONSTRAINT "fk_frame_finalized_user" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "frames_finalized" ADD CONSTRAINT "fk_frame_finalized_user" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE SET NULL ON UPDATE CASCADE;

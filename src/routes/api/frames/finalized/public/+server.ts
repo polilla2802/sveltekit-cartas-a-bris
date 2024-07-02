@@ -10,7 +10,7 @@ export const GET: RequestHandler = async () => {
   try {
     const framesFinalizedVlue = await prisma.frames_finalized.findMany({
       where: {
-        isPublic: false
+        isPublic: true
       },
       include: {
         frame_designs: true,

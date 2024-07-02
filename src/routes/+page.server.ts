@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	let finalized: any = [];
 	let sortedFinalized: any = [];
 	try {
-		const response = await fetch(`/api/frames/finalized`);
+		const response = await fetch(`/api/frames/finalized/public`);
 		// console.log(response)
 		if (!response.ok) {
 			throw new Error(`Failed to fetch Frame Finalized`);

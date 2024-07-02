@@ -3,6 +3,7 @@ import prisma from "$lib/prisma";
 import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { bigIntToString } from "$utils/bigIntToString";
+import { parseBoolean } from "$utils/parseBoolean";
 
 export const GET: RequestHandler = async ({ params }) => {
   const frameFinalizedId = params.id;
@@ -66,6 +67,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const frameDesignIdValue = data.get("designId");
   const userIdValue = data.get("userId");
   const createdAtValue = data.get("createdAt");
+  const isPublicValue = data.get("isPublic");
 
   try {
     // Fetch the existing frame finalized by ID
@@ -120,6 +122,12 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       createdAt = existingFrameFinalized.createdAt;
     }
 
+    const isPublic =
+      isPublicValue !== null && isPublicValue !== undefined
+        ? parseBoolean(isPublicValue)
+        : existingFrameFinalized.isPublic;
+
+
     // Update the frame finalized in the database
     const updatedFrameFinalizedValue = await prisma.frames_finalized.update({
       where: {
@@ -130,7 +138,8 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         name: name,
         designId: frameDesignId,
         createdBy: userId,
-        createdAt: createdAt
+        createdAt: createdAt,
+        isPublic: isPublic
       },
     });
 

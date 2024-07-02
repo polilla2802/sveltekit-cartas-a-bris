@@ -1,6 +1,7 @@
 [
 	{
 		"id": 1,
+		"firebaseUuid": "CEMDuq82R7gjPULteiQr5ewPyji2",
 		"userName": "jose2802",
 		"name": "Joe",
 		"email": "polilla2802@gmail.com",
@@ -10,6 +11,18 @@
 		"age": 29,
 		"createdAt": 1703479505000,
 		"updatedAt": 1703479505000
-
+	},
+	{
+		"id": 2,
+		"firebaseUuid": "l6HcQSLJOgemDnatMZ8RF5Jx7yZ2",
+		"userName": "Bris",
+		"name": "Brisaida Montejo",
+		"email": "brisaidamontejo@gmail.com",
+		"phoneNumber": "9985372520",
+		"password": "12345678",
+		"gender": "F",
+		"age": 25,
+		"createdAt": 1703479505000,
+		"updatedAt": 1703479505000
 	}
 ]

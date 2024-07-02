@@ -4,7 +4,7 @@
 		"name": "Space Love",
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fspace-design.png?alt=media&token=22619c3d-08b6-443f-bee5-fa66eb5c8b3d",
 		"typeId": 2,
-		"userId" : 1,
+		"createdBy" : 1,
 		"createdAt": 1716180305000,
 		"updatedAt": 1716180305000
 	},
@@ -13,7 +13,7 @@
 		"name": "Christmas Carol",
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fchristmas-design.png?alt=media&token=5a9a5840-9f8a-4419-932a-21d9fd2944f2",
 		"typeId": 12,
-		"userId" : 1,
+		"createdBy" : 1,
 		"createdAt": 1716785105000,
 		"updatedAt": 1716785105000
 	},
@@ -22,7 +22,7 @@
 		"name": "Pine Holiday",
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fchristmas-alt-design.png?alt=media&token=f25e7c4a-f08f-43f5-a2d2-65235b033899",
 		"typeId": 12,
-		"userId" : 1,
+		"createdBy" : 1,
 		"createdAt": 1703479505000,
 		"updatedAt": 1703479505000
 	},
@@ -31,7 +31,7 @@
 		"name": "Pink Flower",
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fpink-flowers-design.png?alt=media&token=bbc36538-8fce-456a-973e-335e0f4343f8",
 		"typeId": 1,
-		"userId" : 1,
+		"createdBy" : 1,
 		"createdAt": 1715230309000,
 		"updatedAt": 1715230309000
 	},
@@ -40,7 +40,7 @@
 		"name": "Rose Galore",
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fpink-design.png?alt=media&token=35f983ae-4dc4-4f7d-9a07-3a22ab18b7ca",
 		"typeId": 1,
-		"userId" : 1,
+		"createdBy" : 1,
 		"createdAt": 1717131109000,
 		"updatedAt": 1717131109000
 	},
@@ -49,7 +49,7 @@
 		"name": "Chocolate Dream",
 		"url": "https://firebasestorage.googleapis.com/v0/b/cartas-a-bris-dev.appspot.com/o/frame_designs%2Fchocolate-design.png?alt=media&token=7f4060f2-8af1-4bc3-bb43-42892b604a35",
 		"typeId": 5,
-		"userId" : 1,
+		"createdBy" : 1,
 		"createdAt": 1717995109000,
 		"updatedAt": 1717995109000
 	}

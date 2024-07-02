@@ -15,6 +15,7 @@ async function main() {
     const user = await prisma.user.create({
       data: {
         id: u.id,
+        firebaseUid: u.firebaseUuid,
         userName: u.userName,
         name: u.name,
         phoneNumber: u.phoneNumber,
@@ -46,7 +47,7 @@ async function main() {
         name: d.name,
         url: d.url,
         typeId: d.typeId,
-        userId: d.userId,
+        createdBy: d.createdBy,
         createdAt: new Date(d.createdAt),
         updatedAt: new Date(d.updatedAt),
       },
@@ -55,13 +56,13 @@ async function main() {
   }
 
   for (const f of frameFinalizedData) {
-    const framesFinalized = await prisma.frame_finalized.create({
+    const framesFinalized = await prisma.frames_finalized.create({
       data: {
         id: f.id,
         name: f.name,
         url: f.url,
         designId: f.designId,
-        userId: f.userId,
+        createdBy: f.createdBy,
         createdAt: new Date(f.createdAt),
         updatedAt: new Date(f.updatedAt),
       },

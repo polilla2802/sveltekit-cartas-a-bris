@@ -47,6 +47,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 	}
 
 	const data = await request.formData();
+	const firebaseUidValue = data.get('firebaseUid');
 	const userNameValue = data.get('userName');
 	const nameValue = data.get('name');
 	const phoneNumberValue = data.get('phoneNumber');
@@ -73,6 +74,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 			age = parseInt(ageValue as string);
 		}
 
+		const firebaseUid = (firebaseUidValue as string)
 		const userName = (userNameValue as string)
 		const name = (nameValue as string)
 		const phoneNumber = (phoneNumberValue as string)
@@ -86,6 +88,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 				id: BigInt(userId),
 			},
 			data: {
+				firebaseUid: firebaseUid ?? existingUser.firebaseUid,
 				userName: userName ?? existingUser.userName,
 				name: name ?? existingUser.name,
 				phoneNumber: phoneNumber ?? existingUser.phoneNumber,

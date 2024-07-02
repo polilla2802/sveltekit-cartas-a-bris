@@ -30,6 +30,7 @@ export const GET: RequestHandler = async () => {
 
 export const POST: RequestHandler = async ({ request }) => {
   const data = await request.formData();
+  const firebaseUidValue = data.get('firebaseUid');
   const userNameValue = data.get('userName');
   const nameValue = data.get('name');
   const phoneNumberValue = data.get('phoneNumber');
@@ -37,6 +38,10 @@ export const POST: RequestHandler = async ({ request }) => {
   const passwordValue = data.get('password');
   const genderValue = data.get('gender');
   const ageValue = data.get('age');
+
+  if (!firebaseUidValue) {
+    throw error(400, 'firebaseUid not provided');
+  }
 
   if (!userNameValue) {
     throw error(400, 'userName not provided');
@@ -63,6 +68,7 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'age must be a valid number');
   }
 
+  const firebaseUid = (firebaseUidValue as string)
   const userName = (userNameValue as string)
   const name = (nameValue as string)
   const phoneNumber = (phoneNumberValue as string)
@@ -95,6 +101,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
     const userValvue = await prisma.user.create({
       data: {
+        firebaseUid: firebaseUid,
         userName: userName,
         name: name,
         phoneNumber: phoneNumber,

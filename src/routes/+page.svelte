@@ -13,7 +13,7 @@
 
 {#await $page.data}
   <!-- Render a loader while fetching data -->
-  <p class="text-center text-gray-500 mt-4">Loading frame...</p>
+  <p class="text-center text-gray-500 mt-4">Cargando carta...</p>
 {:then data}
   {#if data.error}
     <!-- Render an error message if there is an error -->
@@ -23,11 +23,11 @@
     <FrameFinalized data={data.randomFrameOfTheDay} {baseUrl} isSingle={true} />
   {:else}
     <!-- Render a message if frames is undefined or empty -->
-    <p class="text-center text-gray-500 mt-4">No random frame available.</p>
+    <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>
   {/if}
 {:catch error}
   <!-- This block should rarely be reached if we handle errors properly in load -->
   <p class="text-center text-red-500 mt-4">
-    Unexpected error. Please try again later.
+    Hubo un error, intentalo más tarde
   </p>
 {/await}

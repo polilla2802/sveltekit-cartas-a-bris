@@ -1,14 +1,9 @@
 <!-- src/routes/Register.svelte -->
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import {
-    signInWithGoogle,
-    signInUserWithMail,
-    deleteCurrentUser,
-    signOutUser,
-  } from "$lib/auth";
+  import { signInWithGoogle, signInUserWithMail, deleteCurrentUser } from "$lib/auth";
   import { isUserRegisteredWithGoogle } from "$utils/isGoogle";
-  import type { User } from "firebase/auth";
+  import { getAdditionalUserInfo, type User } from "firebase/auth";
   import { onMount } from "svelte";
   import { auth } from "$lib/firebase";
 
@@ -19,7 +14,6 @@
   let registering = false;
 
   let currentUser: User | null = null; // Initialize currentUser to null
-
 
   const registerUser = async (userCredential: User | null) => {
     if (!userCredential) {
@@ -67,16 +61,16 @@
       // Optionally handle response data here if needed
       const responseData = await response.json();
       console.log("Registration successful:", responseData);
+      await navigateToHome();
 
       // Redirect or perform any additional actions after successful registration
-      await navigateToHome();
     } catch (e: any) {
       registering = false;
       error = e;
       // Handle error state or display error message to user
       console.log("Error registering user data:", e);
       //TODO: delete user when some error occurs
-      // await deleteCurrentUser();
+      await deleteCurrentUser();
     }
   };
 
@@ -90,9 +84,18 @@
     try {
       const userCredential = await signInUserWithMail(email, password);
 
-      if (userCredential) {
-        await registerUser(userCredential);
+      const additionalInfo = getAdditionalUserInfo(userCredential);
+
+      if (additionalInfo != null) {
+        console.log(additionalInfo!.isNewUser);
+
+        if (userCredential && additionalInfo!.isNewUser) {
+          await registerUser(userCredential.user);
+        } else {
+          await navigateToHome();
+        }
       }
+
     } catch (e: any) {
       registering = false;
       error = e.message;
@@ -105,10 +108,16 @@
     try {
       const userCredential = await signInWithGoogle();
 
-      console.log(userCredential);
+      const additionalInfo = getAdditionalUserInfo(userCredential);
 
-      if (userCredential) {
-        await registerUser(userCredential);
+      if (additionalInfo != null) {
+        console.log(additionalInfo!.isNewUser);
+
+        if (userCredential && additionalInfo!.isNewUser) {
+          await registerUser(userCredential.user);
+        } else {
+          await navigateToHome();
+        }
       }
     } catch (e: any) {
       registering = false;
@@ -147,9 +156,9 @@
   <br />
   <br />
   {#if !currentUser}
-  <form on:submit|preventDefault={() => registerUserWithGoogle()}>
-    <button type="submit">Registrate con Google</button>
-  </form>
+    <form on:submit|preventDefault={() => registerUserWithGoogle()}>
+      <button type="submit">Registrate con Google</button>
+    </form>
   {/if}
 
   {#if error}

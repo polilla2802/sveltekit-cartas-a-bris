@@ -1,6 +1,6 @@
 // src/lib/auth.ts
 import { signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
-import type { User } from "firebase/auth"; // Use type-only import for User
+import type { User, UserCredential } from "firebase/auth"; // Use type-only import for User
 import { auth } from "$lib/firebase";
 
 // Set persistence to local (this can be 'session' or 'none' based on your needs)
@@ -18,7 +18,7 @@ const googleProvider = new GoogleAuthProvider();
 export async function signInUserWithMail(
   email: string,
   password: string
-): Promise<User | null> {
+): Promise<UserCredential> {
 
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -26,7 +26,7 @@ export async function signInUserWithMail(
       email,
       password
     );
-    return userCredential.user;
+    return userCredential;
   } catch (error) {
     console.log("Error signing in:", error);
     throw new Error("Error signing in:" + error);
@@ -54,11 +54,11 @@ export async function logInUserWithMail(
 
 // Sign In Function
 export async function signInWithGoogle(
-): Promise<User | undefined> {
+): Promise<UserCredential> {
   try {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const userCredential = result.user;
+      const result: UserCredential = await signInWithPopup(auth, googleProvider);
+      const userCredential = result;
       console.log('User:', userCredential);
 
       return userCredential;

@@ -66,6 +66,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const nameValue = data.get("name");
   const frameDesignIdValue = data.get("designId");
   const userIdValue = data.get("userId");
+  const createdForIdValue = data.get("createdForId");
   const createdAtValue = data.get("createdAt");
   const isPublicValue = data.get("isPublic");
 
@@ -109,6 +110,12 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         ? BigInt(userIdValue as string)
         : existingFrameFinalized.createdBy;
 
+    // Ensure userId is a number or fallback to existing value
+    const createdForId =
+      createdForIdValue !== null && createdForIdValue !== undefined
+        ? BigInt(createdForIdValue as string)
+        : existingFrameFinalized.createdFor;
+
     // Parse createdAt
     let createdAt: Date | undefined;
 
@@ -138,6 +145,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         name: name,
         designId: frameDesignId,
         createdBy: userId,
+        createdFor: createdForId,
         createdAt: createdAt,
         isPublic: isPublic
       },

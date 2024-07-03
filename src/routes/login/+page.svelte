@@ -3,8 +3,13 @@
   import { auth } from "$lib/firebase";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import { logInUserWithMail, signInWithGoogle } from "$lib/auth";
-  import type { User } from "firebase/auth";
+  import {
+    deleteCurrentUser,
+    logInUserWithMail,
+    signInWithGoogle,
+  } from "$lib/auth";
+  import { getAdditionalUserInfo, type User } from "firebase/auth";
+  import { isUserRegisteredWithGoogle } from "$utils/isGoogle";
 
   let email = "";
   let password = "";
@@ -14,6 +19,65 @@
 
   let currentUser: User | null = null; // Initialize currentUser to null
 
+  const registerUser = async (userCredential: User | null) => {
+    if (!userCredential) {
+      // Handle case where userCredential is null or undefined
+      return;
+    }
+
+    console.log(userCredential);
+    console.log(isUserRegisteredWithGoogle(userCredential));
+
+    const uid = userCredential.uid as string;
+    const displayName = userCredential.displayName as string;
+    const phoneNumber = userCredential.phoneNumber as string;
+    const email = userCredential.email as string;
+
+    console.log(uid);
+    console.log(displayName);
+    console.log(phoneNumber);
+    console.log(email);
+
+    const formData = new FormData();
+    formData.append("firebaseUid", uid); // Assuming you want to send user ID
+    formData.append("userName", displayName); // Assuming you want to send user ID
+    formData.append("name", displayName); // Assuming you want to send user ID
+    formData.append("phoneNumber", phoneNumber); // Assuming you want to send user ID
+    formData.append("email", email); // Assuming you want to send user ID
+    formData.append("password", "12345678"); // Assuming you want to send user ID
+    formData.append("gender", "M"); // Assuming you want to send user ID
+    formData.append("age", "29"); // Assuming you want to send user ID
+
+    console.log(formData);
+
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Failed to register user data");
+      }
+
+      // Optionally handle response data here if needed
+      const responseData = await response.json();
+      console.log("Registration successful:", responseData);
+      await navigateToHome();
+
+      // Redirect or perform any additional actions after successful registration
+    } catch (e: any) {
+      logging = false;
+      error = e;
+      // Handle error state or display error message to user
+      console.log("Error registering user data:", e);
+      //TODO: delete user when some error occurs
+      await deleteCurrentUser();
+    }
+  };
+
   const navigateToHome = async () => {
     await goto("/");
   };
@@ -22,10 +86,7 @@
     logging = true;
 
     try {
-      const userCredential = await logInUserWithMail(
-        email,
-        password
-      );
+      const userCredential = await logInUserWithMail(email, password);
       // Redirect to a protected route or home page
       // Example: navigate to "/"
       if (userCredential) {
@@ -43,13 +104,16 @@
     try {
       const userCredential = await signInWithGoogle();
 
-      console.log(userCredential);
+      const additionalInfo = getAdditionalUserInfo(userCredential);
 
-      if (userCredential != undefined) {
-        await navigateToHome();
-      } else {
-        logging = false;
-        error = "Hubo un error intenta de nuevo";
+      if (additionalInfo != null) {
+        console.log(additionalInfo!.isNewUser);
+
+        if (userCredential && additionalInfo!.isNewUser) {
+          await registerUser(userCredential.user);
+        } else {
+          await navigateToHome();
+        }
       }
     } catch (e: any) {
       logging = false;

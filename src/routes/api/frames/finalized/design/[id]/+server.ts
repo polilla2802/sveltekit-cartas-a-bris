@@ -6,7 +6,7 @@ export const GET: RequestHandler = async ({ params }) => {
   const designId = params.id;
 
   if (!designId) {
-    throw error(400, "Frame Finalized ID not provided");
+    throw error(400, "Design ID not provided");
   }
 
   try {
@@ -53,7 +53,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
   const designId = params.id;
 
   if (!designId) {
-    throw error(400, "Frame Finalized ID not provided");
+    throw error(400, "Design ID not provided");
   }
 
   try {

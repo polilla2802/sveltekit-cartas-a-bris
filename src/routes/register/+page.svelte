@@ -1,8 +1,7 @@
 <!-- src/routes/Register.svelte -->
 <script lang="ts">
-  import { auth } from "$lib/firebase";
   import { goto } from "$app/navigation";
-  import { createUserWithEmailAndPassword } from "firebase/auth";
+  import { signInWithMail, signInWithGoogle } from "$lib/auth";
 
   let email = "";
   let password = "";
@@ -14,21 +13,34 @@
     await goto("/");
   };
 
-  const registerUser = async (email: string, password: string) => {
+  const registerUserWithMail = async (email: string, password: string) => {
     registering = true;
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      // console.log(userCredential);
-      // console.log("User registered successfully:", userCredential.user);
+      const userCredential = await signInWithMail(email, password);
 
       if (userCredential) {
         await navigateToHome();
+      }
+    } catch (e: any) {
+      registering = false;
+      error = e.message;
+    }
+  };
+
+  const registerUserWithGoogle = async () => {
+    registering = true;
+
+    try {
+      const userCredential = await signInWithGoogle();
+
+      console.log(userCredential);
+
+      if (userCredential != undefined) {
+        await navigateToHome();
+      } else {
+        registering = false;
+        error = "Hubo un error intenta de nuevo";
       }
     } catch (e: any) {
       registering = false;
@@ -42,7 +54,7 @@
 {#if registering}
   Registrando...
 {:else}
-  <form on:submit|preventDefault={() => registerUser(email, password)}>
+  <form on:submit|preventDefault={() => registerUserWithMail(email, password)}>
     <label>
       Email:
       <input type="email" bind:value={email} required />
@@ -52,14 +64,21 @@
       <input type="password" bind:value={password} required />
     </label>
     <button type="submit">Registrate</button>
-    {#if error}
-      <p style="color: red;">{error}</p>
-    {/if}
   </form>
+  <br />
+  <br />
+  <form on:submit|preventDefault={() => registerUserWithGoogle()}>
+    <button type="submit">Registrate con Google</button>
+  </form>
+
+  {#if error}
+    <p style="color: red;">{error}</p>
+  {/if}
 {/if}
 
 <style>
   button {
+    margin-left: 10px;
     border: 1px solid black;
     padding: 0.5rem 1rem;
     border-radius: 3px;

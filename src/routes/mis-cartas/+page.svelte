@@ -5,6 +5,7 @@
   import type { User } from "firebase/auth";
   import { sortFrames } from "$utils/sortFrames";
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
+  import { getCurrentUser } from "$lib/auth";
 
   let currentUser: User | null = null; // Initialize currentUser to null
 
@@ -25,7 +26,9 @@
       );
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch Frames Finalized, check user if exists`);
+        throw new Error(
+          `Failed to fetch Frames Finalized, check user if exists`
+        );
       }
 
       const data = await response.json();
@@ -40,22 +43,21 @@
     }
   }
 
-  onMount(() => {
-    // Listen to auth state changes
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      currentUser = user;
-      if (currentUser != null) {
-        await getFrames();
+  onMount(async () => {
+    auth.onAuthStateChanged(async (authUser) => {
+      if (authUser) {
+        currentUser = authUser;
+        console.log("User is signed in:", currentUser);
+        if (currentUser != null) {
+          await getFrames();
+        } else {
+          // If the user is not authenticated, you might want to handle it here
+          console.log("User is not authenticated");
+        }
       } else {
-        // If the user is not authenticated, you might want to handle it here
-        console.log("User is not authenticated");
+        console.log("No user signed in");
       }
     });
-
-    // Cleanup listener on component unmount
-    return () => {
-      unsubscribe();
-    };
   });
 </script>
 

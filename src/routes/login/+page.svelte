@@ -4,6 +4,7 @@
   import { goto } from "$app/navigation";
   import { signInWithEmailAndPassword, type User } from "firebase/auth";
   import { onMount } from "svelte";
+  import { signInWithGoogle } from "$lib/auth";
 
   let email = "";
   let password = "";
@@ -17,7 +18,7 @@
     await goto("/");
   };
 
-  const login = async () => {
+  const loginUserWithMail = async () => {
     logging = true;
 
     try {
@@ -37,16 +38,35 @@
     }
   };
 
-  onMount(() => {
-    // Listen to auth state changes
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      currentUser = user;
-    });
+  const loginUserWithGoogle = async () => {
+    logging = true;
 
-    // Cleanup listener on component unmount
-    return () => {
-      unsubscribe();
-    };
+    try {
+      const userCredential = await signInWithGoogle();
+
+      console.log(userCredential);
+
+      if (userCredential != undefined) {
+        await navigateToHome();
+      } else {
+        logging = false;
+        error = "Hubo un error intenta de nuevo";
+      }
+    } catch (e: any) {
+      logging = false;
+      error = e.message;
+    }
+  };
+
+  onMount(async () => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        currentUser = authUser;
+        console.log("User is signed in:", currentUser);
+      } else {
+        console.log("No user signed in");
+      }
+    });
   });
 </script>
 
@@ -58,13 +78,27 @@
   {#if logging}
     Iniciando Sesión...
   {:else}
-    <form on:submit|preventDefault={login}>
+    <form on:submit|preventDefault={loginUserWithMail}>
       <input type="email" bind:value={email} placeholder="Email" />
       <input type="password" bind:value={password} placeholder="Password" />
       <button type="submit">Login</button>
-      {#if error}
-        <p style="color: red;">{error}</p>
-      {/if}
     </form>
+    <br />
+    <br />
+    <form on:submit|preventDefault={loginUserWithGoogle}>
+      <button type="submit">Login con Google</button>
+    </form>
+    {#if error}
+      <p style="color: red;">{error}</p>
+    {/if}
   {/if}
 {/if}
+
+<style>
+  button {
+    margin-left: 10px;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+  }
+</style>

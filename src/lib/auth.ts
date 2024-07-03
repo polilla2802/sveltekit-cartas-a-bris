@@ -1,5 +1,5 @@
 // src/lib/auth.ts
-import { signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import type { User } from "firebase/auth"; // Use type-only import for User
 import { auth } from "$lib/firebase";
 
@@ -77,9 +77,22 @@ export async function signOutUser(): Promise<void> {
   try {
     await signOut(auth);
   } catch (error) {
-    console.error("Error signing out:", error);
+    console.log("Error signing out:", error);
+    throw new Error("Error signing out:" + error);
   }
 }
+
+// Function to delete the current authenticated user
+export async function deleteCurrentUser(): Promise<void> {
+  try {
+    await deleteUser(auth.currentUser!);
+
+  } catch (error) {
+    console.log("Error deleting user:", error);
+    throw new Error("Error deleting user:" + error);
+    // Handle error gracefully, e.g., show an error message to the user
+  }
+};
 
 // Get Current User Function
 export function getCurrentUser(): User | null {

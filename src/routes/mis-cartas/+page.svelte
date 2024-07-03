@@ -5,7 +5,7 @@
   import type { User } from "firebase/auth";
   import { sortFrames } from "$utils/sortFrames";
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
-  import { getCurrentUser } from "$lib/auth";
+  import { getUserByUid } from "$utils/getUserByUid";
 
   let currentUser: User | null = null; // Initialize currentUser to null
 
@@ -18,12 +18,16 @@
 
   let error: string | undefined; // Define error as string or undefined
 
+  let userData;
+
   async function getFrames() {
+    console.log(currentUser!.uid);
+
+    userData = await getUserByUid(currentUser!.uid);
+
     try {
       // TODO: get my letters from my userId stored in the user session
-      const response = await fetch(
-        `/api/frames/created-for/${currentUser?.uid}`
-      );
+      const response = await fetch(`/api/frames/created-for/${userData.user.id}`);
 
       if (!response.ok) {
         throw new Error(

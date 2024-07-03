@@ -11,15 +11,16 @@
   // console.log($page.url.pathname);
 
   onMount(() => {
-    // Check if a user is signed in when the component mounts
-    currentUser = auth.currentUser;
-
-    // Optionally, you can listen to the auth state changes
-    auth.onAuthStateChanged((user) => {
+    // Listen to auth state changes
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       currentUser = user;
-      // console.log(currentUser);
       loading = false;
     });
+
+    // Cleanup listener on component unmount
+    return () => {
+      unsubscribe();
+    };
   });
 </script>
 
@@ -28,17 +29,23 @@
 {:else}
   <nav>
     <div class="left">
-      <a class:active={$page.url.pathname === "/"} href="/">Todas</a>
+      <a class:active={$page.url.pathname === "/"} href="/">Carta del Día</a>
       <a class:active={$page.url.pathname === "/dise%C3%B1os"} href="/diseños"
         >Diseños</a
       >
+      {#if currentUser != null}
+        <a
+          class:active={$page.url.pathname === "/mis-cartas"}
+          href="/mis-cartas">Mis Cartas</a
+        >
+      {/if}
     </div>
     <div class="right flex flex-col md:block">
       {#if currentUser}
         <p>{currentUser.email}</p>
         <a href="/logout">Cerrar Sesión</a>
       {:else}
-        <a href="/login">Iniciar Sesión</a>
+        <a href="/login">Login</a>
         <a href="/register" class="register">Registrate</a>
       {/if}
     </div>

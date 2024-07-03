@@ -51,7 +51,7 @@
 </script>
 
 {#if currentUser != null}
-  <p>Ya estas logeado</p>
+  <p>Ya tienes una sessión activa</p>
 {:else}
   <h1>Login</h1>
 

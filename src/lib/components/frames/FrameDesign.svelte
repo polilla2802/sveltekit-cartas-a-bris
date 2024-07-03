@@ -78,12 +78,14 @@
     <div class="qr-container-loading">
       <img src={qrCodeLoading} alt="QR code" />
     </div>
-  {:then string}
-    <div class="qr-container">
-      <a href={string} class="frame-link">
-        <img src={string} alt="QR code" />
-      </a>
-    </div>
+  {:then qrCode}
+    {#if qrCode}
+      <div class="qr-container">
+        <a href={qrCode} class="frame-link">
+          <img src={qrCode} alt="QR code" />
+        </a>
+      </div>
+    {/if}
   {:catch error}
     <p style="color: red">{error.message}</p>
   {/await}

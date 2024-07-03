@@ -27,7 +27,7 @@
 
     try {
       // TODO: get my letters from my userId stored in the user session
-      const response = await fetch(`/api/users/frames/${userData.user.id}`);
+      const response = await fetch(`/api/frames/created-for/${userData.user.id}`);
 
       if (!response.ok) {
         throw new Error(

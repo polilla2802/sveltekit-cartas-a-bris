@@ -35,9 +35,13 @@
       >
       {#if currentUser != null}
         <a
-          class:active={$page.url.pathname === "/mis-cartas"}
-          href="/mis-cartas">Mis Cartas</a
+          class:active={$page.url.pathname === "/cartas-para-mi"}
+          href="/cartas-para-mi">Cartas para mi</a
         >
+        <a
+        class:active={$page.url.pathname === "/mis-cartas"}
+        href="/mis-cartas">Mis Cartas</a
+      >
       {/if}
     </div>
     <div class="right flex flex-col md:block">

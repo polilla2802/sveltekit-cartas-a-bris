@@ -1,26 +1,23 @@
 // src/routes/users/[id]/+page.ts
-import { sortFrames } from '$utils/sortFrames';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch }) => {
-	let finalized: any = [];
-	let sortedFinalized: any = [];
+	let randomFrameOfTheDay: any;
 	try {
-		const response = await fetch(`/api/frames/finalized/public`);
-		// console.log(response)
+		const response = await fetch(`/api/frames/finalized/random`);
+		console.log(response);
 		if (!response.ok) {
-			throw new Error(`Failed to fetch Frame Finalized`);
+			throw new Error(`Failed to fetch Random Frame Finalized`);
 		}
 
 		let data = await response.json();
-		finalized = data.framesFinalized;
-		// Sort frames by createdAt field
-		sortedFinalized = sortFrames(finalized);
-
-		// console.log(sortedFinalized)
-		return { sortedFinalized };
+		console.log(data);
+		randomFrameOfTheDay = data.randomFrameOfTheDay;
+		console.log(randomFrameOfTheDay);
+		
+		return { randomFrameOfTheDay };
 	} catch (error) {
-		console.log('Error loading frames finalized:', error);
-		return { sortedFinalized: [], error: 'Failed to load frames finalized. Please try again later.' };
+		console.log('Error loading Random Frame Finalized:', error);
+		return { error: 'Failed to load Random Frame Finalized. Please try again later.' };
 	}
 };

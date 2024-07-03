@@ -15,4 +15,4 @@
   });
 </script>
 
-<h1>Logging out...</h1>
+<h1>Cerrando sessión...</h1>

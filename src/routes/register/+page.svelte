@@ -37,10 +37,10 @@
   };
 </script>
 
-<h1>Register</h1>
+<h1>Registrate</h1>
 
 {#if registering}
-  Registering...
+  Registrando...
 {:else}
   <form on:submit|preventDefault={() => registerUser(email, password)}>
     <label>
@@ -51,9 +51,17 @@
       Password:
       <input type="password" bind:value={password} required />
     </label>
-    <button type="submit">Register</button>
+    <button type="submit">Registrate</button>
     {#if error}
       <p style="color: red;">{error}</p>
     {/if}
   </form>
 {/if}
+
+<style>
+  button {
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+  }
+</style>

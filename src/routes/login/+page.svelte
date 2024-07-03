@@ -2,9 +2,9 @@
 <script lang="ts">
   import { auth } from "$lib/firebase";
   import { goto } from "$app/navigation";
-  import { signInWithEmailAndPassword, type User } from "firebase/auth";
   import { onMount } from "svelte";
-  import { signInWithGoogle } from "$lib/auth";
+  import { logInUserWithMail, signInWithGoogle } from "$lib/auth";
+  import type { User } from "firebase/auth";
 
   let email = "";
   let password = "";
@@ -22,8 +22,7 @@
     logging = true;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
+      const userCredential = await logInUserWithMail(
         email,
         password
       );

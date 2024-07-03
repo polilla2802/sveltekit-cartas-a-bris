@@ -1,7 +1,7 @@
 <!-- src/routes/Register.svelte -->
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { signInWithMail, signInWithGoogle } from "$lib/auth";
+  import { signInWithGoogle, signInUserWithMail } from "$lib/auth";
 
   let email = "";
   let password = "";
@@ -17,7 +17,7 @@
     registering = true;
 
     try {
-      const userCredential = await signInWithMail(email, password);
+      const userCredential = await signInUserWithMail(email, password);
 
       if (userCredential) {
         await navigateToHome();
@@ -36,11 +36,8 @@
 
       console.log(userCredential);
 
-      if (userCredential != undefined) {
+      if (userCredential) {
         await navigateToHome();
-      } else {
-        registering = false;
-        error = "Hubo un error intenta de nuevo";
       }
     } catch (e: any) {
       registering = false;

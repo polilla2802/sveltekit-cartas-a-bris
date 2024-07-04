@@ -59,14 +59,7 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'password not provided');
   }
 
-  if (!ageValue) {
-    throw error(400, 'age not provided');
-  }
-
   const age = parseInt(ageValue as string);
-  if (isNaN(age)) {
-    throw error(400, 'age must be a valid number');
-  }
 
   const firebaseUid = (firebaseUidValue as string)
   const userName = (userNameValue as string)

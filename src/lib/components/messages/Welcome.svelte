@@ -14,7 +14,7 @@
   }
 
   h1 {
-    font-family: "Dancing";
+    font-family: Dancing;
     font-size: 2rem;
     font-weight: bolder;
     width: min-content;
@@ -23,7 +23,7 @@
 
   .smooth-underline {
     position: relative;
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .smooth-underline::after {

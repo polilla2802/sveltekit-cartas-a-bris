@@ -37,6 +37,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Apple";
+  src: url("/fonts/apple/Apple-Chancery.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 html {
   box-sizing: border-box;
 }
@@ -57,7 +65,7 @@ body {
 }
 
 p{
-  font-family: cursive, sans-serif;
+  font-family: Apple, sans-serif;
 }
 
 input,
@@ -66,7 +74,7 @@ textarea {
 }
 
 button {
-  cursor: poinrgb(194, 179, 188);
+  cursor: pointer;
 }
 
 .new-logo {

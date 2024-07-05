@@ -67,21 +67,25 @@
     {:else}
       <div class="icon-container">
         <Icon
-        icon="ph:envelope-light"
-        color="white"
-        width="32"
-        height="32"
-        opacity="1"
-      />
+          icon="ph:envelope-light"
+          color="white"
+          width="32"
+          height="32"
+          opacity="1"
+        />
       </div>
-      {/if}
+    {/if}
   </button>
 
   {#if isOpen}
     <nav transition:slideRightAnimation={{ duration: 500 }}>
       <ul class="items-center">
         <div class="logo-container">
-          <a class="center flex flex-col items-center" href="/">
+          <a
+            class="center flex flex-col items-center"
+            href="/"
+            on:click={toggleMenu}
+          >
             <img
               src="/logos/cartas-logo-golden.png"
               class="w-28 h-auto"
@@ -171,11 +175,23 @@
   }
 
   nav p {
-    font-family: "Dancing", sans-serif;
-    text-decoration: none;
+    font-family: Dancing, sans-serif;
+    text-decoration: none !important;
   }
 
-  .icon-container{
+  nav a {
+    color: #2f4858;
+    text-decoration: none !important;
+    font-family: Dancing, sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    width: min-content;
+    white-space: nowrap;
+    text-align: center;
+    align-self: center;
+  }
+
+  .icon-container {
     width: 32px;
     height: 32px;
   }
@@ -199,21 +215,9 @@
     font-weight: bolder;
   }
 
-  a {
-    color: #2f4858;
-    text-decoration: none;
-    font-family: "Dancing", sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 18px;
-    width: min-content;
-    white-space: nowrap;
-    text-align: center;
-    align-self: center;
-  }
-
   .smooth-underline {
     position: relative;
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .smooth-underline::after {
@@ -235,7 +239,7 @@
 
   .right {
     margin-top: 20px;
-    font-family: "Dancing", sans-serif;
+    font-family: Dancing, sans-serif;
     font-size: 1rem;
     font-weight: bolder;
   }
@@ -243,12 +247,12 @@
   .right button {
     border: 1px solid #2f4858;
     padding: 0.5rem 1rem;
-    border-radius: 3px;
+    border-radius: 100px;
     text-align: center;
     margin-left: 0;
     margin-bottom: 20px;
     font-weight: bolder;
-    font-family: cursive, sans-serif!important;
+    font-family: Apple, sans-serif !important;
     font-size: 1rem;
     font-weight: bolder;
   }

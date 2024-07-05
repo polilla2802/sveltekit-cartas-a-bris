@@ -82,7 +82,8 @@
       {#if currentUser}
         <div class="right flex flex-col">
           <p>{currentUser.email}</p>
-          <button class="logged" on:click={takeMeToLogout}>Cerrar Sesión</button>
+          <button class="logged" on:click={takeMeToLogout}>Cerrar Sesión</button
+          >
         </div>
       {:else}
         <div class="right block">
@@ -111,20 +112,22 @@
     align-items: flex-end;
     font-weight: normal;
     /* font-family: Cursive, sans-serif; */
-    font-family: "Dancing", sans-serif;
+    font-family: Dancing, sans-serif;
     /* font-family: Garamond, sans-serif; */
     /* font-family: Libre, sans-serif; */
     /* font-family: Nunito, sans-serif; */
+    /* font-family: Apple, sans-serif; */
     letter-spacing: 1.5px;
   }
 
-  nav p{
-    font-family: "Dancing", sans-serif;
-    text-decoration: none;
+  nav p {
+    font-family: Dancing, sans-serif;
+    text-decoration: none !important;
   }
 
-  a {
-    text-decoration: none;
+  nav a {
+    font-family: Dancing, sans-serif;
+    text-decoration: none !important;
   }
 
   .active {
@@ -152,20 +155,20 @@
     gap: 5px;
   }
 
+  .logged {
+    width: 100% !important;
+  }
+
   .right button {
     border: 1px solid #2f4858;
     padding: 0.5rem 1rem;
-    border-radius: 3px;
-    font-weight: 800;
+    border-radius: 100px;
+    font-weight: bolder;
     text-align: center;
     width: min-content;
     white-space: nowrap;
     margin: 0 auto;
-    font-family: cursive, sans-serif!important;
-  }
-
-  .logged {
-    width: 100%!important;
+    font-family: Apple, sans-serif !important;
   }
 
   .right button:hover {
@@ -181,7 +184,7 @@
 
   .smooth-underline {
     position: relative;
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   .smooth-underline::after {
@@ -219,9 +222,10 @@
       font-size: 1rem;
     }
 
-    .right button, p {
-      font-size: .8rem;
-  }
+    .right button,
+    p {
+      font-size: 0.8rem;
+    }
   }
 
   @media only screen and (max-width: 768px) {

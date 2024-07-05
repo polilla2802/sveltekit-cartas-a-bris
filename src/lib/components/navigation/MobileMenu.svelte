@@ -63,7 +63,7 @@
           <a class="center flex flex-col items-center" href="/">
             <img
               src="/logos/cartas-logo-golden.png"
-              class="w-30 h-auto"
+              class="w-28 h-auto"
               alt="main-logo"
             />
             <h1>Cartas a Bris</h1>
@@ -148,7 +148,7 @@
   }
 
   .logo-container a {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-weight: bold;
   }
 

@@ -57,6 +57,10 @@
     .slot-content :global(button) {
       font-size: 0.8rem;
     }
+
+    .slot-content :global(button:hover) {
+      font-size: 1rem;
+    }
   }
 
   @media only screen and (max-width: 768px) {

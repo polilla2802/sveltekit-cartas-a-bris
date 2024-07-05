@@ -260,5 +260,9 @@
     .left a + a {
       margin-left: 0;
     }
+
+    .right button:hover {
+      font-size: 1rem;
+    }
   }
 </style>

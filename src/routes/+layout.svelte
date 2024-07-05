@@ -12,6 +12,8 @@
 
 <style>
   .layout {
-    padding: 0 2rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 </style>

@@ -21,7 +21,9 @@
     <p class="text-center text-red-500 mt-4">{data.error}</p>
   {:else if data.sortedDesigns && data.sortedDesigns.length > 0}
     <!-- Render frames if frames is defined and not empty -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+    >
       {#each data.sortedDesigns as design}
         <FrameDesign data={design} {baseUrl} isSingle={false} />
       {/each}
@@ -32,5 +34,7 @@
   {/if}
 {:catch error}
   <!-- This block should rarely be reached if we handle errors properly in load -->
-  <p class="text-center text-red-500 mt-4">Unexpected error. Please try again later.</p>
+  <p class="text-center text-red-500 mt-4">
+    Unexpected error. Please try again later.
+  </p>
 {/await}

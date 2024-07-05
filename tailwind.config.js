@@ -2,7 +2,21 @@
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        cursive: ["Cursive", "sans-serif"],
+        dancing: ["Dancing", "sans-serif"],
+        garamond: ["Garamond", "sans-serif"],
+        libre: ["Libre", "sans-serif"],
+        nunito: ["Nunito", "sans-serif"],
+      },
+      colors: {
+        primaryPink: "#fff2fa",
+        secondaryPink: "#ffe5db",
+        primaryBlue: "#2F4858",
+        golden: "#fee7db",
+      },
+    },
   },
   plugins: [],
 };

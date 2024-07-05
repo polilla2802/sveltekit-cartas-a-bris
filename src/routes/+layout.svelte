@@ -20,13 +20,15 @@
   .slot-content :global(button) {
     border: 1px solid #2f4858;
     padding: 0.5rem 1rem;
-    border-radius: 3px;
-    font-weight: bolder;
+    border-radius: 100px;
     text-align: center;
-    width: min-content;
-    white-space: nowrap;
-    margin: 0 auto;
+    margin-left: 0;
+    margin-bottom: 20px;
+    font-weight: bolder;
     font-family: Apple, sans-serif !important;
+    font-size: 1rem;
+    font-weight: bolder;
+    margin-top: 10px;
   }
 
   .slot-content :global(button:hover) {
@@ -34,6 +36,7 @@
     background-color: #2f4858;
     color: white;
     font-weight: normal;
+    font-size: 1.1rem;
   }
 
   .layout {

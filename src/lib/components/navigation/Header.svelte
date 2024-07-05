@@ -169,6 +169,7 @@
     white-space: nowrap;
     margin: 0 auto;
     font-family: Apple, sans-serif !important;
+    margin-top: 10px;
   }
 
   .right button:hover {

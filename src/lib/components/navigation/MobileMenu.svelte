@@ -255,6 +255,7 @@
     font-family: Apple, sans-serif !important;
     font-size: 1rem;
     font-weight: bolder;
+    margin-top: 10px;
   }
 
   .right button:hover {
@@ -262,5 +263,6 @@
     background-color: #2f4858;
     color: white;
     font-weight: normal;
+    font-size: 1.1rem;
   }
 </style>

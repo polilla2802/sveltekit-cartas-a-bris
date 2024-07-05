@@ -154,7 +154,7 @@
     background-color: #c4525a;
     border-radius: 100px 0px 0px 100px;
     box-shadow: 2px 4px #888888;
-    font-family: Libre, sans-serif;
+    font-family: "Libre", sans-serif;
   }
 
   nav {
@@ -171,7 +171,7 @@
   }
 
   nav p {
-    font-family: Dancing, sans-serif;
+    font-family: "Dancing", sans-serif;
     text-decoration: none;
   }
 
@@ -202,7 +202,7 @@
   a {
     color: #2f4858;
     text-decoration: none;
-    font-family: Dancing, sans-serif;
+    font-family: "Dancing", sans-serif;
     font-size: 1.2rem;
     margin-bottom: 18px;
     width: min-content;
@@ -235,7 +235,7 @@
 
   .right {
     margin-top: 20px;
-    font-family: Dancing, sans-serif;
+    font-family: "Dancing", sans-serif;
     font-size: 1rem;
     font-weight: bolder;
   }
@@ -248,7 +248,7 @@
     margin-left: 0;
     margin-bottom: 20px;
     font-weight: bolder;
-    font-family: Cursive, sans-serif;
+    font-family: cursive, sans-serif!important;
     font-size: 1rem;
     font-weight: bolder;
   }

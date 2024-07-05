@@ -13,7 +13,7 @@
 
 <style>
   footer {
-    font-family: Dancing, sans-serif;
+    font-family: "Dancing", sans-serif;
     font-weight: bold;
     font-size: 1.5rem;
     border-top: 2px solid #2f4858;

@@ -111,7 +111,7 @@
     align-items: flex-end;
     font-weight: normal;
     /* font-family: Cursive, sans-serif; */
-    font-family: Dancing, sans-serif;
+    font-family: "Dancing", sans-serif;
     /* font-family: Garamond, sans-serif; */
     /* font-family: Libre, sans-serif; */
     /* font-family: Nunito, sans-serif; */
@@ -119,7 +119,7 @@
   }
 
   nav p{
-    font-family: Dancing, sans-serif;
+    font-family: "Dancing", sans-serif;
     text-decoration: none;
   }
 
@@ -161,7 +161,7 @@
     width: min-content;
     white-space: nowrap;
     margin: 0 auto;
-    font-family: Cursive, sans-serif!important;
+    font-family: cursive, sans-serif!important;
   }
 
   .logged {

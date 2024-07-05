@@ -52,13 +52,12 @@ body {
   padding: 0;
   font-size: 16px;
   letter-spacing: 1px;
-  font-family: Cursive, sans-serif;
   background: #fff2fa;
   color: #2f4858;
 }
 
 p{
-  font-family: Cursive, sans-serif;
+  font-family: cursive, sans-serif;
 }
 
 input,

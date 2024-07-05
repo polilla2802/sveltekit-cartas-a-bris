@@ -14,7 +14,7 @@
   }
 
   h1 {
-    font-family: Dancing;
+    font-family: "Dancing";
     font-size: 2rem;
     font-weight: bold;
     width: min-content;

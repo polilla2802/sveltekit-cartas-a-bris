@@ -1,5 +1,5 @@
 import type { TransitionConfig } from "svelte/transition";
-import { quintOut } from "svelte/easing";
+import { quintOut, circInOut } from "svelte/easing";
 
 export function slideRightAnimation(
   node: HTMLElement,
@@ -8,7 +8,7 @@ export function slideRightAnimation(
   return {
     duration,
     css: (t: number) => {
-      const eased = quintOut(t);
+      const eased = circInOut(t);
       return `
 	      transform: translateX(${(eased - 1) * 100}%);
 	    `;

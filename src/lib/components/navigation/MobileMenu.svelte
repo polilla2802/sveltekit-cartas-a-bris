@@ -23,13 +23,13 @@
   function playSound(): void {
     switch (isOpen) {
       case true:
-        audio = new Audio("/sounds/page-1.mp3");
-        break;
-      case false:
         audio = new Audio("/sounds/page-4.mp3");
         break;
-      default:
+      case false:
         audio = new Audio("/sounds/page-1.mp3");
+        break;
+      default:
+        audio = new Audio("/sounds/page-4.mp3");
         break;
     }
 
@@ -78,7 +78,7 @@
   </button>
 
   {#if isOpen}
-    <nav transition:slideRightAnimation={{ duration: 500 }}>
+    <nav transition:slideRightAnimation={{ duration: 350 }}>
       <ul class="items-center">
         <div class="logo-container">
           <a
@@ -191,6 +191,10 @@
     align-self: center;
   }
 
+  nav a:hover {
+    font-weight: bolder;
+  }
+
   .icon-container {
     width: 32px;
     height: 32px;
@@ -263,6 +267,5 @@
     background-color: #2f4858;
     color: white;
     font-weight: normal;
-    font-size: 1.1rem;
   }
 </style>

@@ -130,6 +130,10 @@
     text-decoration: none !important;
   }
 
+  nav a:hover {
+    font-weight: bolder;
+  }
+
   .active {
     font-weight: bolder;
   }

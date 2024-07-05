@@ -2,15 +2,18 @@
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte";
   import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
+  import Welcome from "$lib/components/messages/Welcome.svelte";
 
   const baseUrl: string = $page.url.origin;
   // Use the `$page` store to get the data returned by the load function
   const { sortedDesigns } = $page.data;
-
+  const title: string = "Diseños";
   onMount(() => {
     console.log("Component has mounted", sortedDesigns);
   });
 </script>
+
+<Welcome {title}></Welcome>
 
 {#await $page.data}
   <!-- Render a loader while fetching data -->
@@ -21,9 +24,7 @@
     <p class="text-center text-red-500 mt-4">{data.error}</p>
   {:else if data.sortedDesigns && data.sortedDesigns.length > 0}
     <!-- Render frames if frames is defined and not empty -->
-    <div
-      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
-    >
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
       {#each data.sortedDesigns as design}
         <FrameDesign data={design} {baseUrl} isSingle={false} />
       {/each}

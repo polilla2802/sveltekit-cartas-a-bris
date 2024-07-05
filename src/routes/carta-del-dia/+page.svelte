@@ -6,6 +6,9 @@
   import { sortFrames } from "$utils/sortFrames";
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
   import { getUserByUid } from "$utils/getUserByUid";
+  import Welcome from "$lib/components/messages/Welcome.svelte";
+
+  const title: string = "Carta del día";
 
   let currentUser: User | null = null; // Initialize currentUser to null
 
@@ -27,7 +30,9 @@
 
     try {
       // TODO: get my letters from my userId stored in the user session
-      const response = await fetch(`/api/frames/created-for/${userData.user.id}`);
+      const response = await fetch(
+        `/api/frames/created-for/${userData.user.id}`
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -64,6 +69,8 @@
     });
   });
 </script>
+
+<Welcome {title}></Welcome>
 
 {#if currentUser == null}
   <p>Inicia Sesión para ver tus cartas</p>

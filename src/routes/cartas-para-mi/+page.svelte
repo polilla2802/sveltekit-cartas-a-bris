@@ -6,6 +6,9 @@
   import { sortFrames } from "$utils/sortFrames";
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
   import { getUserByUid } from "$utils/getUserByUid";
+  import Welcome from "$lib/components/messages/Welcome.svelte";
+
+  const title: string = "Cartas para mi";
 
   let currentUser: User | null = null; // Initialize currentUser to null
 
@@ -27,7 +30,9 @@
 
     try {
       // TODO: get my letters from my userId stored in the user session
-      const response = await fetch(`/api/frames/created-for/${userData.user.id}`);
+      const response = await fetch(
+        `/api/frames/created-for/${userData.user.id}`
+      );
 
       if (!response.ok) {
         throw new Error(
@@ -65,15 +70,15 @@
   });
 </script>
 
+<Welcome {title}></Welcome>
+
 {#if currentUser == null}
   <p>Inicia Sesión para ver tus cartas</p>
 {:else if loading}
   <p>Cargando Cartas...</p>
 {:else if sortedFinalized && sortedFinalized.length > 0}
   <!-- Render frames if frames is defined and not empty -->
-  <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
-  >
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
     {#each sortedFinalized as frame}
       <FrameFinalized data={frame} {baseUrl} isSingle={false} />
     {/each}

@@ -4,7 +4,11 @@
   import { slideRightAnimation } from "$utils/slideRightAnimation";
   import type { User } from "firebase/auth";
   import { onMount } from "svelte";
-  import { getRandomNumber } from "$utils/getRandomNumber";
+  import {
+    takeMeToLogin,
+    takeMeToLogout,
+    takeMeToRegister,
+  } from "$utils/routing";
 
   let isOpen = true;
   let audio: HTMLAudioElement;
@@ -69,38 +73,50 @@
             <h1>Cartas a Bris</h1>
           </a>
         </div>
-        <a
-          class:active={$page.url.pathname === "/"}
-          class="smooth-underline"
-          href="/"
-          on:click={toggleMenu}>Inicio</a
-        >
-        <a
-          class:active={$page.url.pathname === "/dise%C3%B1os"}
-          class="smooth-underline"
-          href="/diseños"
-          on:click={toggleMenu}>Diseños</a
-        >
-        {#if currentUser != null}
+        <div class="flex flex-col">
           <a
-            class:active={$page.url.pathname === "/carta-del-dia"}
+            class:active={$page.url.pathname === "/"}
             class="smooth-underline"
-            href="/carta-del-dia"
-            on:click={toggleMenu}>Carta del Día</a
+            href="/"
+            on:click={toggleMenu}>Inicio</a
           >
           <a
-            class:active={$page.url.pathname === "/cartas-para-mi"}
+            class:active={$page.url.pathname === "/dise%C3%B1os"}
             class="smooth-underline"
-            href="/cartas-para-mi"
-            on:click={toggleMenu}>Cartas para mi</a
+            href="/diseños"
+            on:click={toggleMenu}>Diseños</a
           >
-          <a
-            class:active={$page.url.pathname === "/mis-cartas"}
-            class="smooth-underline"
-            href="/mis-cartas"
-            on:click={toggleMenu}>Mis Cartas</a
-          >
-        {/if}
+          {#if currentUser != null}
+            <a
+              class:active={$page.url.pathname === "/carta-del-dia"}
+              class="smooth-underline"
+              href="/carta-del-dia"
+              on:click={toggleMenu}>Carta del Día</a
+            >
+            <a
+              class:active={$page.url.pathname === "/cartas-para-mi"}
+              class="smooth-underline"
+              href="/cartas-para-mi"
+              on:click={toggleMenu}>Cartas para mi</a
+            >
+            <a
+              class:active={$page.url.pathname === "/mis-cartas"}
+              class="smooth-underline"
+              href="/mis-cartas"
+              on:click={toggleMenu}>Mis Cartas</a
+            >
+
+            <div class="right flex flex-col xl:block">
+              <p>{currentUser.email}</p>
+              <button on:click={takeMeToLogout}>Cerrar Sesión</button>
+            </div>
+          {:else}
+            <div class="right flex flex-col xl:block">
+              <button on:click={takeMeToLogin}>Login</button>
+              <button on:click={takeMeToRegister}>Registrate</button>
+            </div>
+          {/if}
+        </div>
       </ul>
     </nav>
   {/if}
@@ -133,7 +149,7 @@
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1;
-    border: 8px solid #2f4858;
+    border: 4px solid #2f4858;
   }
 
   ul {
@@ -193,5 +209,30 @@
   .smooth-underline:hover::after,
   .smooth-underline.active::after {
     width: 50%;
+  }
+
+  .right {
+    margin-top: 20px;
+    font-family: Cursive;
+  }
+
+  .right button {
+    border: 1px solid #2f4858;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    font-weight: 800;
+    text-align: center;
+    margin-left: 0;
+    margin-bottom: 20px;
+    font-family: Dancing, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bolder;
+  }
+
+  .right button:hover {
+    border: 1px solid #2f4858;
+    background-color: #2f4858;
+    color: white;
+    font-weight: normal;
   }
 </style>

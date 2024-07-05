@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ fetch }) => {
   let randomFrameOfTheDay: any;
   try {
-    const response = await fetch(`/api/frames/finalized`);
+    const response = await fetch(`/api/frames/finalized/public`);
     console.log(response);
     if (!response.ok) {
       throw new Error(`Failed to fetch Random Frame Finalized`);

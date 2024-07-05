@@ -1,28 +1,20 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { auth } from "$lib/firebase";
   import type { User } from "firebase/auth";
   import { onMount } from "svelte";
   import MobileMenu from "./MobileMenu.svelte";
+  import {
+    takeMeToLogin,
+    takeMeToLogout,
+    takeMeToRegister,
+  } from "$utils/routing";
 
   let loading = true;
 
   let currentUser: User | null; // Define error as string or undefined
 
   // console.log($page.url.pathname);
-
-  function takeMeToLogin() {
-    goto("/login");
-  }
-
-  function takeMeToLogout() {
-    goto("/logout");
-  }
-
-  function takeMeToRegister() {
-    goto("/register");
-  }
 
   onMount(() => {
     // Listen to auth state changes

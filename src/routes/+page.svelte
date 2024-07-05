@@ -2,14 +2,19 @@
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte";
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
+  import Welcome from "$lib/components/messages/Welcome.svelte";
 
   const baseUrl: string = $page.url.origin;
   const { framesFinalized } = $page.data;
+
+  const title: string = "Inicio";
 
   onMount(() => {
     console.log("Component has mounted", framesFinalized);
   });
 </script>
+
+<Welcome {title}></Welcome>
 
 {#await $page.data}
   <!-- Render a loader while fetching data -->
@@ -20,9 +25,7 @@
     <p class="text-center text-red-500 mt-4">{data.error}</p>
   {:else if data.framesFinalized}
     <!-- Render frames if frames is defined and not empty -->
-    <div
-      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
-    >
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
       {#each data.framesFinalized as frameFinalized}
         <FrameFinalized data={frameFinalized} {baseUrl} isSingle={false} />
       {/each}

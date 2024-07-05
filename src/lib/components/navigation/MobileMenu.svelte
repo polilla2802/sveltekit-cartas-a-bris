@@ -127,7 +127,7 @@
     position: fixed;
     top: 50%;
     right: 0;
-    z-index: 1000;
+    z-index: 9999;
     background: none;
     border: none;
     font-size: 28px;
@@ -148,7 +148,7 @@
     background: #fee7db;
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-    z-index: 1;
+    z-index: 9998;
     border: 4px solid #2f4858;
   }
 
@@ -175,8 +175,8 @@
     color: #2f4858;
     text-decoration: none;
     font-family: Dancing, sans-serif;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 18px;
     width: min-content;
     white-space: nowrap;
     text-align: center;
@@ -213,7 +213,7 @@
   .right {
     margin-top: 20px;
     font-family: Dancing, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bolder;
   }
 
@@ -226,7 +226,7 @@
     margin-left: 0;
     margin-bottom: 20px;
     font-family: Dancing, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bolder;
   }
 

@@ -53,6 +53,12 @@
     padding: 20px;
   }
 
+  @media only screen and (max-width: 1024px) {
+    .slot-content :global(button) {
+      font-size: 0.8rem;
+    }
+  }
+
   @media only screen and (max-width: 768px) {
     .slot-content {
       padding: 15px;

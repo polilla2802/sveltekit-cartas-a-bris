@@ -166,7 +166,3 @@
     {/if}
   {/if}
 {/if}
-
-<style>
-
-</style>

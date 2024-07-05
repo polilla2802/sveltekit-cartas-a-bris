@@ -183,7 +183,7 @@
     color: #2f4858;
     text-decoration: none !important;
     font-family: Dancing, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 18px;
     width: min-content;
     white-space: nowrap;
@@ -257,9 +257,11 @@
     margin-bottom: 20px;
     font-weight: bolder;
     font-family: Apple, sans-serif !important;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bolder;
     margin-top: 10px;
+    min-width: 80vw;
+    min-height: 40px;
   }
 
   .right button:hover {
@@ -267,5 +269,6 @@
     background-color: #2f4858;
     color: white;
     font-weight: normal;
+    font-size: 0.9rem;
   }
 </style>

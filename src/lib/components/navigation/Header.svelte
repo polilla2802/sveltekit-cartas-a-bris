@@ -4,6 +4,7 @@
   import { auth } from "$lib/firebase";
   import type { User } from "firebase/auth";
   import { onMount } from "svelte";
+  import MobileMenu from "./MobileMenu.svelte";
 
   let loading = true;
 
@@ -13,6 +14,10 @@
 
   function takeMeToLogin() {
     goto("/login");
+  }
+
+  function takeMeToLogout() {
+    goto("/logout");
   }
 
   function takeMeToRegister() {
@@ -37,8 +42,10 @@
   <nav class="py-16"></nav>
 {:else}
   <section class="bg-primaryPink">
+    <MobileMenu />
+
     <nav class="container mx-auto px-4 py-4 flex justify-between">
-      <div>
+      <div class="logo-container">
         <a class="center flex flex-col items-center" href="/">
           <img
             src="/logos/cartas-logo-pink.png"
@@ -48,8 +55,7 @@
           <h1>Cartas a Bris</h1>
         </a>
       </div>
-      <div class="left">
-
+      <div class="left hidden md:block">
         <div class="left-container flex flex-col md:flex-row">
           <a
             class:active={$page.url.pathname === "/"}
@@ -81,10 +87,10 @@
         </div>
       </div>
 
-      <div class="right flex flex-col md:block">
+      <div class="right flex flex-col xl:block">
         {#if currentUser}
           <p>{currentUser.email}</p>
-          <a href="/logout">Cerrar Sesión</a>
+          <button on:click={takeMeToLogout}>Cerrar Sesión</button>
         {:else}
           <button on:click={takeMeToLogin}>Login</button>
           <button on:click={takeMeToRegister}>Registrate</button>
@@ -95,15 +101,20 @@
 {/if}
 
 <style>
+  .logo-container {
+    margin-bottom: 3px;
+  }
+
   h1 {
     font-size: 1rem;
     font-weight: bold;
-    align-self: center;
+    align-self: flex-end;
+    text-align: center;
   }
 
   nav {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     font-weight: normal;
     /* font-family: Cursive, sans-serif; */
     font-family: Dancing, sans-serif;
@@ -122,14 +133,14 @@
   }
 
   .left {
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .left a {
     display: flex;
-    font-weight: bold;
     text-align: center;
+    width: min-content;
+    white-space: nowrap;
   }
 
   .left a + a {
@@ -159,10 +170,6 @@
     margin-left: 1rem;
   }
 
-  .register {
-    margin-left: 1rem;
-  }
-
   .smooth-underline {
     position: relative;
     text-decoration: none;
@@ -182,6 +189,26 @@
   .smooth-underline:hover::after,
   .smooth-underline.active::after {
     width: 70%;
+  }
+
+  @media only screen and (max-width: 1280px) {
+    .right button + button {
+      margin-left: 0;
+    }
+
+    .left a + a {
+      margin-left: 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .left a + a {
+      margin-left: 8px;
+    }
+
+    .left a {
+      font-size: 1rem;
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -209,10 +236,6 @@
     }
 
     .left a + a {
-      margin-left: 0;
-    }
-
-    .right button + button {
       margin-left: 0;
     }
   }

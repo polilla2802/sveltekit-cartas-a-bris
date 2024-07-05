@@ -1,13 +1,17 @@
 <script lang="ts">
-  import Welcome from "$lib/components/messages/Welcome.svelte";
+  import Footer from "$lib/components/navigation/Footer.svelte";
   import Header from "$lib/components/navigation/Header.svelte";
   import "$lib/styles/app.css";
 </script>
 
 <div class="layout">
   <Header />
-  <!-- <Welcome /> -->
-  <div class="container mx-auto px-4 py-4"><slot /></div>
+  <section class="container mx-auto px-4 py-4 flex-1 my-10 flex-container">
+    <div class=" frame-border h-full">
+      <slot />
+    </div>
+  </section>
+  <Footer />
 </div>
 
 <style>
@@ -15,5 +19,14 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+  }
+
+  .frame-border {
+    border: 2px solid #2f4858;
+    padding: 50px;
+  }
+
+  .flex-container {
+    padding: 20px;
   }
 </style>

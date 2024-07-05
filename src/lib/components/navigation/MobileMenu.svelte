@@ -159,7 +159,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-top: 3rem;
   }
 
@@ -176,8 +175,8 @@
     color: #2f4858;
     text-decoration: none;
     font-family: Dancing, sans-serif;
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
     width: min-content;
     white-space: nowrap;
     text-align: center;
@@ -213,7 +212,9 @@
 
   .right {
     margin-top: 20px;
-    font-family: Cursive;
+    font-family: Dancing, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bolder;
   }
 
   .right button {

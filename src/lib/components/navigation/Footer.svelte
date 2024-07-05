@@ -13,27 +13,30 @@
 
 <style>
   footer {
-    font-family: "Dancing", sans-serif;
-    font-weight: bold;
-    font-size: 1.5rem;
     border-top: 2px solid #2f4858;
+  }
+
+  footer p {
+    font-family: Dancing, sans-serif;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    color: #2f4858;
+    display: flex;
+    align-self: center;
   }
 
   footer a {
     display: flex;
+    color: #ff4513;
   }
 
   footer img {
     align-self: center;
   }
 
-  p {
-    color: #2f4858;
-    display: flex;
-    align-self: center;
+  @media only screen and (max-width: 1280px) {
+    footer p {
+    font-size: 1.2rem;
   }
-
-  a {
-    color: #ff4513;
   }
 </style>

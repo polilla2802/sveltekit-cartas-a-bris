@@ -192,11 +192,11 @@
 
   .logo-container a {
     margin-bottom: 30px;
-    font-weight: bold;
+    font-weight: bolder;
   }
 
   .active {
-    font-weight: bold;
+    font-weight: bolder;
   }
 
   a {

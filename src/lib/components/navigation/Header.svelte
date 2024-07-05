@@ -101,7 +101,7 @@
 
   h1 {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: bolder;
     align-self: flex-end;
     text-align: center;
   }
@@ -128,7 +128,7 @@
   }
 
   .active {
-    font-weight: bold;
+    font-weight: bolder;
   }
 
   .left {

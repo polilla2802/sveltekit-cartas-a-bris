@@ -163,26 +163,6 @@
     width: 100% !important;
   }
 
-  .right button {
-    border: 1px solid #2f4858;
-    padding: 0.5rem 1rem;
-    border-radius: 100px;
-    font-weight: bolder;
-    text-align: center;
-    width: min-content;
-    white-space: nowrap;
-    margin: 0 auto;
-    font-family: Apple, sans-serif !important;
-    margin-top: 10px;
-  }
-
-  .right button:hover {
-    border: 1px solid #2f4858;
-    background-color: #2f4858;
-    color: white;
-    font-weight: normal;
-  }
-
   .right button + button {
     margin-left: 1rem;
   }
@@ -259,10 +239,6 @@
 
     .left a + a {
       margin-left: 0;
-    }
-
-    .right button:hover {
-      font-size: 1rem;
     }
   }
 </style>

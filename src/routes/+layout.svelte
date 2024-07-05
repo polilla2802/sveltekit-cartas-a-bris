@@ -17,7 +17,7 @@
 </div>
 
 <style>
-  .slot-content :global(button) {
+  :global(button) {
     border: 1px solid #2f4858;
     padding: 0.5rem 1rem;
     border-radius: 100px;
@@ -31,7 +31,7 @@
     margin-top: 10px;
   }
 
-  .slot-content :global(button:hover) {
+  :global(button:hover) {
     border: 1px solid #2f4858;
     background-color: #2f4858;
     color: white;
@@ -56,10 +56,6 @@
   @media only screen and (max-width: 1024px) {
     .slot-content :global(button) {
       font-size: 0.8rem;
-    }
-
-    .slot-content :global(button:hover) {
-      font-size: 1rem;
     }
   }
 

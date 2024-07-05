@@ -79,15 +79,17 @@
         </div>
       </div>
 
-      <div class="right flex flex-col xl:block">
-        {#if currentUser}
+      {#if currentUser}
+        <div class="right flex flex-col">
           <p>{currentUser.email}</p>
           <button on:click={takeMeToLogout}>Cerrar Sesión</button>
-        {:else}
+        </div>
+      {:else}
+        <div class="right block">
           <button on:click={takeMeToLogin}>Login</button>
           <button on:click={takeMeToRegister}>Registrate</button>
-        {/if}
-      </div>
+        </div>
+      {/if}
     </nav>
   </section>
 {/if}
@@ -141,6 +143,8 @@
 
   .right {
     font-size: 1rem;
+    font-weight: bolder;
+    gap: 5px;
   }
 
   .right button {
@@ -149,6 +153,9 @@
     border-radius: 3px;
     font-weight: 800;
     text-align: center;
+    width: min-content;
+    white-space: nowrap;
+    margin: 0 auto;
   }
 
   .right button:hover {

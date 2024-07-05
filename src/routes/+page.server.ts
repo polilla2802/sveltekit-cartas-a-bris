@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ fetch }) => {
   let randomFrameOfTheDay: any;
   try {
-    const response = await fetch(`/api/frames/finalized/public`);
+    const response = await fetch(`/api/frames/finalized`);
     console.log(response);
     if (!response.ok) {
       throw new Error(`Failed to fetch Random Frame Finalized`);
@@ -12,10 +12,10 @@ export const load: PageServerLoad = async ({ fetch }) => {
 
     let data = await response.json();
     console.log(data);
-    randomFrameOfTheDay = data.framesFinalized;
-    console.log(randomFrameOfTheDay);
+    let framesFinalized = data.framesFinalized;
+    console.log(framesFinalized);
 
-    return { randomFrameOfTheDay };
+    return { framesFinalized };
   } catch (error) {
     console.log("Error loading Random Frame Finalized:", error);
     return {

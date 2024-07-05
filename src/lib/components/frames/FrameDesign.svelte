@@ -57,7 +57,7 @@
   {/if}
 
   {#if data.user}
-    <p class="text-center">Autor: <b>{data.user.userName}</b></p>
+    <p class="text-center pt-2">Autor: <b>{data.user.userName}</b></p>
   {:else}
     <div>
       <p class="text-center">Autor: <b>Desconocido</b></p>

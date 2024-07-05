@@ -4,10 +4,10 @@
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
 
   const baseUrl: string = $page.url.origin;
-  const { randomFrameOfTheDay } = $page.data;
+  const { framesFinalized } = $page.data;
 
   onMount(() => {
-    console.log("Component has mounted", randomFrameOfTheDay);
+    console.log("Component has mounted", framesFinalized);
   });
 </script>
 
@@ -18,9 +18,15 @@
   {#if data.error}
     <!-- Render an error message if there is an error -->
     <p class="text-center text-red-500 mt-4">{data.error}</p>
-  {:else if data.randomFrameOfTheDay}
+  {:else if data.framesFinalized}
     <!-- Render frames if frames is defined and not empty -->
-    <FrameFinalized data={data.randomFrameOfTheDay} {baseUrl} isSingle={true} />
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+    >
+      {#each data.framesFinalized as frameFinalized}
+        <FrameFinalized data={frameFinalized} {baseUrl} isSingle={false} />
+      {/each}
+    </div>
   {:else}
     <!-- Render a message if frames is undefined or empty -->
     <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>

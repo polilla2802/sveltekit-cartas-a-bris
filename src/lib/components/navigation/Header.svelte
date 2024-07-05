@@ -38,7 +38,18 @@
 {:else}
   <section class="bg-primaryPink">
     <nav class="container mx-auto px-4 py-4 flex justify-between">
+      <div>
+        <a class="center flex flex-col items-center" href="/">
+          <img
+            src="/logos/cartas-logo-pink.png"
+            class="w-16 h-auto"
+            alt="main-logo"
+          />
+          <h1>Cartas a Bris</h1>
+        </a>
+      </div>
       <div class="left">
+
         <div class="left-container flex flex-col md:flex-row">
           <a
             class:active={$page.url.pathname === "/"}
@@ -69,16 +80,7 @@
           {/if}
         </div>
       </div>
-      <div>
-        <a class="center flex flex-col items-center" href="/">
-          <img
-            src="/logos/cartas-logo-pink.png"
-            class="w-16 h-auto"
-            alt="main-logo"
-          />
-          <h1>Cartas a Bris</h1>
-        </a>
-      </div>
+
       <div class="right flex flex-col md:block">
         {#if currentUser}
           <p>{currentUser.email}</p>

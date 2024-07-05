@@ -1,23 +1,37 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
-  import { quintOut } from "svelte/easing";
-  import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { auth } from "$lib/firebase";
+  import { slideRightAnimation } from "$utils/slideRightAnimation";
   import type { User } from "firebase/auth";
   import { onMount } from "svelte";
+  import { getRandomNumber } from "$utils/getRandomNumber";
 
-  let isOpen = false;
-  let hovering = false;
-
+  let isOpen = true;
+  let audio: HTMLAudioElement;
   let currentUser: User | null; // Define error as string or undefined
 
   function toggleMenu() {
+    playSound();
     isOpen = !isOpen;
   }
 
-  function menuIcon() {
-    hovering = !hovering;
+  function playSound(): void {
+    switch (isOpen) {
+      case true:
+        audio = new Audio("/sounds/page-1.mp3");
+        break;
+      case false:
+        audio = new Audio("/sounds/page-4.mp3");
+        break;
+      default:
+        audio = new Audio("/sounds/page-1.mp3");
+        break;
+    }
+
+    if (audio) {
+      audio.currentTime = 0; // Reset audio to start
+      audio.play();
+    }
   }
 
   onMount(() => {
@@ -34,12 +48,7 @@
 </script>
 
 <section class="md:hidden">
-  <button
-    class="menu-toggle text-white"
-    on:click={toggleMenu}
-    on:mouseenter={menuIcon}
-    on:mouseleave={menuIcon}
-  >
+  <button class="menu-toggle text-white" on:click={toggleMenu}>
     {#if !isOpen}
       ☰
     {:else}
@@ -48,8 +57,18 @@
   </button>
 
   {#if isOpen}
-    <nav transition:fly={{ x: 300, duration: 300, easing: quintOut }}>
-      <ul>
+    <nav transition:slideRightAnimation={{ duration: 500 }}>
+      <ul class="items-center">
+        <div class="logo-container">
+          <a class="center flex flex-col items-center" href="/">
+            <img
+              src="/logos/cartas-logo-golden.png"
+              class="w-30 h-auto"
+              alt="main-logo"
+            />
+            <h1>Cartas a Bris</h1>
+          </a>
+        </div>
         <a
           class:active={$page.url.pathname === "/"}
           class="smooth-underline"
@@ -95,12 +114,13 @@
     z-index: 1000;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
     transform: translateY(-50%);
-    padding: 0 20px 0 10px;
+    padding: 5px 20px 5px 15px;
     background-color: #c4525a;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 100px 0px 0px 100px;
+    box-shadow: 2px 4px #888888;
   }
 
   nav {
@@ -109,10 +129,11 @@
     right: 0;
     height: 100vh;
     width: 100%;
-    background: #ffe5db;
+    background: #fee7db;
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1;
+    border: 8px solid #2f4858;
   }
 
   ul {
@@ -122,20 +143,29 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 3rem;
   }
 
-  li {
-    margin-bottom: 3rem;
+  .logo-container a {
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+
+  .active {
+    font-weight: bold;
   }
 
   a {
     color: #2f4858;
     text-decoration: none;
     font-family: Dancing, sans-serif;
-    font-size: 3rem;
-    margin-bottom: 50px;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    width: min-content;
+    white-space: nowrap;
+    text-align: center;
+    align-self: center;
   }
 
   button {
@@ -153,25 +183,14 @@
     width: 0;
     height: 2px;
     bottom: -5px;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: currentColor;
     transition: width 0.3s ease-in-out;
   }
 
   .smooth-underline:hover::after,
   .smooth-underline.active::after {
-    width: 70%;
-  }
-
-  @media only screen and (max-width: 768px) {
-    .smooth-underline:hover::after,
-    .smooth-underline.active::after {
-      width: 30%;
-    }
-
-    .smooth-underline::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
+    width: 50%;
   }
 </style>

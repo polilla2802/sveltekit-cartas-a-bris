@@ -6,7 +6,9 @@
 
 <div class="layout">
   <Header />
-  <section class="container mx-auto px-4 py-4 flex-1 my-10 flex-container">
+  <section
+    class="container mx-auto px-4 py-4 flex-1 mt-10 mb-20 flex-container"
+  >
     <div class=" frame-border h-full">
       <slot />
     </div>

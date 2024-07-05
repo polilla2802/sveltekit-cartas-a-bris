@@ -1,4 +1,4 @@
-<footer class="bg-secondaryPink">
+<footer class="bg-golden">
   <div class="container mx-auto px-4 py-4 flex justify-end">
     <p>Powered by</p>
     <a href="https://kit.svelte.dev"
@@ -16,6 +16,7 @@
     font-family: Dancing, sans-serif;
     font-weight: bold;
     font-size: 1.5rem;
+    border-top: 8px solid #2f4858;
   }
 
   footer a {

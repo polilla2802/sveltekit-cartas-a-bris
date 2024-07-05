@@ -12,7 +12,7 @@ export default {
       },
       colors: {
         primaryPink: "#fff2fa",
-        secondaryPink: "#ffe5db",
+        peach: "#ffe5db",
         primaryBlue: "#2f4858",
         golden: "#fee7db",
       },

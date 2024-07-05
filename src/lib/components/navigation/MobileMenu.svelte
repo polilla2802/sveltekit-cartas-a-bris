@@ -170,6 +170,7 @@
 
   button {
     font-weight: bolder;
+    font-family: Cursive, sans-serif;
   }
 
   .smooth-underline {

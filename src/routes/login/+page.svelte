@@ -169,7 +169,6 @@
 
 <style>
   button {
-    margin-left: 10px;
     border: 1px solid black;
     padding: 0.5rem 1rem;
     border-radius: 3px;

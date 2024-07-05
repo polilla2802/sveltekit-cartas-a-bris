@@ -9,6 +9,7 @@
     takeMeToLogout,
     takeMeToRegister,
   } from "$utils/routing";
+  import Icon from "@iconify/svelte";
 
   let isOpen = true;
   let audio: HTMLAudioElement;
@@ -54,10 +55,26 @@
 <section class="md:hidden">
   <button class="menu-toggle text-white" on:click={toggleMenu}>
     {#if !isOpen}
-      ☰
+      <div class="icon-container">
+        <Icon
+          icon="ph:envelope-open-light"
+          color="white"
+          width="32"
+          height="32"
+          opacity="1"
+        />
+      </div>
     {:else}
-      X
-    {/if}
+      <div class="icon-container">
+        <Icon
+        icon="ph:envelope-light"
+        color="white"
+        width="32"
+        height="32"
+        opacity="1"
+      />
+      </div>
+      {/if}
   </button>
 
   {#if isOpen}
@@ -137,6 +154,7 @@
     background-color: #c4525a;
     border-radius: 100px 0px 0px 100px;
     box-shadow: 2px 4px #888888;
+    font-family: Libre, sans-serif;
   }
 
   nav {
@@ -150,6 +168,16 @@
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 9998;
     border: 4px solid #2f4858;
+  }
+
+  nav p {
+    font-family: Dancing, sans-serif;
+    text-decoration: none;
+  }
+
+  .icon-container{
+    width: 32px;
+    height: 32px;
   }
 
   ul {
@@ -181,11 +209,6 @@
     white-space: nowrap;
     text-align: center;
     align-self: center;
-  }
-
-  button {
-    font-weight: bolder;
-    font-family: Cursive, sans-serif;
   }
 
   .smooth-underline {
@@ -221,11 +244,11 @@
     border: 1px solid #2f4858;
     padding: 0.5rem 1rem;
     border-radius: 3px;
-    font-weight: 800;
     text-align: center;
     margin-left: 0;
     margin-bottom: 20px;
-    font-family: Dancing, sans-serif;
+    font-weight: bolder;
+    font-family: Cursive, sans-serif;
     font-size: 1rem;
     font-weight: bolder;
   }

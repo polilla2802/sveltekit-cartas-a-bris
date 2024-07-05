@@ -57,6 +57,10 @@ body {
   color: #2f4858;
 }
 
+p{
+  font-family: Cursive, sans-serif;
+}
+
 input,
 textarea {
   font-size: 16px;

@@ -82,7 +82,7 @@
       {#if currentUser}
         <div class="right flex flex-col">
           <p>{currentUser.email}</p>
-          <button on:click={takeMeToLogout}>Cerrar Sesión</button>
+          <button class="logged" on:click={takeMeToLogout}>Cerrar Sesión</button>
         </div>
       {:else}
         <div class="right block">
@@ -116,6 +116,11 @@
     /* font-family: Libre, sans-serif; */
     /* font-family: Nunito, sans-serif; */
     letter-spacing: 1.5px;
+  }
+
+  nav p{
+    font-family: Dancing, sans-serif;
+    text-decoration: none;
   }
 
   a {
@@ -156,6 +161,11 @@
     width: min-content;
     white-space: nowrap;
     margin: 0 auto;
+    font-family: Cursive, sans-serif!important;
+  }
+
+  .logged {
+    width: 100%!important;
   }
 
   .right button:hover {
@@ -208,6 +218,10 @@
     .left a {
       font-size: 1rem;
     }
+
+    .right button, p {
+      font-size: .8rem;
+  }
   }
 
   @media only screen and (max-width: 768px) {

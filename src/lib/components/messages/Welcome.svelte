@@ -3,7 +3,7 @@
 </script>
 
 <section class="page-title">
-  <h1 class="text-center md:text-left md:pl-5 smooth-underline">{title}</h1>
+  <h1 class="text-center md:text-left smooth-underline">{title}</h1>
 </section>
 
 <style>

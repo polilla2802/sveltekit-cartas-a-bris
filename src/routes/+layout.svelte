@@ -9,7 +9,7 @@
   <section
     class="container mx-auto px-4 py-4 flex-1 mt-2 md:mt-4 lg:mt-10 mb-20 flex-container"
   >
-    <div class=" frame-border h-full">
+    <div class="frame-border h-full">
       <slot />
     </div>
   </section>
@@ -31,7 +31,7 @@
   .flex-container {
     padding: 20px;
   }
-
+  
   @media only screen and (max-width: 768px) {
     .frame-border {
       padding: 15px;

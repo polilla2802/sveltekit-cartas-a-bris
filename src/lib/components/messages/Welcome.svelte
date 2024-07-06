@@ -16,7 +16,7 @@
   h1 {
     font-family: Dancing;
     font-size: 2rem;
-    font-weight: 300;
+    font-weight: normal;
     width: min-content;
     white-space: nowrap;
   }

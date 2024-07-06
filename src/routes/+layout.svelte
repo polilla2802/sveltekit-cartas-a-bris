@@ -27,7 +27,6 @@
     font-weight: bolder;
     font-family: Apple, sans-serif !important;
     font-size: 1rem;
-    font-weight: bolder;
     margin-top: 10px;
   }
 
@@ -35,7 +34,6 @@
     border: 1px solid #2f4858;
     background-color: #2f4858;
     color: white;
-    font-weight: normal;
   }
 
   .layout {

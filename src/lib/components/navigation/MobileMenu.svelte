@@ -133,8 +133,8 @@
             </div>
           {:else}
             <div class="right flex flex-col xl:block">
-              <button on:click={takeMeToLogin}>Login</button>
-              <button on:click={takeMeToRegister}>Registrate</button>
+              <button on:click={takeMeToLogin} on:click={toggleMenu}>Login</button>
+              <button on:click={takeMeToRegister} on:click={toggleMenu}>Registrate</button>
             </div>
           {/if}
         </div>
@@ -268,6 +268,5 @@
     border: 1px solid #2f4858;
     background-color: #2f4858;
     color: white;
-    font-weight: normal;
   }
 </style>

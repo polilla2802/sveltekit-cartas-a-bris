@@ -64,7 +64,7 @@ body {
   color: #2f4858;
 }
 
-p{
+p, b{
   font-family: Apple, sans-serif;
 }
 
@@ -75,16 +75,6 @@ textarea {
 
 button {
   cursor: pointer;
-}
-
-.new-logo {
-  top: -20px;
-  left: -20px;
-}
-
-.new-logo-single {
-  top: -35px;
-  left: -35px;
 }
 
 .qr-container {
@@ -109,4 +99,90 @@ button {
 
 .qr-container-loading img {
   width: 350px;
+}
+
+.new-logo {
+  top: -20px;
+  left: -15px;
+  width: 70px;
+  height: auto;
+}
+
+.new-logo-single {
+  top: -35px;
+  left: -35px;
+  width: 100px;
+  height: auto;
+}
+
+/* 2xl */
+@media only screen and (max-width: 1536px) {
+  .new-logo-single {
+    top: -25px;
+    left: -25px;
+    width: 90px;
+    height: auto;
+  }
+}
+
+/* xl */
+@media only screen and (max-width: 1280px) {
+  .new-logo {
+    top: -10px;
+    left: -10px;
+    width: 50px;
+    height: auto;
+  }
+  
+  .new-logo-single {
+    top: -35px;
+    left: -35px;
+    width: 100px;
+    height: auto;
+  }
+}
+
+/* lg */
+@media only screen and (max-width: 1024px) {
+  .new-logo {
+    top: -10px;
+    left: -10px;
+    width: 50px;
+    height: auto;
+  }
+  
+  .new-logo-single {
+    top: -35px;
+    left: -35px;
+  }
+}
+
+/* md */
+@media only screen and (max-width: 768px) {
+  .new-logo {
+    top: -20px;
+    left: -15px;
+    width: 60px;
+    height: auto;
+  }
+  
+  .new-logo-single {
+    top: -35px;
+    left: -35px;
+  }
+}
+
+/* sm */
+@media only screen and (max-width: 640px) {
+  .new-logo {
+    top: -20px;
+    left: -15px;
+    width: 50px;
+    height: auto;
+  }
+  
+  .new-logo-single {
+    top: -35px;
+    left: -35px;
+  }
 }

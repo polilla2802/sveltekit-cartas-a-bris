@@ -23,17 +23,34 @@
     border-radius: 100px;
     text-align: center;
     margin-left: 0;
-    margin-bottom: 20px;
     font-weight: bolder;
     font-family: Apple, sans-serif !important;
     font-size: 1rem;
-    margin-top: 10px;
   }
 
   :global(button:hover) {
     border: 1px solid #2f4858;
     background-color: #2f4858;
     color: white;
+  }
+
+  :global(.google-btn) {
+    color: white;
+    border: 1px solid #2f4858;
+    background-color: #2f4858;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    text-align: center;
+    margin-left: 0;
+    font-weight: bolder;
+    font-family: Apple, sans-serif !important;
+    font-size: 1rem;
+  }
+
+  :global(.google-btn:hover) {
+    border: 1px solid #2f4858;
+    background-color: #fff2fa;
+    color: #2f4858;
   }
 
   .layout {
@@ -53,6 +70,10 @@
 
   @media only screen and (max-width: 1024px) {
     .slot-content :global(button) {
+      font-size: 0.8rem;
+    }
+
+    :global(.google-btn) {
       font-size: 0.8rem;
     }
   }

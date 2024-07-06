@@ -254,14 +254,13 @@
     border-radius: 100px;
     text-align: center;
     margin-left: 0;
-    margin-bottom: 20px;
     font-weight: bolder;
     font-family: Apple, sans-serif !important;
     font-size: 0.8rem;
     font-weight: bolder;
-    margin-top: 10px;
     min-width: 80vw;
     min-height: 40px;
+    margin-top: 10px;
   }
 
   .right button:hover {
@@ -269,4 +268,5 @@
     background-color: #2f4858;
     color: white;
   }
+
 </style>

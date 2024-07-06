@@ -10,6 +10,7 @@
   import { getAdditionalUserInfo, type User } from "firebase/auth";
   import { onMount } from "svelte";
   import { auth } from "$lib/firebase";
+  import Icon from "@iconify/svelte";
 
   let email = "";
   let password = "";
@@ -170,7 +171,11 @@
   <br />
   {#if !currentUser}
     <form on:submit|preventDefault={() => registerUserWithGoogle()}>
-      <button type="submit">Registrate con Google</button>
+      <button class="google-btn flex gap-2" type="submit"
+        >Registrate con Google <div class="icon-container">
+          <Icon icon="flat-color-icons:google" width="25" height="25" />
+        </div></button
+      >
     </form>
   {/if}
 
@@ -180,5 +185,20 @@
 {/if}
 
 <style>
+  :global(button) {
+    border: 1px solid #2f4858;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    text-align: center;
+    margin-left: 0;
+    font-weight: bolder;
+    font-family: Apple, sans-serif !important;
+    font-size: 1rem;
+  }
 
+  :global(button:hover) {
+    border: 1px solid #2f4858;
+    background-color: #2f4858;
+    color: white;
+  }
 </style>

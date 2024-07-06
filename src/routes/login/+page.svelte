@@ -10,6 +10,7 @@
   } from "$lib/auth";
   import { getAdditionalUserInfo, type User } from "firebase/auth";
   import { isUserRegisteredWithGoogle } from "$utils/isGoogle";
+  import Icon from "@iconify/svelte";
 
   let email = "";
   let password = "";
@@ -152,14 +153,24 @@
     Iniciando Sesión...
   {:else}
     <form on:submit|preventDefault={loginUserWithMail}>
-      <input type="email" bind:value={email} placeholder="Email" />
-      <input type="password" bind:value={password} placeholder="Password" />
+      <label>
+        Email:
+        <input type="email" bind:value={email} required />
+      </label>
+      <label>
+        Password:
+        <input type="password" bind:value={password} required />
+      </label>
       <button type="submit">Login</button>
     </form>
     <br />
     <br />
     <form on:submit|preventDefault={loginUserWithGoogle}>
-      <button type="submit">Login con Google</button>
+      <button class="google-btn flex gap-2" type="submit"
+        >Login con Google <div class="icon-container">
+          <Icon icon="flat-color-icons:google" width="25" height="25" />
+        </div></button
+      >
     </form>
     {#if error}
       <p style="color: red;">{error}</p>

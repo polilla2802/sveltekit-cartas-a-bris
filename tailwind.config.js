@@ -9,6 +9,7 @@ export default {
         garamond: ["Garamond", "sans-serif"],
         libre: ["Libre", "sans-serif"],
         nunito: ["Nunito", "sans-serif"],
+        apple: ["Apple", "sans-serif"],
       },
       colors: {
         primaryPink: "#fff2fa",

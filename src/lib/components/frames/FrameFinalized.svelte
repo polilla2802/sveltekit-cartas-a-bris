@@ -22,7 +22,7 @@
       <!-- Check if the frame is new and conditionally render "Nuevo!" -->
       {#if isNew(data.createdAt)}
         <img
-          class="w-20 md:w-28 absolute new-logo-single"
+          class="absolute new-logo-single"
           src={"/images/new-styled.png"}
           alt="new"
         />
@@ -34,17 +34,15 @@
     </div>
   {:else}
     {#if isNew(data.createdAt)}
-      <img
-        class="w-20 absolute new-logo"
-        src={"/images/new-styled.png"}
-        alt="new"
-      />
+      <img class="absolute new-logo" src={"/images/new-styled.png"} alt="new" />
     {/if}
 
-    <a class="mb-1" href={baseUrl + "/finalizado/" + data.id}
+    <a href={baseUrl + "/finalizado/" + data.id}
       ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
     >
   {/if}
+  <p class="text-center mt-2">Nombre:</p>
+  <b class="mb-3"><i>"{data.name}"</i></b>
   {#if data.userCreator}
     <p class="text-center">Autor: <b>{data.userCreator.userName}</b></p>
   {:else}
@@ -55,7 +53,6 @@
   {#if data.userFor}
     <p class="text-center">Para: <b>{data.userFor.userName}</b></p>
   {/if}
-  <p class="text-center">Nombre: <b><i>"{data.name}"</i></b></p>
   {#if data.frame_designs}
     <p class="text-center">
       Diseño: <a
@@ -64,7 +61,7 @@
       >
     </p>
   {/if}
-  <p class="text-center">Creado: {formatToEST(data.createdAt)}</p>
+  <b>{formatToEST(data.createdAt)}</b>
 </div>
 {#if isSingle}
   {#await qrCode}

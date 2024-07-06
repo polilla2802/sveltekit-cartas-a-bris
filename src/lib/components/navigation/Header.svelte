@@ -138,15 +138,12 @@
     font-weight: bolder;
   }
 
-  .left {
-    font-size: 1.4rem;
-  }
-
   .left a {
     display: flex;
     text-align: center;
     width: min-content;
     white-space: nowrap;
+    font-size: 1.4rem;
   }
 
   .left a + a {
@@ -156,7 +153,7 @@
   .right {
     font-size: 1rem;
     font-weight: bolder;
-    gap: 5px;
+    gap: 10px;
   }
 
   .logged {
@@ -204,7 +201,7 @@
     }
 
     .left a {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
 
     .right button,

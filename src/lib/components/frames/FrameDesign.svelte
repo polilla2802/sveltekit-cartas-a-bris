@@ -53,7 +53,7 @@
   {/if}
 
   <p class="text-center mt-2">Nombre:</p>
-  <b class="mb-3"><i>"{data.name}"</i></b>
+  <b class="mb-3 text-center"><i>"{data.name}"</i></b>
   {#if data.user}
     <p class="text-center">Autor: <b>{data.user.userName}</b></p>
   {:else}

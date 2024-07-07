@@ -53,6 +53,37 @@
     color: #2f4858;
   }
 
+  :global(.form-btn) {
+    margin-bottom: 20px;
+    padding: 0.5rem 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 40px;
+  }
+
+  :global(.form-btn:hover) {
+    padding: 0.5rem 1.2rem;
+    align-items: center;
+    max-height: 40px;
+  }
+
+  :global(form) {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 20px;
+    margin: 0 auto;
+  }
+
+  :global(input),
+  :global(textarea) {
+    font-size: 16px;
+    width: 100%;
+    background-color: #fee7db;
+    height: 35px;
+    padding: 0.5rem .8rem;
+  }
+
   .layout {
     height: 100vh;
     display: flex;

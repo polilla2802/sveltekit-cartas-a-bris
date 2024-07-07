@@ -82,7 +82,7 @@
     {/each}
   </div>
 {:else if error}
-  <p style="color: red;">{error}</p>
+<p class="text-center text-red-500">{error}</p>
 {:else}
   <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>
 {/if}

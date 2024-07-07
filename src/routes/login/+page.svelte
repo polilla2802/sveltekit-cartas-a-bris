@@ -11,6 +11,9 @@
   import { getAdditionalUserInfo, type User } from "firebase/auth";
   import { isUserRegisteredWithGoogle } from "$utils/isGoogle";
   import Icon from "@iconify/svelte";
+  import Welcome from "$lib/components/messages/Welcome.svelte";
+
+  const title: string = "Login";
 
   let email = "";
   let password = "";
@@ -147,10 +150,10 @@
 {#if currentUser != null}
   <p>Ya tienes una sessión activa</p>
 {:else}
-  <h1>Login</h1>
+  <Welcome {title}></Welcome>
 
   {#if logging}
-    Iniciando Sesión...
+    <p>Iniciando Sesión...</p>
   {:else}
     <form on:submit|preventDefault={loginUserWithMail}>
       <label>
@@ -161,19 +164,20 @@
         Password:
         <input type="password" bind:value={password} required />
       </label>
-      <button type="submit">Login</button>
+      <button class="form-btn" type="submit">Login con Email</button>
     </form>
-    <br />
-    <br />
     <form on:submit|preventDefault={loginUserWithGoogle}>
-      <button class="google-btn flex gap-2" type="submit"
+      <button class="form-btn google-btn flex gap-2" type="submit"
         >Login con Google <div class="icon-container">
           <Icon icon="flat-color-icons:google" width="25" height="25" />
         </div></button
       >
     </form>
     {#if error}
-      <p style="color: red;">{error}</p>
+    <p class="text-center text-red-500">{error}</p>
     {/if}
   {/if}
 {/if}
+
+<style>
+</style>

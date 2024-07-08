@@ -1,13 +1,25 @@
 <footer class="bg-golden">
-  <div class="container mx-auto px-4 py-4 flex justify-end">
-    <p>Powered by</p>
-    <a href="https://kit.svelte.dev"
-      ><img
-        src="/logos/sveltekit-logo.png"
-        alt="svelte-logo"
-        class="w-4 h-auto ml-2"
-      /></a
-    >
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div>
+      <p class="text-xs">© Cartas a Bris - 2024</p>
+    </div>
+    <div class="flex">
+      <p>Powered by</p>
+      <a class="mr-1" href="https://kit.svelte.dev"
+        ><img
+          src="/logos/sveltekit-logo.png"
+          alt="svelte-logo"
+          class="w-4 h-auto ml-2"
+        /></a
+      >
+      <a href="https://www.canva.com/"
+        ><img
+          src="/logos/canva-logo.png"
+          alt="canva-logo"
+          class="w-5 h-auto ml-2"
+        /></a
+      >
+    </div>
   </div>
 </footer>
 
@@ -36,7 +48,13 @@
 
   @media only screen and (max-width: 1280px) {
     footer p {
-    font-size: 1.2rem;
+      font-size: 1.2rem;
+    }
   }
+
+  @media only screen and (max-width: 768px) {
+    footer p {
+      font-size: 1rem;
+    }
   }
 </style>

@@ -177,21 +177,15 @@
     </label>
     <label>
       Teléfono:
-      <input type="tel" bind:value={phoneNumber} required />
+      <input type="tel" bind:value={phoneNumber} />
     </label>
     <label>
       Edad:
-      <input
-        type="number"
-        bind:value={age}
-        required
-        max="100"
-        min="0"
-      />
+      <input type="number" bind:value={age} max="100" min="0" />
     </label>
     <label>
       Sexo:
-      <select bind:value={gender} required>
+      <select bind:value={gender}>
         <option value="" disabled selected>Seleccionar</option>
         <option value="M">M</option>
         <option value="F">F</option>

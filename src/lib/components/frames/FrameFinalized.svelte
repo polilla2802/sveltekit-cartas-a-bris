@@ -12,7 +12,7 @@
   let audio: HTMLAudioElement;
 
   function playSound(): void {
-    audio = new Audio("/sounds/page-4.mp3");
+    audio = new Audio("/sounds/page-2.mp3");
 
     if (audio) {
       audio.currentTime = 0; // Reset audio to start
@@ -120,4 +120,10 @@
   .half-image-vertical:hover {
     bottom: 70px;
   }
+
+  @media only screen and (max-width: 768px) {
+    .half-image-vertical:hover {
+    bottom: 50px;
+  }
+}
 </style>

@@ -17,7 +17,7 @@
   });
 </script>
 
-<section class="pb-10">
+<section>
   {#await $page.data.frameDesign}
     <!-- Render a loader while fetching data -->
     <p class="text-center text-gray-500 mt-4">Loading frames...</p>
@@ -26,15 +26,15 @@
       <!-- Render an error message if there is an error -->
       <p class="text-center text-red-500 mt-4">{data.error}</p>
     {:else if data}
-      <div class="mb-10">
-        <Welcome title={data.frameDesign.name}></Welcome>
+      <Welcome title={data.frameDesign.name}></Welcome>
+      <div class="frame-single-container">
+        <FrameDesign
+          data={data.frameDesign}
+          {baseUrl}
+          isSingle={true}
+          {designId}
+        />
       </div>
-      <FrameDesign
-        data={data.frameDesign}
-        {baseUrl}
-        isSingle={true}
-        {designId}
-      />
     {:else}
       <!-- Render a message if frames is undefined or empty -->
       <p class="text-center text-gray-500 mt-4">No frame design available.</p>

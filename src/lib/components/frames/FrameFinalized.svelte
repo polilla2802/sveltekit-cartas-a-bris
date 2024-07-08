@@ -38,11 +38,17 @@
           class="absolute new-logo-single"
           src={"/images/new-styled.png"}
           alt="new"
+          loading="lazy"
         />
       {/if}
 
       <a href={data.url} class="frame-link"
-        ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
+        ><img
+          class="w-full h-auto"
+          src={data.url}
+          alt="Frame"
+          loading="lazy"
+        /></a
       >
     </div>
   {:else}
@@ -56,16 +62,18 @@
           class="absolute new-logo"
           src={"/images/new-styled.png"}
           alt="new"
+          loading="lazy"
         />
       {/if}
       <div class="half-image-vertical absolute bottom-0">
-        <img class="w-full h-auto" src={data.url} alt="Frame" />
+        <img class="w-full h-auto" src={data.url} alt="Frame" loading="lazy" />
       </div>
 
       <img
         class="w-full h-auto relative"
         src="/images/carta-final.png"
         alt="Carta"
+        loading="lazy"
       />
     </a>
   {/if}
@@ -94,13 +102,13 @@
 {#if isSingle}
   {#await qrCode}
     <div class="qr-container-loading">
-      <img src={qrCodeLoading} alt="Loading QR code..." />
+      <img src={qrCodeLoading} alt="Loading QR code..." loading="lazy" />
     </div>
   {:then qrCode}
     {#if qrCode}
       <div class="qr-container">
         <a href={qrCode} class="frame-link">
-          <img src={qrCode} alt="QR code" />
+          <img src={qrCode} alt="QR code" loading="lazy" />
         </a>
       </div>
     {/if}
@@ -123,7 +131,7 @@
 
   @media only screen and (max-width: 768px) {
     .half-image-vertical:hover {
-    bottom: 50px;
+      bottom: 50px;
+    }
   }
-}
 </style>

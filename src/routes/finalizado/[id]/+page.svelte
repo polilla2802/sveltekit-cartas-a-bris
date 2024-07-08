@@ -47,39 +47,3 @@
     </p>
   {/await}
 </section>
-
-<style>
-
-.frame-single-container{
-    margin-top: -80px;
-  }
-
-/* 2xl */
-@media only screen and (max-width: 1536px) {
-  .frame-single-container{
-    margin-top: -60px;
-  }
-}
-
-/* xl */
-@media only screen and (max-width: 1280px) {
-  .frame-single-container{
-    margin-top: -40px;
-  }
-}
-
-/* lg */
-@media only screen and (max-width: 1024px) {
-  .frame-single-container{
-    margin-top: -30px;
-  }
-}
-
-/* md */
-@media only screen and (max-width: 768px) {
-  .frame-single-container{
-    margin-top: -20px;
-  }
-}
-
-</style>

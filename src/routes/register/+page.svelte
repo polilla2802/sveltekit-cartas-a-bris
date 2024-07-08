@@ -58,6 +58,7 @@
       formData.append("phoneNumber", phoneNumber); // Assuming you want to send user ID
       formData.append("email", email); // Assuming you want to send user ID
       formData.append("gender", gender); // Assuming you want to send user ID
+      // TODO: check if age value exists and then parse it to string
       formData.append("age", age.toString()); // Assuming you want to send user ID
     }
 
@@ -86,7 +87,6 @@
       error = e;
       // Handle error state or display error message to user
       console.log("Error registering user data:", e);
-      //TODO: delete user when some error occurs
       await deleteCurrentUser();
     }
   };

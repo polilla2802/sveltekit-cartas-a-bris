@@ -29,7 +29,6 @@
     userData = await getUserByUid(currentUser!.uid);
 
     try {
-      // TODO: get my letters from my userId stored in the user session
       const response = await fetch(`/api/users/frames/${userData.user.id}`);
 
       if (!response.ok) {

@@ -80,7 +80,6 @@
       error = e;
       // Handle error state or display error message to user
       console.log("Error registering user data:", e);
-      //TODO: delete user when some error occurs
       await deleteCurrentUser();
     }
   };

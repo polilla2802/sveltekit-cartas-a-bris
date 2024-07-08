@@ -28,7 +28,7 @@
 
 <!-- Map frames to display images -->
 <div
-  class="flex flex-col items-center relative mt-24 md:mt-20 lg:mt-16 xl:mt-24 2xl:mt-32"
+  class="flex flex-col items-center relative mt-16 md:mt-20 lg:mt-16 xl:mt-24 2xl:mt-32"
 >
   {#if isSingle}
     <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">

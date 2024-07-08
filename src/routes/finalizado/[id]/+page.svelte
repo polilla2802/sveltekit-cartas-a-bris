@@ -78,7 +78,7 @@
 /* md */
 @media only screen and (max-width: 768px) {
   .frame-single-container{
-    margin-top: -50px;
+    margin-top: -20px;
   }
 }
 

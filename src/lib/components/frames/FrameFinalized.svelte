@@ -12,7 +12,7 @@
   let audio: HTMLAudioElement;
 
   function playSound(): void {
-    audio = new Audio("/sounds/page-2.mp3");
+    audio = new Audio("/sounds/page-3.mp3");
 
     if (audio) {
       audio.currentTime = 0; // Reset audio to start

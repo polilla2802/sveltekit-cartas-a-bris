@@ -5,6 +5,7 @@ import type { RequestHandler } from './$types';
 import prisma from '$lib/prisma';
 import { bigIntToString } from "$utils/bigIntToString";
 import { Prisma } from '@prisma/client';
+import { parseBoolean } from '$utils/parseBoolean';
 
 export const GET: RequestHandler = async () => {
   try {
@@ -43,10 +44,16 @@ export const POST: RequestHandler = async ({ request }) => {
   const nameValue = data.get('name');
   const designIdValue = data.get('designId');
   const userIdValue = data.get('userId');
+  const createdForIdValue = data.get("createdForId");
+  const isPublicValue = data.get("isPublic");
   const createdAtValue = data.get("createdAt");
 
   if (!file) {
     throw error(400, 'File not provided');
+  }
+
+  if (!nameValue) {
+    throw error(400, 'name not provided');
   }
 
   if (!designIdValue) {
@@ -57,10 +64,20 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'userId not provided');
   }
 
+  if (!createdForIdValue) {
+    throw error(400, 'createdForId not provided');
+  }
+
+  if (!isPublicValue) {
+    throw error(400, 'isPublic not provided');
+  }
+
   const name = (nameValue as string);
 
   let designId: bigint;
   let userId: bigint;
+  let createdForId: bigint;
+  let isPublic: boolean | undefined;
 
   try {
     designId = BigInt(designIdValue as string);
@@ -77,6 +94,17 @@ export const POST: RequestHandler = async ({ request }) => {
   } catch (e) {
     throw error(500, `userId must be a valid number: ${(e as Error).message}`);
   }
+
+  try {
+    createdForId = BigInt(createdForIdValue as string);
+    // You can now use designId as a BigInt
+    console.log(createdForId);
+  } catch (e) {
+    throw error(500, `createdForId must be a valid number: ${(e as Error).message}`);
+  }
+
+  isPublic = parseBoolean(isPublicValue);
+
   // Parse createdAt
   let createdAt: Date | undefined;
 
@@ -105,6 +133,8 @@ export const POST: RequestHandler = async ({ request }) => {
         name: name,
         designId: designId,
         createdBy: userId,
+        createdFor: createdForId,
+        isPublic: isPublic,
         createdAt: createdAt
       },
       include: {

@@ -9,6 +9,17 @@
   export let isSingle: boolean = false;
   let qrCode: Promise<string>;
 
+  let audio: HTMLAudioElement;
+
+  function playSound(): void {
+    audio = new Audio("/sounds/page-4.mp3");
+
+    if (audio) {
+      audio.currentTime = 0; // Reset audio to start
+      audio.play();
+    }
+  }
+
   // Optional: If you need to perform any action on mount
   onMount(() => {
     qrCode = getQRCode(baseUrl, finalizedId, FrameTypes.finalized);
@@ -16,7 +27,9 @@
 </script>
 
 <!-- Map frames to display images -->
-<div class="flex flex-col items-center relative">
+<div
+  class="flex flex-col items-center relative mt-24 md:mt-20 lg:mt-16 xl:mt-24 2xl:mt-32"
+>
   {#if isSingle}
     <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
       <!-- Check if the frame is new and conditionally render "Nuevo!" -->
@@ -33,13 +46,28 @@
       >
     </div>
   {:else}
-    {#if isNew(data.createdAt)}
-      <img class="absolute new-logo" src={"/images/new-styled.png"} alt="new" />
-    {/if}
-
-    <a href={baseUrl + "/finalizado/" + data.id}
-      ><img class="w-full h-auto" src={data.url} alt="Frame" /></a
+    <a
+      class="relative flex flex-col justify-end letter"
+      on:click={playSound}
+      href={baseUrl + "/finalizado/" + data.id}
     >
+      {#if isNew(data.createdAt)}
+        <img
+          class="absolute new-logo"
+          src={"/images/new-styled.png"}
+          alt="new"
+        />
+      {/if}
+      <div class="half-image-vertical absolute bottom-0">
+        <img class="w-full h-auto" src={data.url} alt="Frame" />
+      </div>
+
+      <img
+        class="w-full h-auto relative"
+        src="/images/carta-final.png"
+        alt="Carta"
+      />
+    </a>
   {/if}
   <p class="text-center mt-2">Nombre:</p>
   <b class="mb-3 text-center"><i>"{data.name}"</i></b>
@@ -80,3 +108,16 @@
     <p class="text-center text-red-500">Error: {error.message}</p>
   {/await}
 {/if}
+
+<style>
+  .half-image-vertical {
+    height: 160%; /* Adjust as needed */
+    width: 100%;
+    overflow: hidden;
+    transition: 0.3s all ease-in-out;
+  }
+
+  .half-image-vertical:hover {
+    bottom: 70px;
+  }
+</style>

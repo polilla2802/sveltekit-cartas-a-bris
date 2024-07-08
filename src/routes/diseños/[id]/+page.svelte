@@ -2,6 +2,7 @@
   import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
+  import Welcome from "$lib/components/messages/Welcome.svelte";
 
   // Use the `$page` store to get the data returned by the load function
   const { frameDesign } = $page.data.frameDesign;
@@ -25,6 +26,9 @@
       <!-- Render an error message if there is an error -->
       <p class="text-center text-red-500 mt-4">{data.error}</p>
     {:else if data}
+      <div class="mb-10">
+        <Welcome title={data.frameDesign.name}></Welcome>
+      </div>
       <FrameDesign
         data={data.frameDesign}
         {baseUrl}

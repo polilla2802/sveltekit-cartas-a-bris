@@ -97,10 +97,12 @@ button {
 }
 
 .new-logo {
-  top: -20px;
-  left: -15px;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 70px;
   height: auto;
+  z-index: 10;
 }
 
 .new-logo-single {
@@ -108,6 +110,7 @@ button {
   left: -35px;
   width: 100px;
   height: auto;
+  z-index: 10;
 }
 
 /* 2xl */
@@ -116,34 +119,28 @@ button {
     top: -25px;
     left: -25px;
     width: 90px;
-    height: auto;
   }
 }
 
 /* xl */
 @media only screen and (max-width: 1280px) {
   .new-logo {
-    top: -10px;
-    left: -10px;
+    top: 30px;
     width: 50px;
-    height: auto;
   }
   
   .new-logo-single {
     top: -35px;
     left: -35px;
     width: 100px;
-    height: auto;
   }
 }
 
 /* lg */
 @media only screen and (max-width: 1024px) {
   .new-logo {
-    top: -10px;
-    left: -10px;
+    top: 30px;
     width: 50px;
-    height: auto;
   }
   
   .new-logo-single {
@@ -155,10 +152,8 @@ button {
 /* md */
 @media only screen and (max-width: 768px) {
   .new-logo {
-    top: -20px;
-    left: -15px;
+    top: 50px;
     width: 60px;
-    height: auto;
   }
   
   .new-logo-single {
@@ -170,10 +165,8 @@ button {
 /* sm */
 @media only screen and (max-width: 640px) {
   .new-logo {
-    top: -20px;
-    left: -15px;
+    top: 25px;
     width: 50px;
-    height: auto;
   }
   
   .new-logo-single {

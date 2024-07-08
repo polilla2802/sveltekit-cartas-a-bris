@@ -55,7 +55,6 @@ model user {
   userName         String             @unique @db.String(255)
   name             String             @db.String(255)
   email            String             @unique @db.String(255)
-  password         String             @db.String(255)
   gender           String?            @db.String(50)
   age              Int?
   createdAt        DateTime           @default(now())

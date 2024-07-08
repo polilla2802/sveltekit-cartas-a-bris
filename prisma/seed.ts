@@ -20,7 +20,6 @@ async function main() {
         name: u.name,
         phoneNumber: u.phoneNumber,
         email: u.email,
-        password: u.password,
         gender: u.gender,
         age: u.age,
         createdAt: new Date(u.createdAt),

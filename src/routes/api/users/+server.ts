@@ -35,7 +35,6 @@ export const POST: RequestHandler = async ({ request }) => {
   const nameValue = data.get('name');
   const phoneNumberValue = data.get('phoneNumber');
   const emailValue = data.get('email');
-  const passwordValue = data.get('password');
   const genderValue = data.get('gender');
   const ageValue = data.get('age');
 
@@ -55,10 +54,6 @@ export const POST: RequestHandler = async ({ request }) => {
     throw error(400, 'email not provided');
   }
 
-  if (!passwordValue) {
-    throw error(400, 'password not provided');
-  }
-
   const age = parseInt(ageValue as string);
 
   const firebaseUid = (firebaseUidValue as string)
@@ -66,7 +61,6 @@ export const POST: RequestHandler = async ({ request }) => {
   const name = (nameValue as string)
   const phoneNumber = (phoneNumberValue as string)
   const email = (emailValue as string)
-  const password = (passwordValue as string)
   const gender = (genderValue as string)
   try {
 
@@ -99,7 +93,6 @@ export const POST: RequestHandler = async ({ request }) => {
         name: name,
         phoneNumber: phoneNumber,
         email: email,
-        password: password,
         gender: gender,
         age: age
       },

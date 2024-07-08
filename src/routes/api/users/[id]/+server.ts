@@ -52,7 +52,6 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 	const nameValue = data.get('name');
 	const phoneNumberValue = data.get('phoneNumber');
 	const emailValue = data.get('email');
-	const passwordValue = data.get('password');
 	const genderValue = data.get('gender');
 	const ageValue = data.get('age');
 	let age;
@@ -79,7 +78,6 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 		const name = (nameValue as string)
 		const phoneNumber = (phoneNumberValue as string)
 		const email = (emailValue as string)
-		const password = (passwordValue as string)
 		const gender = (genderValue as string)
 
 		// Update user fields
@@ -93,7 +91,6 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 				name: name ?? existingUser.name,
 				phoneNumber: phoneNumber ?? existingUser.phoneNumber,
 				email: email ?? existingUser.email,
-				password: password ?? existingUser.password,
 				gender: gender ?? existingUser.gender,
 				age: age ?? existingUser.age,
 			},

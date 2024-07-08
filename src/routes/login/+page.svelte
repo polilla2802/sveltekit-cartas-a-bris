@@ -30,12 +30,13 @@
     }
 
     console.log(userCredential);
+    
+    const isGoogle = isUserRegisteredWithGoogle(userCredential);
 
     const uid = userCredential.uid as string;
     const displayName = userCredential.displayName as string;
     const phoneNumber = userCredential.phoneNumber as string;
     const email = userCredential.email as string;
-    const isGoogle = isUserRegisteredWithGoogle(userCredential);
 
     console.log(uid);
     console.log(displayName);
@@ -44,23 +45,15 @@
     console.log(isGoogle);
 
     const formData = new FormData();
-    if (!isGoogle) {
+
+    if (isGoogle) {
       formData.append("firebaseUid", uid); // Assuming you want to send user ID
       formData.append("userName", displayName); // Assuming you want to send user ID
       formData.append("name", displayName); // Assuming you want to send user ID
       formData.append("phoneNumber", phoneNumber); // Assuming you want to send user ID
       formData.append("email", email); // Assuming you want to send user ID
       formData.append("password", "google"); // Assuming you want to send user ID
-    } else {
-      formData.append("firebaseUid", uid); // Assuming you want to send user ID
-      formData.append("userName", "Usuario"); // Assuming you want to send user ID
-      formData.append("name", "Nombre"); // Assuming you want to send user ID
-      formData.append("phoneNumber", "12345678"); // Assuming you want to send user ID
-      formData.append("email", email); // Assuming you want to send user ID
-      formData.append("password", "12345678"); // Assuming you want to send user ID
-      formData.append("gender", "M"); // Assuming you want to send user ID
-      formData.append("age", "29"); // Assuming you want to send user ID
-    }
+    } 
 
     console.log(formData);
 

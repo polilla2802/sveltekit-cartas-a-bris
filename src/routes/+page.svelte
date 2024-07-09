@@ -24,6 +24,7 @@
     <!-- Render an error message if there is an error -->
     <p class="text-center text-red-500 mt-4">{data.error}</p>
   {:else if data.framesFinalized}
+    <!-- TODO:Render a grid col 1 if there is only one new Frame -->
     <!-- Render frames if frames is defined and not empty -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
       {#each data.framesFinalized as frameFinalized}

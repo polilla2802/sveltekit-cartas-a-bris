@@ -74,6 +74,7 @@
 {:else if loading}
   <p>Cargando Cartas...</p>
 {:else if sortedFinalized && sortedFinalized.length > 0}
+  <!-- TODO:Render a grid col 1 if there is only one new Frame -->
   <!-- Render frames if frames is defined and not empty -->
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
     {#each sortedFinalized as frame}
@@ -81,7 +82,7 @@
     {/each}
   </div>
 {:else if error}
-<p class="text-center text-red-500">{error}</p>
+  <p class="text-center text-red-500">{error}</p>
 {:else}
   <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>
 {/if}

@@ -84,6 +84,7 @@
 {:else if loading}
   <p>Cargando Cartas...</p>
 {:else if sortedFinalized && sortedFinalized.length > 0}
+  <!-- TODO:Render a grid col 1 if there is only one new Frame -->
   <!-- Render frames if frames is defined and not empty -->
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
     {#each sortedFinalized as frame}

@@ -159,7 +159,7 @@
     cursor: pointer;
     transform: translateY(-50%);
     padding: 5px 20px 5px 15px;
-    background-color: #c4525a;
+    background-color: #e04f5f;
     border-radius: 100px 0px 0px 100px;
     box-shadow: 2px 4px #888888;
     font-family: "Libre", sans-serif;

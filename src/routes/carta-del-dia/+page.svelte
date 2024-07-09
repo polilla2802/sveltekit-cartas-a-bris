@@ -85,9 +85,7 @@
   <p>Cargando Cartas...</p>
 {:else if sortedFinalized && sortedFinalized.length > 0}
   <!-- Render frames if frames is defined and not empty -->
-  <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
-  >
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
     {#each sortedFinalized as frame}
       {#if isNew(frame.createdAt)}
         <FrameFinalized data={frame} {baseUrl} isSingle={false} />

@@ -13,6 +13,7 @@ export default {
       },
       colors: {
         primaryPink: "#fff2fa",
+        primaryRed: "#e04f5f",
         peach: "#ffe5db",
         primaryBlue: "#2f4858",
         golden: "#fee7db",

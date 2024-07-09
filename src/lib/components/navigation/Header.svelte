@@ -75,6 +75,11 @@
               class="smooth-underline"
               href="/mis-cartas">Mis Cartas</a
             >
+            <a
+            class:active={$page.url.pathname === "/mis-diseños"}
+            class="smooth-underline"
+            href="/mis-diseños">Mis Diseños</a
+          >
           {/if}
         </div>
       </div>
@@ -185,6 +190,12 @@
     width: 70%;
   }
 
+  @media only screen and (max-width: 1536px) {
+    .left a {
+      font-size: 1.4rem;
+    }
+  }
+
   @media only screen and (max-width: 1280px) {
     .right button + button {
       margin-left: 0;
@@ -192,6 +203,10 @@
 
     .left a + a {
       margin-left: 2rem;
+    }
+
+    .left a {
+      font-size: 1.3rem;
     }
   }
 
@@ -201,7 +216,7 @@
     }
 
     .left a {
-      font-size: 1.2rem;
+      font-size: .9rem;
     }
 
     .right button,

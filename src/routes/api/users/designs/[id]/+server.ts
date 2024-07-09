@@ -10,31 +10,30 @@ export const GET: RequestHandler = async ({ params }) => {
   }
 
   try {
-    const framesFinalizedVlue = await prisma.frames_finalized.findMany({
+    const frameDesignsValue = await prisma.frame_designs.findMany({
       where: {
         createdBy: BigInt(userId),
       },
       include: {
-        frame_designs: true,
-        userCreator: true,
-        userFor: true
+        frame_types: true,
+        user: true
       },
     });
 
     // Serialize with the custom replacer to convert BigInt to Number
-    const serializedData = JSON.stringify(framesFinalizedVlue, bigIntToString);
+    const serializedData = JSON.stringify(frameDesignsValue, bigIntToString);
 
     // Parse the serialized data back to an object (optional step)
-    const framesFinalized = JSON.parse(serializedData);
+    const frameDesigns = JSON.parse(serializedData);
 
-    return json({ framesFinalized }, {
+    return json({ frameDesigns }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
     });
   } catch (err) {
     console.error(err);
-    throw error(500, `Failed to retrieve frames_finalized records: ${(err as Error).message}`);
+    throw error(500, `Failed to retrieve frame_designs records: ${(err as Error).message}`);
   }
 };
 
@@ -47,14 +46,14 @@ export const DELETE: RequestHandler = async ({ params }) => {
   }
   try {
     // Check if the Frame Finalized exists
-    const existingFrameFinalized = await prisma.frames_finalized.findMany({
+    const existingFrameDesigns = await prisma.frame_designs.findMany({
       where: {
         createdBy: BigInt(userId),
       },
     });
 
-    if (!existingFrameFinalized) {
-      throw new Error("Frames Finalized not found");
+    if (!existingFrameDesigns) {
+      throw new Error("Frame Designs not found");
     }
     // Delete the frames
     const framesDeleted = await prisma.frames_finalized.deleteMany({
@@ -65,7 +64,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
 
     return json(
       {
-        message: `${framesDeleted.count} Frames Finalized with userId ${userId} deleted successfully`,
+        message: `${framesDeleted.count} Frame Designs with userId ${userId} deleted successfully`,
       },
       {
         headers: {
@@ -77,7 +76,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
     console.error(err);
     throw error(
       500,
-      `Failed to delete Frames Finalized: ${(err as Error).message}`
+      `Failed to delete Frame Designs: ${(err as Error).message}`
     );
   }
 };

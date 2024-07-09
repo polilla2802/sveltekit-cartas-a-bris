@@ -44,7 +44,6 @@
   font-style: normal;
 }
 
-
 html {
   box-sizing: border-box;
 }
@@ -64,7 +63,9 @@ body {
   color: #2f4858;
 }
 
-p, b, label{
+p,
+b,
+label {
   font-family: Apple, sans-serif;
 }
 
@@ -113,10 +114,20 @@ button {
   z-index: 10;
 }
 
-.frame-single-container{
+.frame-single-container {
   margin-top: -80px;
 }
 
+.half-image-vertical {
+  height: 160%; /* Adjust as needed */
+  width: 100%;
+  overflow: hidden;
+  transition: 0.3s all ease-in-out;
+}
+
+.letter:hover .half-image-vertical {
+  bottom: 70px;
+}
 
 /* 2xl */
 @media only screen and (max-width: 1536px) {
@@ -126,7 +137,7 @@ button {
     width: 90px;
   }
 
-  .frame-single-container{
+  .frame-single-container {
     margin-top: -60px;
   }
 }
@@ -137,14 +148,14 @@ button {
     top: 30px;
     width: 50px;
   }
-  
+
   .new-logo-single {
     top: -35px;
     left: -35px;
     width: 100px;
   }
 
-  .frame-single-container{
+  .frame-single-container {
     margin-top: -40px;
   }
 }
@@ -155,13 +166,13 @@ button {
     top: 30px;
     width: 50px;
   }
-  
+
   .new-logo-single {
     top: -35px;
     left: -35px;
   }
 
-  .frame-single-container{
+  .frame-single-container {
     margin-top: -30px;
   }
 }
@@ -172,14 +183,18 @@ button {
     top: 50px;
     width: 60px;
   }
-  
+
   .new-logo-single {
     top: -35px;
     left: -35px;
   }
 
-  .frame-single-container{
+  .frame-single-container {
     margin-top: -20px;
+  }
+
+  .letter:hover .half-image-vertical {
+    bottom: 50px;
   }
 }
 
@@ -189,7 +204,7 @@ button {
     top: 25px;
     width: 50px;
   }
-  
+
   .new-logo-single {
     top: -35px;
     left: -35px;

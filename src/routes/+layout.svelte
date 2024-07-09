@@ -81,7 +81,7 @@
     width: 100%;
     background-color: #fee7db;
     height: 35px;
-    padding: 0.5rem .8rem;
+    padding: 0.5rem 0.8rem;
   }
 
   .layout {
@@ -97,6 +97,11 @@
 
   .flex-container {
     padding: 20px;
+  }
+
+  :global(.invalid-container) {
+    display: flex;
+    justify-content: center;
   }
 
   @media only screen and (max-width: 1024px) {

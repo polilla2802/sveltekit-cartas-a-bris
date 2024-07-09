@@ -52,7 +52,7 @@
           <a
             class:active={$page.url.pathname === "/"}
             class="smooth-underline"
-            href="/">Inicio</a
+            href="/">Cartas</a
           >
           <a
             class:active={$page.url.pathname === "/dise%C3%B1os"}

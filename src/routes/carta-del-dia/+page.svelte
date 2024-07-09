@@ -7,6 +7,7 @@
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
   import { getUserByUid } from "$utils/getUserByUid";
   import Welcome from "$lib/components/messages/Welcome.svelte";
+  import { isNew } from "$utils/isNew";
 
   const title: string = "Carta del día";
 
@@ -21,7 +22,9 @@
 
   let error: string | undefined; // Define error as string or undefined
 
-  let userData;
+  let userData: any;
+
+  let newFramesCount: number = 0;
 
   async function getFrames() {
     console.log(currentUser!.uid);
@@ -67,6 +70,11 @@
       }
     });
   });
+
+  // Reactive statement to count new frames
+  $: newFramesCount = sortedFinalized.filter((frame: any) =>
+    isNew(frame.createdAt)
+  ).length;
 </script>
 
 <Welcome {title}></Welcome>
@@ -81,9 +89,14 @@
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4"
   >
     {#each sortedFinalized as frame}
-      <FrameFinalized data={frame} {baseUrl} isSingle={false} />
+      {#if isNew(frame.createdAt)}
+        <FrameFinalized data={frame} {baseUrl} isSingle={false} />
+      {/if}
     {/each}
   </div>
+  {#if newFramesCount === 0}
+    <p class="text-center text-gray-500">No hay cartas nuevas</p>
+  {/if}
 {:else if error}
   <p class="text-center text-red-500">{error}</p>
 {:else}

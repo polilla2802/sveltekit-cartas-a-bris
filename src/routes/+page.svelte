@@ -7,7 +7,7 @@
   const baseUrl: string = $page.url.origin;
   const { framesFinalized } = $page.data;
 
-  const title: string = "Inicio";
+  const title: string = "Cartas";
 
   onMount(() => {
     console.log("Component has mounted", framesFinalized);

@@ -1,9 +1,10 @@
-import { error, json } from '@sveltejs/kit';
-import { storage } from '$lib/firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import type { RequestHandler } from './$types';
-import prisma from '$lib/prisma';
+import { error, json } from "@sveltejs/kit";
+import { storage } from "$lib/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import type { RequestHandler } from "./$types";
+import prisma from "$lib/prisma";
 import { bigIntToString } from "$utils/bigIntToString";
+import { parseBoolean } from "$utils/parseBoolean";
 
 export const GET: RequestHandler = async () => {
   try {
@@ -11,7 +12,7 @@ export const GET: RequestHandler = async () => {
       include: {
         frames_finalized: true,
         frame_types: true,
-        user: true
+        user: true,
       },
     });
 
@@ -21,40 +22,51 @@ export const GET: RequestHandler = async () => {
     // Parse the serialized data back to an object (optional step)
     const framesDesigns = JSON.parse(serializedData);
 
-    return json({ framesDesigns }, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-    });
+    return json(
+      { framesDesigns },
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   } catch (err) {
     console.error(err);
-    throw error(500, `Failed to retrieve frame_designs records: ${(err as Error).message}`);
+    throw error(
+      500,
+      `Failed to retrieve frame_designs records: ${(err as Error).message}`
+    );
   }
 };
 
-
 export const POST: RequestHandler = async ({ request }) => {
   const data = await request.formData();
-  const file = data.get('file') as File;
-  const nameValue = data.get('name');
-  const typeIdValue = data.get('typeId');
-  const userIdValue = data.get('userId');
+  const file = data.get("file") as File;
+  const nameValue = data.get("name");
+  const typeIdValue = data.get("typeId");
+  const userIdValue = data.get("userId");
+  const isPublicValue = data.get("isPublic");
   const createdAtValue = data.get("createdAt");
 
   if (!file) {
-    throw error(400, 'File not provided');
+    throw error(400, "File not provided");
   }
 
   if (!typeIdValue) {
-    throw error(400, 'typeId not provided');
+    throw error(400, "typeId not provided");
   }
 
   if (!userIdValue) {
-    throw error(400, 'userId not provided');
+    throw error(400, "userId not provided");
+  }
+
+  if (!isPublicValue) {
+    throw error(400, "isPublic not provided");
   }
 
   // Parse createdAt
   let createdAt: Date | undefined;
+  let isPublic: boolean | undefined;
 
   if (createdAtValue !== null && createdAtValue !== undefined) {
     // Attempt to parse createdAtValue as a date
@@ -68,16 +80,18 @@ export const POST: RequestHandler = async ({ request }) => {
     createdAt = new Date();
   }
 
-  const name = (nameValue as string);
+  isPublic = parseBoolean(isPublicValue);
+
+  const name = nameValue as string;
 
   const typeId = parseInt(typeIdValue as string);
   if (isNaN(typeId)) {
-    throw error(400, 'typeId must be a valid number');
+    throw error(400, "typeId must be a valid number");
   }
 
   const userId = parseInt(userIdValue as string);
   if (isNaN(userId)) {
-    throw error(400, 'userId must be a valid number');
+    throw error(400, "userId must be a valid number");
   }
 
   const storageRef = ref(storage, `frame_designs/${file.name}`);
@@ -92,11 +106,12 @@ export const POST: RequestHandler = async ({ request }) => {
         name: name,
         typeId: typeId,
         createdBy: userId,
-        createdAt: createdAt
+        isPublic: isPublic,
+        createdAt: createdAt,
       },
       include: {
-        frame_types: true
-      }
+        frame_types: true,
+      },
     });
 
     // Serialize with the custom replacer to convert BigInt to Number
@@ -105,12 +120,18 @@ export const POST: RequestHandler = async ({ request }) => {
     // Parse the serialized data back to an object (optional step)
     const frameDesign = JSON.parse(serializedData);
 
-    return json({ frameDesign: frameDesign, message: 'Frame design uploaded with the url:', url: downloadURL }, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
+    return json(
+      {
+        frameDesign: frameDesign,
+        message: "Frame design uploaded with the url:",
+        url: downloadURL,
       },
-    });
-
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   } catch (err) {
     console.error(err);
     throw error(500, `Upload failed: ${(err as Error).message}`);

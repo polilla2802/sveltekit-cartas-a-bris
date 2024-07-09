@@ -31,7 +31,7 @@
     </div>
   {:else}
     <!-- Render a message if frames is undefined or empty -->
-    <p class="text-center text-gray-500 mt-4">No frames available.</p>
+    <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>
   {/if}
 {:catch error}
   <!-- This block should rarely be reached if we handle errors properly in load -->

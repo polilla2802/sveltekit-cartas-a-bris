@@ -3,6 +3,7 @@ import prisma from "$lib/prisma";
 import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { bigIntToString } from "$utils/bigIntToString";
+import { parseBoolean } from "$utils/parseBoolean";
 
 export const GET: RequestHandler = async ({ params }) => {
   const frameDesignId = params.id;
@@ -59,6 +60,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const nameValue = data.get("name");
   const frameTypeIdValue = data.get("typeId");
   const userIdValue = data.get("userId");
+  const isPublicValue = data.get("isPublic");
   const createdAtValue = data.get("createdAt");
 
   try {
@@ -108,6 +110,11 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       createdAt = existingFrameDesign.createdAt;
     }
 
+    const isPublic =
+      isPublicValue !== null && isPublicValue !== undefined
+        ? parseBoolean(isPublicValue)
+        : existingFrameDesign.isPublic;
+
     // Update the frame design in the database
     const updatedFrameDesignValue = await prisma.frame_designs.update({
       where: {
@@ -118,12 +125,16 @@ export const PUT: RequestHandler = async ({ params, request }) => {
         name: name,
         typeId: frameTypeId,
         createdBy: userId,
-        createdAt: createdAt
+        createdAt: createdAt,
+        isPublic: isPublic,
       },
     });
 
     // Serialize with the custom replacer to convert BigInt to Number
-    const serializedData = JSON.stringify(updatedFrameDesignValue, bigIntToString);
+    const serializedData = JSON.stringify(
+      updatedFrameDesignValue,
+      bigIntToString
+    );
 
     // Parse the serialized data back to an object (optional step)
     const updatedFrameDesign = JSON.parse(serializedData);

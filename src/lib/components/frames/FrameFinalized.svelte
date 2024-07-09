@@ -11,6 +11,8 @@
 
   let audio: HTMLAudioElement;
 
+  let hover: boolean = false;
+
   function playSound(): void {
     audio = new Audio("/sounds/page-4.mp3");
 
@@ -116,22 +118,3 @@
     <p class="text-center text-red-500">Error: {error.message}</p>
   {/await}
 {/if}
-
-<style>
-  .half-image-vertical {
-    height: 160%; /* Adjust as needed */
-    width: 100%;
-    overflow: hidden;
-    transition: 0.3s all ease-in-out;
-  }
-
-  .half-image-vertical:hover {
-    bottom: 70px;
-  }
-
-  @media only screen and (max-width: 768px) {
-    .half-image-vertical:hover {
-      bottom: 50px;
-    }
-  }
-</style>

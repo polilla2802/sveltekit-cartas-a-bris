@@ -11,7 +11,7 @@
   } from "$utils/routing";
   import Icon from "@iconify/svelte";
 
-  let isOpen = true;
+  let isOpen: boolean = $page.url.pathname === "/" ? true : false;
   let audio: HTMLAudioElement;
   let currentUser: User | null; // Define error as string or undefined
 
@@ -99,7 +99,7 @@
             class:active={$page.url.pathname === "/"}
             class="smooth-underline"
             href="/"
-            on:click={toggleMenu}>Inicio</a
+            on:click={toggleMenu}>Cartas</a
           >
           <a
             class:active={$page.url.pathname === "/dise%C3%B1os"}
@@ -133,8 +133,12 @@
             </div>
           {:else}
             <div class="right flex flex-col xl:block">
-              <button on:click={takeMeToLogin} on:click={toggleMenu}>Login</button>
-              <button on:click={takeMeToRegister} on:click={toggleMenu}>Registrate</button>
+              <button on:click={takeMeToLogin} on:click={toggleMenu}
+                >Login</button
+              >
+              <button on:click={takeMeToRegister} on:click={toggleMenu}
+                >Registrate</button
+              >
             </div>
           {/if}
         </div>
@@ -268,5 +272,4 @@
     background-color: #2f4858;
     color: white;
   }
-
 </style>

@@ -44,6 +44,9 @@
     console.log(displayName);
     console.log(email);
     console.log(isGoogle);
+    console.log(phoneNumber);
+    console.log(age);
+    console.log(gender);
 
     const formData = new FormData();
     if (isGoogle) {
@@ -55,11 +58,14 @@
       formData.append("firebaseUid", uid); // Assuming you want to send user ID
       formData.append("userName", userName); // Assuming you want to send user ID
       formData.append("name", name); // Assuming you want to send user ID
-      formData.append("phoneNumber", phoneNumber); // Assuming you want to send user ID
+      if (phoneNumber != "") {
+        formData.append("phoneNumber", phoneNumber); // Assuming you want to send user ID
+      }
       formData.append("email", email); // Assuming you want to send user ID
-      formData.append("gender", gender); // Assuming you want to send user ID
-      // TODO: check if age value exists and then parse it to string
-      formData.append("age", age.toString()); // Assuming you want to send user ID
+      if (gender != "") {
+        formData.append("gender", gender); // Assuming you want to send user ID
+      }
+      formData.append("age", age == undefined ? "" : age.toString()); // Assuming you want to send user ID
     }
 
     console.log(formData);

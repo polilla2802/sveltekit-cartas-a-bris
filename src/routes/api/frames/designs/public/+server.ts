@@ -5,25 +5,23 @@ import { bigIntToString } from "$utils/bigIntToString";
 
 export const GET: RequestHandler = async () => {
   try {
-    const framesFinalizedValue = await prisma.frames_finalized.findMany({
+    const frameDesignsValue = await prisma.frame_designs.findMany({
       where: {
         isPublic: true,
       },
       include: {
-        frame_designs: true,
-        userCreator: true,
-        userFor: true,
+        frame_types: true,
       },
     });
 
     // Serialize with the custom replacer to convert BigInt to Number
-    const serializedData = JSON.stringify(framesFinalizedValue, bigIntToString);
+    const serializedData = JSON.stringify(frameDesignsValue, bigIntToString);
 
     // Parse the serialized data back to an object (optional step)
-    const framesFinalized = JSON.parse(serializedData);
+    const frameDesigns = JSON.parse(serializedData);
 
     return json(
-      { framesFinalized },
+      { frameDesigns },
       {
         headers: {
           "Access-Control-Allow-Origin": "*",

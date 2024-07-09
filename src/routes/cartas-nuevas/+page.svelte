@@ -9,7 +9,7 @@
   import Welcome from "$lib/components/messages/Welcome.svelte";
   import { isNew } from "$utils/isNew";
 
-  const title: string = "Carta del día";
+  const title: string = "Cartas Nuevas";
 
   let currentUser: User | null = null; // Initialize currentUser to null
 

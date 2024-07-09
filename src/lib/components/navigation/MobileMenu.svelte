@@ -109,10 +109,10 @@
           >
           {#if currentUser != null}
             <a
-              class:active={$page.url.pathname === "/carta-del-dia"}
+              class:active={$page.url.pathname === "/cartas-nuevas"}
               class="smooth-underline"
-              href="/carta-del-dia"
-              on:click={toggleMenu}>Carta del Día</a
+              href="/cartas-nuevas"
+              on:click={toggleMenu}>Cartas Nuevas</a
             >
             <a
               class:active={$page.url.pathname === "/cartas-para-mi"}

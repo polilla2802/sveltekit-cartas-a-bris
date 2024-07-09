@@ -76,10 +76,10 @@
               href="/mis-cartas">Mis Cartas</a
             >
             <a
-            class:active={$page.url.pathname === "/mis-diseños"}
-            class="smooth-underline"
-            href="/mis-diseños">Mis Diseños</a
-          >
+              class:active={$page.url.pathname === "/mis-dise%C3%B1os"}
+              class="smooth-underline"
+              href="/mis-diseños">Mis Diseños</a
+            >
           {/if}
         </div>
       </div>
@@ -216,7 +216,7 @@
     }
 
     .left a {
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
 
     .right button,

@@ -127,11 +127,11 @@
               on:click={toggleMenu}>Mis Cartas</a
             >
             <a
-            class:active={$page.url.pathname === "/mis-diseños"}
-            class="smooth-underline"
-            href="/mis-diseños"
-            on:click={toggleMenu}>Mis Diseños</a
-          >
+              class:active={$page.url.pathname === "/mis-dise%C3%B1os"}
+              class="smooth-underline"
+              href="/mis-diseños"
+              on:click={toggleMenu}>Mis Diseños</a
+            >
             <div class="right flex flex-col xl:block">
               <p>{currentUser.email}</p>
               <button on:click={takeMeToLogout}>Cerrar Sesión</button>

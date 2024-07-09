@@ -11,6 +11,7 @@ export const GET: RequestHandler = async () => {
       },
       include: {
         frame_types: true,
+        user: true,
       },
     });
 

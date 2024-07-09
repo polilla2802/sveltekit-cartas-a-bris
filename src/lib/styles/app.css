@@ -98,9 +98,9 @@ button {
 }
 
 .new-logo {
-  top: 30px;
+  top: 45%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: 60px;
   height: auto;
   z-index: 10;
@@ -145,7 +145,6 @@ button {
 /* xl */
 @media only screen and (max-width: 1280px) {
   .new-logo {
-    top: 30px;
     width: 50px;
   }
 
@@ -163,7 +162,6 @@ button {
 /* lg */
 @media only screen and (max-width: 1024px) {
   .new-logo {
-    top: 30px;
     width: 50px;
   }
 
@@ -180,7 +178,6 @@ button {
 /* md */
 @media only screen and (max-width: 768px) {
   .new-logo {
-    top: 50px;
     width: 60px;
   }
 
@@ -201,7 +198,6 @@ button {
 /* sm */
 @media only screen and (max-width: 640px) {
   .new-logo {
-    top: 25px;
     width: 50px;
   }
 

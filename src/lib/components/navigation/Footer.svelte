@@ -1,5 +1,8 @@
+<script lang="ts">
+</script>
+
 <footer class="bg-golden">
-  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+  <div class="container flex items-center justify-between px-4 py-4 mx-auto">
     <div>
       <p class="text-xs">© Cartas a Bris - 2024</p>
     </div>

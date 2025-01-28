@@ -87,15 +87,16 @@ export const PUT: RequestHandler = async ({ params, request }) => {
     // Handle name, frameTypeId, and userId, using existing values if not provided
     const name = nameValue ? (nameValue as string) : existingFrameDesign.name;
 
-    // Ensure frameTypeId is a number
-    const frameTypeId = frameTypeIdValue
-      ? BigInt(frameTypeIdValue as string)
-      : existingFrameDesign.typeId;
+    const frameTypeId =
+      frameTypeIdValue !== null && frameTypeIdValue !== undefined
+        ? BigInt(frameTypeIdValue as string)
+        : existingFrameDesign.typeId;
 
-    // Ensure userId is a number
-    const userId = userIdValue
-      ? BigInt(userIdValue as string)
-      : existingFrameDesign.createdBy;
+    // Ensure userId is a number or fallback to existing value
+    const userId =
+      userIdValue !== null && userIdValue !== undefined
+        ? BigInt(userIdValue as string)
+        : existingFrameDesign.createdBy;
 
     // Parse createdAt
     let createdAt: Date | undefined;

@@ -83,15 +83,23 @@ export const POST: RequestHandler = async ({ request }) => {
   isPublic = parseBoolean(isPublicValue);
 
   const name = nameValue as string;
+  let typeId: bigint;
+  let userId: bigint;
 
-  const typeId = parseInt(typeIdValue as string);
-  if (isNaN(typeId)) {
-    throw error(400, "typeId must be a valid number");
+  try {
+    typeId = BigInt(typeIdValue as string);
+    // You can now use designId as a BigInt
+    console.log(typeId);
+  } catch (e) {
+    throw error(500, `typeId must be a valid number: ${(e as Error).message}`);
   }
 
-  const userId = parseInt(userIdValue as string);
-  if (isNaN(userId)) {
-    throw error(400, "userId must be a valid number");
+  try {
+    userId = BigInt(userIdValue as string);
+    // You can now use designId as a BigInt
+    console.log(userId);
+  } catch (e) {
+    throw error(500, `userId must be a valid number: ${(e as Error).message}`);
   }
 
   const storageRef = ref(storage, `frame_designs/${file.name}`);

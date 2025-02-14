@@ -64,11 +64,11 @@
 <section>
   {#await $page.data.frameFinalized}
     <!-- Render a loader while fetching data -->
-    <p class="text-center text-gray-500 mt-4">Cargando carta...</p>
+    <p class="mt-4 text-center text-gray-500">Cargando carta...</p>
   {:then data}
     {#if data.error}
       <!-- Render an error message if there is an error -->
-      <p class="text-center text-red-500 mt-4">{data.error}</p>
+      <p class="mt-4 text-center text-red-500">{data.error}</p>
     {:else if notVisible}
       <Welcome title={"Lo siento, no tienes acceso para ver esta carta"}
       ></Welcome>
@@ -82,6 +82,21 @@
         />
       </div>
     {:else if data}
+      {#if data.frameFinalized.trackId != null}
+        <iframe
+          title="Spotify Player"
+          style="border-radius:12px"
+          src="http://open.spotify.com/embed/track/{data.frameFinalized
+            .trackId}?utm_source=generator"
+          width="100%"
+          height="352"
+          frameBorder="0"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      {/if}
+
       <Welcome title={data.frameFinalized.name}></Welcome>
       <div class="frame-single-container">
         <FrameFinalized
@@ -93,11 +108,11 @@
       </div>
     {:else}
       <!-- Render a message if frames is undefined or empty -->
-      <p class="text-center text-gray-500 mt-4">Carta no disponible.</p>
+      <p class="mt-4 text-center text-gray-500">Carta no disponible.</p>
     {/if}
   {:catch error}
     <!-- This block should rarely be reached if we handle errors properly in load -->
-    <p class="text-center text-red-500 mt-4">
+    <p class="mt-4 text-center text-red-500">
       Hubo un error, intentalo más tarde.
     </p>
   {/await}

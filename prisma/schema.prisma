@@ -36,6 +36,7 @@ model frames_finalized {
   designId      BigInt
   createdAt     DateTime      @default(now())
   name          String?       @db.String(255)
+  trackId       String?       @db.String(255)
   updatedAt     DateTime      @updatedAt
   createdBy     BigInt?       @map("userId") // Renamed field
   createdFor    BigInt?       @map("forUserId") // New field for referencing another user

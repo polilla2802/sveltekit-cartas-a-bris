@@ -65,6 +65,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
   const fileValue = data.get("file") as File | null; // File can be optional
   const nameValue = data.get("name");
   const frameDesignIdValue = data.get("designId");
+  const trackIdValue = data.get("trackId");
   const userIdValue = data.get("userId");
   const createdForIdValue = data.get("createdForId");
   const createdAtValue = data.get("createdAt");
@@ -96,6 +97,10 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       ? (nameValue as string)
       : existingFrameFinalized.name;
 
+          // Use existing values if new ones are not provided, ensuring the types are consistent
+    const trackId = trackIdValue
+    ? (trackIdValue as string)
+    : existingFrameFinalized.trackId;
 
     // Ensure frameDesignId is a number or fallback to existing value
     const frameDesignId =
@@ -143,6 +148,7 @@ export const PUT: RequestHandler = async ({ params, request }) => {
       data: {
         url: downloadURL,
         name: name,
+        trackId: trackId,
         designId: frameDesignId,
         createdBy: userId,
         createdFor: createdForId,

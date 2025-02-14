@@ -43,6 +43,7 @@ export const POST: RequestHandler = async ({ request }) => {
   const file = data.get('file') as File;
   const nameValue = data.get('name');
   const designIdValue = data.get('designId');
+  const trackIdValue = data.get('trackId');
   const userIdValue = data.get('userId');
   const createdForIdValue = data.get("createdForId");
   const isPublicValue = data.get("isPublic");
@@ -73,6 +74,7 @@ export const POST: RequestHandler = async ({ request }) => {
   }
 
   const name = (nameValue as string);
+  const trackId = (trackIdValue as string);
 
   let designId: bigint;
   let userId: bigint;
@@ -131,6 +133,7 @@ export const POST: RequestHandler = async ({ request }) => {
       data: {
         url: downloadURL,
         name: name,
+        trackId: trackId,
         designId: designId,
         createdBy: userId,
         createdFor: createdForId,

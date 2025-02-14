@@ -4,7 +4,7 @@
 <footer class="bg-golden">
   <div class="container flex items-center justify-between px-4 py-4 mx-auto">
     <div>
-      <p class="text-xs">© Cartas a Bris - 2024</p>
+      <p class="text-xs">© Cartas a Bris - 2025</p>
     </div>
     <div class="flex">
       <p>Powered by</p>

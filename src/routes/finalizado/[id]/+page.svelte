@@ -86,7 +86,7 @@
         <iframe
           title="Spotify Player"
           style="border-radius:12px"
-          src="http://open.spotify.com/embed/track/{data.frameFinalized
+          src="https://open.spotify.com/embed/track/{data.frameFinalized
             .trackId}?utm_source=generator"
           width="100%"
           height="352"

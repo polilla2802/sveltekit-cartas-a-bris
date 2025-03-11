@@ -30,10 +30,10 @@
 
 <!-- Map frames to display images -->
 <div
-  class="flex flex-col items-center relative mt-16 md:mt-20 lg:mt-16 xl:mt-24 2xl:mt-32"
+  class="relative flex flex-col items-center mt-16 md:mt-20 lg:mt-16 xl:mt-24 2xl:mt-32"
 >
   {#if isSingle}
-    <div class="w-full xs:w-2/4 md:w-3/4 lg:w-2/4 xl:w-2/6 relative">
+    <div class="relative w-full xs:w-2/4 md:w-3/4 lg:w-2/4">
       <!-- Check if the frame is new and conditionally render "Nuevo!" -->
       {#if isNew(data.createdAt)}
         <img
@@ -67,19 +67,19 @@
           loading="lazy"
         />
       {/if}
-      <div class="half-image-vertical absolute bottom-0">
+      <div class="absolute bottom-0 half-image-vertical">
         <img class="w-full h-auto" src={data.url} alt="Frame" loading="lazy" />
       </div>
 
       <img
-        class="w-full h-auto relative"
+        class="relative w-full h-auto"
         src="/images/carta-final.png"
         alt="Carta"
         loading="lazy"
       />
     </a>
   {/if}
-  <p class="text-center mt-2">Nombre:</p>
+  <p class="mt-2 text-center">Nombre:</p>
   <b class="mb-3 text-center"><i>"{data.name}"</i></b>
   {#if data.userCreator}
     <p class="text-center">Autor: <b>{data.userCreator.userName}</b></p>

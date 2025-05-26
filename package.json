@@ -1,6 +1,6 @@
 {
 	"name": "sveltekit-cartas-a-bris",
-	"version": "2.1.0+12",
+	"version": "2.2.0+13",
 	"private": true,
 	"scripts": {
 		"dev": "vite --mode development",

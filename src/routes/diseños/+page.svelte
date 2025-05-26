@@ -9,7 +9,7 @@
   export let data: FrameDesignData;
   const baseUrl: string = $page.url.origin;
   const title: string = "Diseños";
-  let loading = false;
+  let loading = true;
 
   // Set up navigation event listeners
   beforeNavigate(() => {

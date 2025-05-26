@@ -77,8 +77,8 @@
   <!-- TODO:Render a grid col 1 if there is only one new Frame -->
   <!-- Render frames if frames is defined and not empty -->
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
-    {#each sortedFinalized as frame}
-      <FrameFinalized data={frame} {baseUrl} isSingle={false} />
+    {#each sortedFinalized as finalizedFrame}
+      <FrameFinalized data={finalizedFrame} {baseUrl} isSingle={false} />
     {/each}
   </div>
 {:else if error}

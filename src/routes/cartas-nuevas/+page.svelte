@@ -1,29 +1,24 @@
 <script lang="ts">
-  import { page } from "$app/stores"; // Import the page store from SvelteKit
+  import { page } from "$app/stores";
   import { onMount } from "svelte";
   import { auth } from "$lib/firebase/firebase";
   import type { User } from "firebase/auth";
-  import { sortFrames } from "$utils/sortFrames";
   import FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
   import { getUserByUid } from "$utils/getUserByUid";
   import Welcome from "$lib/components/messages/Welcome.svelte";
   import { isNew } from "$utils/isNew";
+  import type {
+    FrameFinalizedData,
+    FrameFinalized as FinalFrame,
+  } from "$lib/types/frame";
 
   const title: string = "Cartas Nuevas";
-
   let currentUser: User | null = null; // Initialize currentUser to null
-
   const baseUrl: string = $page.url.origin;
-
-  let finalized: any = [];
-  let sortedFinalized: any = [];
-
+  let sortedFinalized: FinalFrame[] = [];
   let loading: boolean = true; // Start with loading set to true
-
   let error: string | undefined; // Define error as string or undefined
-
   let userData: any;
-
   let newFramesCount: number = 0;
 
   async function getFrames() {
@@ -42,10 +37,15 @@
         );
       }
 
-      const data = await response.json();
-      finalized = data.framesFinalized;
-      // Sort frames by createdAt field
-      sortedFinalized = sortFrames(finalized);
+      const frameFinalizedData: FrameFinalizedData = await response.json();
+
+      sortedFinalized = frameFinalizedData.finalizedFrames.sort(
+        (a: FinalFrame, b: FinalFrame) => {
+          return (
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        }
+      );
     } catch (e) {
       error = e as string;
       console.log(e);
@@ -86,10 +86,10 @@
 {:else if sortedFinalized && sortedFinalized.length > 0}
   <!-- TODO:Render a grid col 1 if there is only one new Frame -->
   <!-- Render frames if frames is defined and not empty -->
-  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
-    {#each sortedFinalized as frame}
-      {#if isNew(frame.createdAt)}
-        <FrameFinalized data={frame} {baseUrl} isSingle={false} />
+  <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
+    {#each sortedFinalized as finalizedFrame}
+      {#if isNew(finalizedFrame.createdAt)}
+        <FrameFinalized data={finalizedFrame} {baseUrl} isSingle={false} />
       {/if}
     {/each}
   </div>
@@ -99,5 +99,5 @@
 {:else if error}
   <p class="text-center text-red-500">{error}</p>
 {:else}
-  <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>
+  <p class="mt-4 text-center text-gray-500">No hay cartas disponibles</p>
 {/if}

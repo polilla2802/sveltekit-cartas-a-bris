@@ -1,25 +1,27 @@
 // src/routes/users/[id]/+page.ts
+import type FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
+import type { FrameData, FramePageData } from "$lib/types/frame";
 import { sortFrames } from "$utils/sortFrames";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {
-  let framesFinalized: any = [];
-  let sortedFrames: any = [];
   try {
     const response = await fetch(`/api/frames/finalized/public`);
-    console.log(response);
     if (!response.ok) {
       throw new Error(`Failed to fetch Public Frames Finalized`);
     }
 
-    let data = await response.json();
-    console.log(data);
-    framesFinalized = data.framesFinalized;
-    sortedFrames = sortFrames(framesFinalized);
+    const framePageData: FramePageData = await response.json();
+    // Sort brochure data by 'order' field in ascending order
+    framePageData.frameData.sort((a: any, b: any) => {
+      if (a.order === null) return 1; // Place `a` after `b`
+      if (b.order === null) return -1; // Place `b` after `a`
+      return a.order - b.order; // Regular numerical comparison
+    });
 
-    console.log(framesFinalized);
+    console.log(framePageData);
 
-    return { framesFinalized };
+    return { frameData: framePageData.frameData };
   } catch (error) {
     console.log("Error loading Public Frames Finalized:", error);
     return {

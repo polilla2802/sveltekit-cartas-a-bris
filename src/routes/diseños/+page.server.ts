@@ -1,6 +1,5 @@
 // src/routes/users/[id]/+page.ts
-import type { FramePageData } from "$lib/types/frame";
-import { sortFrames } from "$utils/sortFrames";
+import type { FrameDesign, FrameDesignData } from "$lib/types/frame";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {
@@ -10,15 +9,16 @@ export const load: PageServerLoad = async ({ fetch }) => {
       throw new Error(`Failed to fetch Frame Designs`);
     }
 
-    const framePageData: FramePageData = await response.json();
+    const frameDesignData: FrameDesignData = await response.json();
     // Sort brochure data by 'order' field in ascending order
-    framePageData.frameData.sort((a: any, b: any) => {
-      if (a.order === null) return 1; // Place `a` after `b`
-      if (b.order === null) return -1; // Place `b` after `a`
-      return a.order - b.order; // Regular numerical comparison
-    });
-
-    return { frameData: framePageData.frameData };
+    frameDesignData.frameDesigns.sort(
+      (a: FrameDesign, b: FrameDesign) => {
+        return (
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      }
+    );
+    return { frameDesigns: frameDesignData.frameDesigns };
   } catch (error) {
     console.log("Error loading frame designs:", error);
     return {

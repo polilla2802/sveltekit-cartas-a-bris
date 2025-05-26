@@ -1,9 +1,10 @@
 <script lang="ts">
+  import type { FrameFinalized } from "$lib/types/frame";
   import { formatToEST } from "$utils/getESTTime";
   import { FrameTypes, getQRCode, qrCodeLoading } from "$utils/getQRcode";
   import { isNew } from "$utils/isNew";
   import { onMount } from "svelte";
-  export let data;
+  export let data: FrameFinalized;
   export let baseUrl: string;
   export let finalizedId: string = "";
   export let isSingle: boolean = false;

@@ -3,10 +3,10 @@
   import { onMount } from "svelte";
   import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import Welcome from "$lib/components/messages/Welcome.svelte";
-  import type { FramePageData } from "$lib/types/frame";
+  import type { FrameDesignData } from "$lib/types/frame";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
 
-  export let data: FramePageData;
+  export let data: FrameDesignData;
   const baseUrl: string = $page.url.origin;
   const title: string = "Diseños";
   let loading = false;
@@ -30,9 +30,9 @@
 {#if loading}
   <!-- Render a loader while fetching data -->
   <p class="mt-4 text-center text-gray-500">Cargando cartas...</p>
-{:else if data.frameData}
+{:else if data.frameDesigns}
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
-    {#each data.frameData as frameDesign}
+    {#each data.frameDesigns as frameDesign}
       <FrameDesign data={frameDesign} {baseUrl} isSingle={false} />
     {/each}
   </div>

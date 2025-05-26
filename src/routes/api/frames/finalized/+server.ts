@@ -24,9 +24,9 @@ export const GET: RequestHandler = async () => {
     const serializedData = JSON.stringify(framesFinalizedVlue, bigIntToString);
 
     // Parse the serialized data back to an object (optional step)
-    const frameData = JSON.parse(serializedData);
+    const finalizedFrames = JSON.parse(serializedData);
 
-    return json({ frameData }, {
+    return json({ finalizedFrames }, {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },

@@ -7,113 +7,128 @@
   import Welcome from "$lib/components/messages/Welcome.svelte";
   import Icon from "@iconify/svelte";
   import { getUserByUid } from "$utils/getUserByUid";
+  import type {
+    FrameFinalizedData,
+    FrameFinalized as FinalFrame,
+  } from "$lib/types/frame";
+  import { afterNavigate, beforeNavigate } from "$app/navigation";
 
-  let currentUser: User | null = null; // Initialize currentUser to null
-  let userData: any;
-
-  // Use the `$page` store to get the data returned by the load function
-  const { frameFinalized } = $page.data.frameFinalized;
+  export let data: FrameFinalizedData;
   // Construct the base URL based on page url origin
   const baseUrl: string = $page.url.origin;
-  // Extract the `designId` from URL parameters
-  let finalizedId: string = $page.params.id;
+  let currentUser: User | null = null; // Initialize currentUser to null
+  let userData: any;
+  let hasAccess: boolean;
+  let accessChecked = false;
+  let loading = true;
 
-  let notVisible: boolean = true;
+  // Set up navigation event listeners
+  beforeNavigate(() => {
+    loading = true;
+  });
 
-  function checkYourFrame(userData: any, frameFinalized: any): boolean {
+  afterNavigate(() => {
+    loading = false;
+  });
+
+  function checkYourFrame(userData: any, frameFinalized: FinalFrame): boolean {
     console.log(userData.user.id);
     console.log(frameFinalized.createdFor);
     if (
       userData.user.id === frameFinalized.createdFor ||
       userData.user.id === frameFinalized.createdBy
     ) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 
   // Optional: If you need to perform any action on mount
   onMount(() => {
-    console.log("Component has mounted", frameFinalized);
-    if (frameFinalized.isPublic == false) {
-      auth.onAuthStateChanged(async (authUser) => {
-        if (authUser) {
-          currentUser = authUser;
-          console.log("User is signed in:", currentUser);
-          if (currentUser != null) {
-            userData = await getUserByUid(currentUser!.uid);
-            notVisible = checkYourFrame(userData, frameFinalized);
+    console.log("Component has mounted", data);
+    if (data.frameFinalized !== null) {
+      if (data.frameFinalized.isPublic == false) {
+        auth.onAuthStateChanged(async (authUser) => {
+          if (authUser) {
+            currentUser = authUser;
+            console.log("User is signed in:", currentUser);
+            if (currentUser != null) {
+              userData = await getUserByUid(currentUser!.uid);
+              hasAccess = checkYourFrame(userData, data.frameFinalized);
+              accessChecked = true;
+            } else {
+              hasAccess = false;
+              accessChecked = true;
+              // If the user is not authenticated, you might want to handle it here
+              console.log("User is not authenticated");
+            }
           } else {
-            notVisible = true;
-            // If the user is not authenticated, you might want to handle it here
-            console.log("User is not authenticated");
+            hasAccess = false;
+            accessChecked = true;
+            console.log("No user signed in");
           }
-        } else {
-          notVisible = true;
-          console.log("No user signed in");
-        }
-      });
+        });
+      } else {
+        hasAccess = true;
+        accessChecked = true;
+      }
     } else {
-      notVisible = false;
+      hasAccess = true;
+      accessChecked = true;
+      loading = false;
     }
   });
 </script>
 
-<!-- Now you can use the `user` data in your component -->
 <section>
-  {#await $page.data.frameFinalized}
+  {#if loading || !accessChecked}
     <!-- Render a loader while fetching data -->
-    <p class="mt-4 text-center text-gray-500">Cargando carta...</p>
-  {:then data}
-    {#if data.error}
-      <!-- Render an error message if there is an error -->
-      <p class="mt-4 text-center text-red-500">{data.error}</p>
-    {:else if notVisible}
-      <Welcome title={"Lo siento, no tienes acceso para ver esta carta"}
-      ></Welcome>
-      <div class="invalid-container">
-        <Icon
-          icon="bi:envelope-exclamation"
-          color="#2f4858"
-          width="100"
-          height="100"
-          opacity="1"
-        />
-      </div>
-    {:else if data}
-      {#if data.frameFinalized.trackId != null}
-        <iframe
-          title="Spotify Player"
-          style="border-radius:12px;margin-bottom:15px;"
-          src="https://open.spotify.com/embed/track/{data.frameFinalized
-            .trackId}?utm_source=generator"
-          width="100%"
-          height="352"
-          frameBorder="0"
-          allowfullscreen
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-        ></iframe>
-      {/if}
-
-      <Welcome title={data.frameFinalized.name}></Welcome>
-      <div class="frame-single-container">
-        <FrameFinalized
-          data={data.frameFinalized}
-          {baseUrl}
-          isSingle={true}
-          {finalizedId}
-        />
-      </div>
-    {:else}
-      <!-- Render a message if frames is undefined or empty -->
-      <p class="mt-4 text-center text-gray-500">Carta no disponible.</p>
+    <p class="mt-4 text-center text-gray-500">Cargando diseño...</p>
+  {:else if !hasAccess}
+    <!-- 🔒 Access Denied View -->
+    <p class="mt-4 font-semibold text-center text-red-600">
+      No tienes permiso para ver esta carta.
+    </p>
+    <div class="invalid-container">
+      <Icon
+        icon="bi:envelope-exclamation"
+        color="#2f4858"
+        width="100"
+        height="100"
+        opacity="1"
+      />
+    </div>
+  {:else if data.frameFinalized}
+    {#if data.frameFinalized.trackId != null}
+      <iframe
+        title="Spotify Player"
+        style="border-radius:12px;margin-bottom:15px;"
+        src="https://open.spotify.com/embed/track/{data.frameFinalized
+          .trackId}?utm_source=generator"
+        width="100%"
+        height="352"
+        frameBorder="0"
+        allowfullscreen
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
     {/if}
-  {:catch error}
+    <Welcome title={data.frameFinalized.name}></Welcome>
+    <div class="frame-single-container">
+      <FrameFinalized
+        frameFinalized={data.frameFinalized}
+        {baseUrl}
+        isSingle={true}
+      />
+    </div>
+  {:else if data.error}
+    <p class="mt-4 text-center text-red-500">{data.error}</p>
     <!-- This block should rarely be reached if we handle errors properly in load -->
     <p class="mt-4 text-center text-red-500">
-      Hubo un error, intentalo más tarde.
+      Hubo un error, intentalo más tarde
     </p>
-  {/await}
+  {:else}
+    <p class="mt-4 text-center text-gray-500">La carta no esta disponible</p>
+  {/if}
 </section>

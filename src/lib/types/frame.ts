@@ -38,6 +38,11 @@ export interface FrameDesignData {
 	error?: string;
 }
 
+export interface FrameFinalizedData {
+	frameFinalized: FrameFinalized;
+	error?: string;
+}
+
 export interface FrameDesignsData {
 	frameDesigns: FrameDesign[];
 	error?: string;

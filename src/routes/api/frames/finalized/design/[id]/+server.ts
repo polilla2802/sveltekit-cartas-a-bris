@@ -26,14 +26,14 @@ export const GET: RequestHandler = async ({ params }) => {
     const serializedData = JSON.stringify(framesFinalizedValue, bigIntToString);
 
     // Parse the serialized data back to an object (optional step)
-    const framesFinalized = JSON.parse(serializedData);
+    const frameData = JSON.parse(serializedData);
 
-    if (!framesFinalized) {
+    if (!frameData) {
       throw new Error("Frames Finalized not found");
     }
 
     return json(
-      { framesFinalized },
+      { frameData },
       {
         headers: {
           "Access-Control-Allow-Origin": "*",

@@ -20,10 +20,10 @@ export const GET: RequestHandler = async () => {
     const serializedData = JSON.stringify(framesDesignsValue, bigIntToString);
 
     // Parse the serialized data back to an object (optional step)
-    const framesDesigns = JSON.parse(serializedData);
+    const frameData = JSON.parse(serializedData);
 
     return json(
-      { framesDesigns },
+      { frameData },
       {
         headers: {
           "Access-Control-Allow-Origin": "*",

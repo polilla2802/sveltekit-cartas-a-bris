@@ -3,40 +3,47 @@
   import { onMount } from "svelte";
   import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import Welcome from "$lib/components/messages/Welcome.svelte";
+  import type { FramePageData } from "$lib/types/frame";
+  import { afterNavigate, beforeNavigate } from "$app/navigation";
 
+  export let data: FramePageData;
   const baseUrl: string = $page.url.origin;
-  // Use the `$page` store to get the data returned by the load function
-  const { sortedDesigns } = $page.data;
   const title: string = "Diseños";
+  let loading = false;
+
+  // Set up navigation event listeners
+  beforeNavigate(() => {
+    loading = true;
+  });
+
+  afterNavigate(() => {
+    loading = false;
+  });
+
   onMount(() => {
-    console.log("Component has mounted", sortedDesigns);
+    console.log("Component has mounted", data);
   });
 </script>
 
 <Welcome {title}></Welcome>
 
-{#await $page.data}
+{#if loading}
   <!-- Render a loader while fetching data -->
-  <p class="text-center text-gray-500 mt-4">Loading frames...</p>
-{:then data}
-  {#if data.error}
-    <!-- Render an error message if there is an error -->
-    <p class="text-center text-red-500 mt-4">{data.error}</p>
-  {:else if data.sortedDesigns && data.sortedDesigns.length > 0}
-    <!-- TODO:Render a grid col 1 if there is only one new Frame -->
-    <!-- Render frames if frames is defined and not empty -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4">
-      {#each data.sortedDesigns as design}
-        <FrameDesign data={design} {baseUrl} isSingle={false} />
-      {/each}
-    </div>
-  {:else}
-    <!-- Render a message if frames is undefined or empty -->
-    <p class="text-center text-gray-500 mt-4">No hay cartas disponibles</p>
-  {/if}
-{:catch error}
+  <p class="mt-4 text-center text-gray-500">Cargando cartas...</p>
+{:else if data.frameData}
+  <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
+    {#each data.frameData as frameDesign}
+      <FrameDesign data={frameDesign} {baseUrl} isSingle={false} />
+    {/each}
+  </div>
+{:else if data.error}
+  <!-- Render an error message if there is an error -->
+  <p class="mt-4 text-center text-red-500">{data.error}</p>
   <!-- This block should rarely be reached if we handle errors properly in load -->
-  <p class="text-center text-red-500 mt-4">
-    Unexpected error. Please try again later.
+  <p class="mt-4 text-center text-red-500">
+    Hubo un error, intentalo más tarde
   </p>
-{/await}
+{:else}
+  <!-- Render a message if frames is undefined or empty -->
+  <p class="mt-4 text-center text-gray-500">No hay cartas disponibles</p>
+{/if}

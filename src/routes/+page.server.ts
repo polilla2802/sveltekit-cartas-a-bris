@@ -1,7 +1,5 @@
 // src/routes/users/[id]/+page.ts
-import type FrameFinalized from "$lib/components/frames/FrameFinalized.svelte";
-import type { FrameData, FramePageData } from "$lib/types/frame";
-import { sortFrames } from "$utils/sortFrames";
+import type { FramePageData } from "$lib/types/frame";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {
@@ -18,8 +16,6 @@ export const load: PageServerLoad = async ({ fetch }) => {
       if (b.order === null) return -1; // Place `b` after `a`
       return a.order - b.order; // Regular numerical comparison
     });
-
-    console.log(framePageData);
 
     return { frameData: framePageData.frameData };
   } catch (error) {

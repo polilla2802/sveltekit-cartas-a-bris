@@ -3,10 +3,10 @@
   import { onMount } from "svelte";
   import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import Welcome from "$lib/components/messages/Welcome.svelte";
-  import type { FrameDesignData } from "$lib/types/frame";
+  import type { FrameDesignsData } from "$lib/types/frame";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
 
-  export let data: FrameDesignData;
+  export let data: FrameDesignsData;
   const baseUrl: string = $page.url.origin;
   const title: string = "Diseños";
   let loading = true;
@@ -33,7 +33,7 @@
 {:else if data.frameDesigns}
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
     {#each data.frameDesigns as frameDesign}
-      <FrameDesign data={frameDesign} {baseUrl} isSingle={false} />
+      <FrameDesign frameDesign={frameDesign} {baseUrl} isSingle={false} />
     {/each}
   </div>
 {:else if data.error}

@@ -4,13 +4,14 @@
   import { FrameTypes, getQRCode, qrCodeLoading } from "$utils/getQRcode";
   import { isNew } from "$utils/isNew";
   import { onMount } from "svelte";
-  export let data: FrameDesign;
+  export let frameDesign: FrameDesign;
   export let baseUrl: string;
-  export let designId: string = "";
   export let isSingle: boolean = false;
   let qrCode: Promise<string>;
 
   let audio: HTMLAudioElement;
+
+  console.log(frameDesign);
 
   function playSound(): void {
     audio = new Audio("/sounds/page-4.mp3");
@@ -23,7 +24,7 @@
   // Optional: If you need to perform any action on mount
   onMount(() => {
     // console.log(data);
-    qrCode = getQRCode(baseUrl, designId, FrameTypes.designs);
+    qrCode = getQRCode(baseUrl, frameDesign.id.toString(), FrameTypes.designs);
   });
 </script>
 
@@ -34,7 +35,7 @@
   {#if isSingle}
     <div class="relative w-full xs:w-2/4 md:w-3/4 lg:w-2/4">
       <!-- Check if the frame is new and conditionally render "Nuevo!" -->
-      {#if isNew(data.createdAt)}
+      {#if isNew(frameDesign.createdAt)}
         <img
           class="absolute new-logo-single"
           src={"/images/new-styled.png"}
@@ -43,10 +44,10 @@
         />
       {/if}
 
-      <a href={data.url} class="frame-link"
+      <a href={frameDesign.url} class="frame-link"
         ><img
           class="w-full h-auto"
-          src={data.url}
+          src={frameDesign.url}
           alt="Frame"
           loading="lazy"
         /></a
@@ -56,9 +57,9 @@
     <a
       class="relative flex flex-col justify-end letter"
       on:click={playSound}
-      href={baseUrl + "/diseños/" + data.id}
+      href={baseUrl + "/diseños/" + frameDesign.id}
     >
-      {#if isNew(data.createdAt)}
+      {#if isNew(frameDesign.createdAt)}
         <img
           class="absolute new-logo"
           src={"/images/new-styled.png"}
@@ -68,7 +69,7 @@
       {/if}
 
       <div class="absolute bottom-0 half-image-vertical">
-        <img class="w-full h-auto" src={data.url} alt="Design" loading="lazy" />
+        <img class="w-full h-auto" src={frameDesign.url} alt="Design" loading="lazy" />
       </div>
 
       <img
@@ -81,18 +82,18 @@
   {/if}
 
   <p class="mt-2 text-center">Nombre:</p>
-  <b class="mb-3 text-center"><i>"{data.name}"</i></b>
-  {#if data.user}
-    <p class="text-center">Autor: <b>{data.user.userName}</b></p>
+  <b class="mb-3 text-center"><i>"{frameDesign.name}"</i></b>
+  {#if frameDesign.user}
+    <p class="text-center">Autor: <b>{frameDesign.user.userName}</b></p>
   {:else}
     <div>
       <p class="text-center">Autor: <b>Desconocido</b></p>
     </div>
   {/if}
-  {#if data.frame_types}
-    <p class="text-center">Tipo de Diseño: <b>{data.frame_types.type}</b></p>
+  {#if frameDesign.frame_types}
+    <p class="text-center">Tipo de Diseño: <b>{frameDesign.frame_types.type}</b></p>
   {/if}
-  <b>{formatToEST(data.createdAt)}</b>
+  <b>{formatToEST(frameDesign.createdAt)}</b>
 </div>
 {#if isSingle}
   {#await qrCode}

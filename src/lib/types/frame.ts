@@ -34,11 +34,16 @@ export interface FrameType {
 }
 
 export interface FrameDesignData {
+	frameDesign: FrameDesign;
+	error?: string;
+}
+
+export interface FrameDesignsData {
 	frameDesigns: FrameDesign[];
 	error?: string;
 }
 
-export interface FrameFinalizedData {
+export interface FramesFinalizedData {
 	finalizedFrames: FrameFinalized[];
 	error?: string;
 }

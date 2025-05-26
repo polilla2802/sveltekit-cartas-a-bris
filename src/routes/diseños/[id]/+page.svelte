@@ -1,100 +1,99 @@
 <script lang="ts">
-  import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte"; // Optional: If you want to run some code when the component mounts
   import { auth } from "$lib/firebase/firebase";
   import type { User } from "firebase/auth";
   import Welcome from "$lib/components/messages/Welcome.svelte";
-  import Icon from "@iconify/svelte";
   import { getUserByUid } from "$utils/getUserByUid";
+  import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
+  import type {
+    FrameDesign as FinalDesign,
+    FrameDesignData,
+  } from "$lib/types/frame";
+  import { afterNavigate, beforeNavigate } from "$app/navigation";
+  import Icon from "@iconify/svelte";
 
-  let currentUser: User | null = null; // Initialize currentUser to null
-  let userData: any;
-  
-  // Use the `$page` store to get the data returned by the load function
-  const { frameDesign } = $page.data.frameDesign;
+  export let data: FrameDesignData;
   // Construct the base URL based on page url origin
   const baseUrl: string = $page.url.origin;
-  // Extract the `designId` from URL parameters
-  let designId: string = $page.params.id;
+  let currentUser: User | null = null; // Initialize currentUser to null
+  let userData: any;
+  let hasAccess: boolean;
+  let accessChecked = false;
+  let loading = true;
 
-  let notVisible: boolean;
+  // Set up navigation event listeners
+  beforeNavigate(() => {
+    loading = true;
+  });
 
-  function checkYourFrame(userData: any, frameDesign: any): boolean {
+  afterNavigate(() => {
+    loading = false;
+  });
+
+  function checkYourFrame(userData: any, frameDesign: FinalDesign): boolean {
     console.log(userData.user.id);
     console.log(frameDesign.createdBy);
     if (userData.user.id === frameDesign.createdBy) {
-      return false;
-    } else {
       return true;
+    } else {
+      return false;
     }
   }
 
   // Optional: If you need to perform any action on mount
   onMount(() => {
-    console.log("Component has mounted", frameDesign);
-    if (frameDesign.isPublic == false) {
+    console.log("Component has mounted", data);
+    if (data.frameDesign.isPublic == false) {
       auth.onAuthStateChanged(async (authUser) => {
         if (authUser) {
           currentUser = authUser;
           console.log("User is signed in:", currentUser);
           if (currentUser != null) {
             userData = await getUserByUid(currentUser!.uid);
-            notVisible = checkYourFrame(userData, frameDesign);
+            hasAccess = checkYourFrame(userData, data.frameDesign);
+            accessChecked = true;
           } else {
-            notVisible = true;
+            hasAccess = false;
+            accessChecked = true;
             // If the user is not authenticated, you might want to handle it here
             console.log("User is not authenticated");
           }
         } else {
-          notVisible = true;
+          hasAccess = false;
+          accessChecked = true;
           console.log("No user signed in");
         }
       });
     } else {
-      notVisible = false;
+      hasAccess = true;
+      accessChecked = true;
     }
   });
 </script>
 
 <section>
-  {#await $page.data.frameDesign}
+  {#if loading || !accessChecked}
     <!-- Render a loader while fetching data -->
-    <p class="text-center text-gray-500 mt-4">Loading frames...</p>
-  {:then data}
-    {#if data.error}
-      <!-- Render an error message if there is an error -->
-      <p class="text-center text-red-500 mt-4">{data.error}</p>
-    {:else if notVisible}
-      <Welcome title={"Lo siento, no tienes acceso para ver esta carta"}
-      ></Welcome>
-      <div class="invalid-container">
-        <Icon
-          icon="bi:envelope-exclamation"
-          color="#2f4858"
-          width="100"
-          height="100"
-          opacity="1"
-        />
-      </div>
-    {:else if data}
-      <Welcome title={data.frameDesign.name}></Welcome>
-      <div class="frame-single-container">
-        <FrameDesign
-          data={data.frameDesign}
-          {baseUrl}
-          isSingle={true}
-          {designId}
-        />
-      </div>
-    {:else}
-      <!-- Render a message if frames is undefined or empty -->
-      <p class="text-center text-gray-500 mt-4">No frame design available.</p>
-    {/if}
-  {:catch error}
-    <!-- This block should rarely be reached if we handle errors properly in load -->
-    <p class="text-center text-red-500 mt-4">
-      Unexpected error. Please try again later.
+    <p class="mt-4 text-center text-gray-500">Cargando diseño...</p>
+  {:else if !hasAccess}
+    <!-- 🔒 Access Denied View -->
+    <p class="mt-4 font-semibold text-center text-red-600">
+      No tienes permiso para ver este diseño.
     </p>
-  {/await}
+    <div class="invalid-container">
+      <Icon
+        icon="bi:envelope-exclamation"
+        color="#2f4858"
+        width="100"
+        height="100"
+        opacity="1"
+      />
+    </div>
+  {:else if data}
+    <Welcome title={data.frameDesign.name}></Welcome>
+    <div class="frame-single-container">
+      <FrameDesign frameDesign={data.frameDesign} {baseUrl} isSingle={true} />
+    </div>
+  {/if}
 </section>

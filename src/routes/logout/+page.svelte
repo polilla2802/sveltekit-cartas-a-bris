@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { signOutUser } from "$lib/auth";
+  import { signOutUser } from "$lib/firebase/auth";
   import { goto } from "$app/navigation"; // Ensure goto is imported for navigation
   import Welcome from "$lib/components/messages/Welcome.svelte";
 

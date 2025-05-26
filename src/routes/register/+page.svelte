@@ -5,11 +5,11 @@
     signInWithGoogle,
     signInUserWithMail,
     deleteCurrentUser,
-  } from "$lib/auth";
+  } from "$lib/firebase/auth";
   import { isUserRegisteredWithGoogle } from "$utils/isGoogle";
   import { getAdditionalUserInfo, type User } from "firebase/auth";
   import { onMount } from "svelte";
-  import { auth } from "$lib/firebase";
+  import { auth } from "$lib/firebase/firebase";
   import Icon from "@iconify/svelte";
   import Welcome from "$lib/components/messages/Welcome.svelte";
 

@@ -1,7 +1,7 @@
 // src/lib/auth.ts
 import { signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import type { User, UserCredential } from "firebase/auth"; // Use type-only import for User
-import { auth } from "$lib/firebase";
+import { auth } from "./firebase";
 
 // Set persistence to local (this can be 'session' or 'none' based on your needs)
 setPersistence(auth, browserLocalPersistence)

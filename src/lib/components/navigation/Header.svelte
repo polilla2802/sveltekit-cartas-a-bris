@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import { auth } from "$lib/firebase";
+  import { auth } from "$lib/firebase/firebase";
   import type { User } from "firebase/auth";
   import { onMount } from "svelte";
   import MobileMenu from "./MobileMenu.svelte";

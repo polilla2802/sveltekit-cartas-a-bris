@@ -1,13 +1,13 @@
 <!-- src/routes/login.svelte -->
 <script lang="ts">
-  import { auth } from "$lib/firebase";
+  import { auth } from "$lib/firebase/firebase";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import {
     deleteCurrentUser,
     logInUserWithMail,
     signInWithGoogle,
-  } from "$lib/auth";
+  } from "$lib/firebase/auth";
   import { getAdditionalUserInfo, type User } from "firebase/auth";
   import { isUserRegisteredWithGoogle } from "$utils/isGoogle";
   import Icon from "@iconify/svelte";

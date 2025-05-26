@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/stores"; // Import the page store from SvelteKit
   import { onMount } from "svelte";
-  import { auth } from "$lib/firebase";
+  import { auth } from "$lib/firebase/firebase";
   import type { User } from "firebase/auth";
   import { sortFrames } from "$utils/sortFrames";
   import { getUserByUid } from "$utils/getUserByUid";

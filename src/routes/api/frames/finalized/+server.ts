@@ -1,5 +1,5 @@
 import { error, json } from '@sveltejs/kit';
-import { storage } from '$lib/firebase';
+import { storage } from '$lib/firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import type { RequestHandler } from './$types';
 import prisma from '$lib/prisma';

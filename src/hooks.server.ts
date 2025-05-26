@@ -1,7 +1,7 @@
 // src/hooks.server.ts
 import type { Handle } from "@sveltejs/kit";
 import { getAuth } from "firebase/auth";
-import { app } from "$lib/firebase"; // Ensure you import the FirebaseApp instance
+import { app } from "$lib/firebase/firebase"; // Ensure you import the FirebaseApp instance
 
 export const handle: Handle = async ({ event, resolve }) => {
   const firebaseAuth = getAuth(app);

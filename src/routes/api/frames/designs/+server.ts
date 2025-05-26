@@ -1,10 +1,10 @@
 import { error, json } from "@sveltejs/kit";
-import { storage } from "$lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import type { RequestHandler } from "./$types";
 import prisma from "$lib/prisma";
 import { bigIntToString } from "$utils/bigIntToString";
 import { parseBoolean } from "$utils/parseBoolean";
+import { storage } from "$lib/firebase/firebase";
 
 export const GET: RequestHandler = async () => {
   try {

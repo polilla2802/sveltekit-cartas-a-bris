@@ -1,6 +1,6 @@
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
-import { storage } from "$lib/firebase";
+import { storage } from "$lib/firebase/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { bigIntToString } from "$utils/bigIntToString";
 import { parseBoolean } from "$utils/parseBoolean";

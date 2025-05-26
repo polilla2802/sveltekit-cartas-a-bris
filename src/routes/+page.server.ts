@@ -1,5 +1,5 @@
 // src/routes/users/[id]/+page.ts
-import type { FrameFinalized, FrameFinalizedData } from "$lib/types/frame";
+import type { FrameFinalized, FramesFinalizedData } from "$lib/types/frame";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ fetch }) => {
@@ -9,8 +9,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
       throw new Error(`Failed to fetch Public Frames Finalized`);
     }
 
-    const frameFinalizedData: FrameFinalizedData = await response.json();
-    frameFinalizedData.finalizedFrames.sort(
+    const framesFinalizedData: FramesFinalizedData = await response.json();
+    framesFinalizedData.framesFinalized.sort(
       (a: FrameFinalized, b: FrameFinalized) => {
         return (
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
       }
     );
 
-    return { finalizedFrames: frameFinalizedData.finalizedFrames };
+    return { framesFinalized: framesFinalizedData.framesFinalized };
   } catch (error) {
     console.log("Error loading Public Frames Finalized:", error);
     return {

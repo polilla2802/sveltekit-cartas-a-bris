@@ -33,7 +33,7 @@
 {:else if data.frameDesigns}
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
     {#each data.frameDesigns as frameDesign}
-      <FrameDesign frameDesign={frameDesign} {baseUrl} isSingle={false} />
+      <FrameDesign {frameDesign} {baseUrl} isSingle={false} />
     {/each}
   </div>
 {:else if data.error}

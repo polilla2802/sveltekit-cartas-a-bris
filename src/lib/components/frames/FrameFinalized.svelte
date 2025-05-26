@@ -4,7 +4,7 @@
   import { FrameTypes, getQRCode, qrCodeLoading } from "$utils/getQRcode";
   import { isNew } from "$utils/isNew";
   import { onMount } from "svelte";
-  export let data: FrameFinalized;
+  export let frameFinalized: FrameFinalized;
   export let baseUrl: string;
   export let finalizedId: string = "";
   export let isSingle: boolean = false;
@@ -13,6 +13,8 @@
   let audio: HTMLAudioElement;
 
   let hover: boolean = false;
+
+  console.log(frameFinalized)
 
   function playSound(): void {
     audio = new Audio("/sounds/page-4.mp3");
@@ -36,7 +38,7 @@
   {#if isSingle}
     <div class="relative w-full xs:w-2/4 md:w-3/4 lg:w-2/4">
       <!-- Check if the frame is new and conditionally render "Nuevo!" -->
-      {#if isNew(data.createdAt)}
+      {#if isNew(frameFinalized.createdAt)}
         <img
           class="absolute new-logo-single"
           src={"/images/new-styled.png"}
@@ -45,10 +47,10 @@
         />
       {/if}
 
-      <a href={data.url} class="frame-link"
+      <a href={frameFinalized.url} class="frame-link"
         ><img
           class="w-full h-auto"
-          src={data.url}
+          src={frameFinalized.url}
           alt="Frame"
           loading="lazy"
         /></a
@@ -58,9 +60,9 @@
     <a
       class="relative flex flex-col justify-end letter"
       on:click={playSound}
-      href={baseUrl + "/finalizado/" + data.id}
+      href={baseUrl + "/finalizado/" + frameFinalized.id}
     >
-      {#if isNew(data.createdAt)}
+      {#if isNew(frameFinalized.createdAt)}
         <img
           class="absolute new-logo"
           src={"/images/new-styled.png"}
@@ -69,7 +71,12 @@
         />
       {/if}
       <div class="absolute bottom-0 half-image-vertical">
-        <img class="w-full h-auto" src={data.url} alt="Frame" loading="lazy" />
+        <img
+          class="w-full h-auto"
+          src={frameFinalized.url}
+          alt="Frame"
+          loading="lazy"
+        />
       </div>
 
       <img
@@ -81,26 +88,28 @@
     </a>
   {/if}
   <p class="mt-2 text-center">Nombre:</p>
-  <b class="mb-3 text-center"><i>"{data.name}"</i></b>
-  {#if data.userCreator}
-    <p class="text-center">Autor: <b>{data.userCreator.userName}</b></p>
+  <b class="mb-3 text-center"><i>"{frameFinalized.name}"</i></b>
+  {#if frameFinalized.userCreator}
+    <p class="text-center">
+      Autor: <b>{frameFinalized.userCreator.userName}</b>
+    </p>
   {:else}
     <div>
       <p class="text-center">Autor: <b>Desconocido</b></p>
     </div>
   {/if}
-  {#if data.userFor}
-    <p class="text-center">Para: <b>{data.userFor.userName}</b></p>
+  {#if frameFinalized.userFor}
+    <p class="text-center">Para: <b>{frameFinalized.userFor.userName}</b></p>
   {/if}
-  {#if data.frame_designs}
+  {#if frameFinalized.frame_designs}
     <p class="text-center">
       Diseño: <a
-        href={baseUrl + "/diseños/" + data.frame_designs.id}
-        class="text-blue-500 underline">{data.frame_designs.name}</a
+        href={baseUrl + "/diseños/" + frameFinalized.frame_designs.id}
+        class="text-blue-500 underline">{frameFinalized.frame_designs.name}</a
       >
     </p>
   {/if}
-  <b>{formatToEST(data.createdAt)}</b>
+  <b>{formatToEST(frameFinalized.createdAt)}</b>
 </div>
 {#if isSingle}
   {#await qrCode}

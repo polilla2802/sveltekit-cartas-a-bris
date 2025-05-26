@@ -44,30 +44,37 @@
   // Optional: If you need to perform any action on mount
   onMount(() => {
     console.log("Component has mounted", data);
-    if (data.frameDesign.isPublic == false) {
-      auth.onAuthStateChanged(async (authUser) => {
-        if (authUser) {
-          currentUser = authUser;
-          console.log("User is signed in:", currentUser);
-          if (currentUser != null) {
-            userData = await getUserByUid(currentUser!.uid);
-            hasAccess = checkYourFrame(userData, data.frameDesign);
-            accessChecked = true;
+
+    if (data.frameDesign !== null) {
+      if (data.frameDesign.isPublic == false) {
+        auth.onAuthStateChanged(async (authUser) => {
+          if (authUser) {
+            currentUser = authUser;
+            console.log("User is signed in:", currentUser);
+            if (currentUser != null) {
+              userData = await getUserByUid(currentUser!.uid);
+              hasAccess = checkYourFrame(userData, data.frameDesign);
+              accessChecked = true;
+            } else {
+              hasAccess = false;
+              accessChecked = true;
+              // If the user is not authenticated, you might want to handle it here
+              console.log("User is not authenticated");
+            }
           } else {
             hasAccess = false;
             accessChecked = true;
-            // If the user is not authenticated, you might want to handle it here
-            console.log("User is not authenticated");
+            console.log("No user signed in");
           }
-        } else {
-          hasAccess = false;
-          accessChecked = true;
-          console.log("No user signed in");
-        }
-      });
+        });
+      } else {
+        hasAccess = true;
+        accessChecked = true;
+      }
     } else {
       hasAccess = true;
       accessChecked = true;
+      loading = false;
     }
   });
 </script>
@@ -90,10 +97,18 @@
         opacity="1"
       />
     </div>
-  {:else if data}
+  {:else if data.frameDesign}
     <Welcome title={data.frameDesign.name}></Welcome>
     <div class="frame-single-container">
       <FrameDesign frameDesign={data.frameDesign} {baseUrl} isSingle={true} />
     </div>
+  {:else if data.error}
+    <p class="mt-4 text-center text-red-500">{data.error}</p>
+    <!-- This block should rarely be reached if we handle errors properly in load -->
+    <p class="mt-4 text-center text-red-500">
+      Hubo un error, intentalo más tarde
+    </p>
+  {:else}
+    <p class="mt-4 text-center text-gray-500">La carta no esta disponible</p>
   {/if}
 </section>

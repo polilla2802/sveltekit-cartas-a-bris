@@ -7,7 +7,7 @@
   import Welcome from "$lib/components/messages/Welcome.svelte";
   import FrameDesign from "$lib/components/frames/FrameDesign.svelte";
   import type {
-    FrameDesignData,
+    FrameDesignsData,
     FrameDesign as FinalDesign,
   } from "$lib/types/frame";
 
@@ -31,9 +31,9 @@
         throw new Error(`Failed to fetch Frame Designs Finalized`);
       }
 
-      const frameDesignData: FrameDesignData = await response.json();
+      const frameDesignsData: FrameDesignsData = await response.json();
 
-      sortedDesigns = frameDesignData.frameDesigns.sort(
+      sortedDesigns = frameDesignsData.frameDesigns.sort(
         (a: FinalDesign, b: FinalDesign) => {
           return (
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -77,7 +77,7 @@
   <!-- Render frames if frames is defined and not empty -->
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
     {#each sortedDesigns as design}
-      <FrameDesign data={design} {baseUrl} isSingle={false} />
+      <FrameDesign frameDesign={design} {baseUrl} isSingle={false} />
     {/each}
   </div>
 {:else if error}

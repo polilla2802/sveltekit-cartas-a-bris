@@ -44,6 +44,6 @@ export interface FrameDesignsData {
 }
 
 export interface FramesFinalizedData {
-	finalizedFrames: FrameFinalized[];
+	framesFinalized: FrameFinalized[];
 	error?: string;
 }

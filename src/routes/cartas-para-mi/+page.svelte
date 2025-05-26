@@ -7,7 +7,7 @@
   import { getUserByUid } from "$utils/getUserByUid";
   import Welcome from "$lib/components/messages/Welcome.svelte";
   import type {
-    FrameFinalizedData,
+    FramesFinalizedData,
     FrameFinalized as FinalFrame,
   } from "$lib/types/frame";
 
@@ -34,9 +34,9 @@
         );
       }
 
-      const frameFinalizedData: FrameFinalizedData = await response.json();
+      const framesFinalizedData: FramesFinalizedData = await response.json();
 
-      sortedFinalized = frameFinalizedData.finalizedFrames.sort(
+      sortedFinalized = framesFinalizedData.framesFinalized.sort(
         (a: FinalFrame, b: FinalFrame) => {
           return (
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -79,8 +79,8 @@
   <!-- TODO:Render a grid col 1 if there is only one new Frame -->
   <!-- Render frames if frames is defined and not empty -->
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
-    {#each sortedFinalized as finalizedFrame}
-      <FrameFinalized data={finalizedFrame} {baseUrl} isSingle={false} />
+    {#each sortedFinalized as frameFinalized}
+      <FrameFinalized {frameFinalized} {baseUrl} isSingle={false} />
     {/each}
   </div>
 {:else if error}

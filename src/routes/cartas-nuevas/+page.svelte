@@ -89,7 +89,12 @@
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
     {#each sortedFinalized as frameFinalized}
       {#if isNew(frameFinalized.createdAt)}
-        <FrameFinalized {frameFinalized} {baseUrl} isSingle={false} />
+        <FrameFinalized
+          {frameFinalized}
+          {baseUrl}
+          isSingle={false}
+          qrCode={null}
+        />
       {/if}
     {/each}
   </div>

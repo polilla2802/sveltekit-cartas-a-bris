@@ -80,7 +80,12 @@
   <!-- Render frames if frames is defined and not empty -->
   <div class="grid grid-cols-2 gap-4 pt-4 md:grid-cols-3 lg:grid-cols-5">
     {#each sortedFinalized as frameFinalized}
-      <FrameFinalized {frameFinalized} {baseUrl} isSingle={false} />
+      <FrameFinalized
+        {frameFinalized}
+        {baseUrl}
+        isSingle={false}
+        qrCode={null}
+      />
     {/each}
   </div>
 {:else if error}

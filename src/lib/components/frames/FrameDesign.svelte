@@ -5,7 +5,7 @@
   export let frameDesign: FrameDesign;
   export let baseUrl: string;
   export let isSingle: boolean = false;
-  export let qrCode: string;
+  export let qrCode: string | null;
 
   let audio: HTMLAudioElement;
 
@@ -94,7 +94,7 @@
   <b>{formatToEST(frameDesign.createdAt)}</b>
 </div>
 {#if isSingle}
-  {#if qrCode !== ""}
+  {#if qrCode !== null && qrCode !== ""}
     <div class="qr-container">
       <a href={qrCode} class="frame-link">
         <img src={qrCode} alt="QR code" loading="lazy" />

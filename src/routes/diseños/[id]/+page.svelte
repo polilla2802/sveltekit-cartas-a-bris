@@ -79,6 +79,33 @@
   });
 </script>
 
+<svelte:head>
+  <title>{data.frameDesign?.name ?? "Diseño"}</title>
+  <meta
+    name="description"
+    content="Una diseño personalizado creado en Cartas a Bris."
+  />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={data.frameDesign?.name ?? "Diseño"} />
+  <meta
+    property="og:description"
+    content="Una diseño personalizado creado en Cartas a Bris."
+  />
+  <meta property="og:image" content={data.qrCode} />
+  <meta property="og:url" content={$page.url.href} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={data.frameDesign?.name ?? "Diseño"} />
+  <meta
+    name="twitter:description"
+    content="Una diseño personalizado creado en Cartas a Bris."
+  />
+  <meta name="twitter:image" content={data.qrCode} />
+</svelte:head>
+
 <section>
   {#if loading || !accessChecked}
     <!-- Render a loader while fetching data -->
@@ -100,7 +127,12 @@
   {:else if data.frameDesign}
     <Welcome title={data.frameDesign.name}></Welcome>
     <div class="frame-single-container">
-      <FrameDesign frameDesign={data.frameDesign} {baseUrl} isSingle={true} />
+      <FrameDesign
+        frameDesign={data.frameDesign}
+        {baseUrl}
+        isSingle={true}
+        qrCode={data.qrCode}
+      />
     </div>
   {:else if data.error}
     <p class="mt-4 text-center text-red-500">{data.error}</p>

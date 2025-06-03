@@ -1,20 +1,13 @@
 <script lang="ts">
   import type { FrameFinalized } from "$lib/types/frame";
   import { formatToEST } from "$utils/getESTTime";
-  import { FrameTypes, getQRCode, qrCodeLoading } from "$utils/getQRcode";
   import { isNew } from "$utils/isNew";
-  import { onMount } from "svelte";
   export let frameFinalized: FrameFinalized;
   export let baseUrl: string;
-  export let finalizedId: string = "";
   export let isSingle: boolean = false;
-  let qrCode: Promise<string>;
+  export let qrCode: string;
 
   let audio: HTMLAudioElement;
-
-  let hover: boolean = false;
-
-  console.log(frameFinalized)
 
   function playSound(): void {
     audio = new Audio("/sounds/page-4.mp3");
@@ -24,11 +17,6 @@
       audio.play();
     }
   }
-
-  // Optional: If you need to perform any action on mount
-  onMount(() => {
-    qrCode = getQRCode(baseUrl, finalizedId, FrameTypes.finalized);
-  });
 </script>
 
 <!-- Map frames to display images -->
@@ -112,19 +100,11 @@
   <b>{formatToEST(frameFinalized.createdAt)}</b>
 </div>
 {#if isSingle}
-  {#await qrCode}
-    <div class="qr-container-loading">
-      <img src={qrCodeLoading} alt="Loading QR code..." loading="lazy" />
+  {#if qrCode !== ""}
+    <div class="qr-container">
+      <a href={qrCode} class="frame-link">
+        <img src={qrCode} alt="QR code" loading="lazy" />
+      </a>
     </div>
-  {:then qrCode}
-    {#if qrCode}
-      <div class="qr-container">
-        <a href={qrCode} class="frame-link">
-          <img src={qrCode} alt="QR code" loading="lazy" />
-        </a>
-      </div>
-    {/if}
-  {:catch error}
-    <p class="text-center text-red-500">Error: {error.message}</p>
-  {/await}
+  {/if}
 {/if}

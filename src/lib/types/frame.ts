@@ -35,11 +35,13 @@ export interface FrameType {
 
 export interface FrameDesignData {
 	frameDesign: FrameDesign;
+	qrCode: string;
 	error?: string;
 }
 
 export interface FrameFinalizedData {
 	frameFinalized: FrameFinalized;
+	qrCode: string;
 	error?: string;
 }
 

@@ -81,6 +81,33 @@
   });
 </script>
 
+<svelte:head>
+  <title>{data.frameFinalized?.name ?? "Carta"}</title>
+  <meta
+    name="description"
+    content="Una carta personalizada creada en Cartas a Bris."
+  />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={data.frameFinalized?.name ?? "Carta"} />
+  <meta
+    property="og:description"
+    content="Una carta personalizada creada en Cartas a Bris."
+  />
+  <meta property="og:image" content={data.qrCode} />
+  <meta property="og:url" content={$page.url.href} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={data.frameFinalized?.name ?? "Carta"} />
+  <meta
+    name="twitter:description"
+    content="Una carta personalizada creada en Cartas a Bris."
+  />
+  <meta name="twitter:image" content={data.qrCode} />
+</svelte:head>
+
 <section>
   {#if loading || !accessChecked}
     <!-- Render a loader while fetching data -->
@@ -120,6 +147,7 @@
         frameFinalized={data.frameFinalized}
         {baseUrl}
         isSingle={true}
+        qrCode={data.qrCode}
       />
     </div>
   {:else if data.error}

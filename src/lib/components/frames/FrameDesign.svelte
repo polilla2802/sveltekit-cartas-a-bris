@@ -1,17 +1,13 @@
 <script lang="ts">
   import type { FrameDesign } from "$lib/types/frame";
   import { formatToEST } from "$utils/getESTTime";
-  import { FrameTypes, getQRCode, qrCodeLoading } from "$utils/getQRcode";
   import { isNew } from "$utils/isNew";
-  import { onMount } from "svelte";
   export let frameDesign: FrameDesign;
   export let baseUrl: string;
   export let isSingle: boolean = false;
-  let qrCode: Promise<string>;
+  export let qrCode: string;
 
   let audio: HTMLAudioElement;
-
-  console.log(frameDesign);
 
   function playSound(): void {
     audio = new Audio("/sounds/page-4.mp3");
@@ -21,11 +17,6 @@
       audio.play();
     }
   }
-  // Optional: If you need to perform any action on mount
-  onMount(() => {
-    // console.log(data);
-    qrCode = getQRCode(baseUrl, frameDesign.id.toString(), FrameTypes.designs);
-  });
 </script>
 
 <!-- Map frames to display images -->
@@ -69,7 +60,12 @@
       {/if}
 
       <div class="absolute bottom-0 half-image-vertical">
-        <img class="w-full h-auto" src={frameDesign.url} alt="Design" loading="lazy" />
+        <img
+          class="w-full h-auto"
+          src={frameDesign.url}
+          alt="Design"
+          loading="lazy"
+        />
       </div>
 
       <img
@@ -91,26 +87,20 @@
     </div>
   {/if}
   {#if frameDesign.frame_types}
-    <p class="text-center">Tipo de Diseño: <b>{frameDesign.frame_types.type}</b></p>
+    <p class="text-center">
+      Tipo de Diseño: <b>{frameDesign.frame_types.type}</b>
+    </p>
   {/if}
   <b>{formatToEST(frameDesign.createdAt)}</b>
 </div>
 {#if isSingle}
-  {#await qrCode}
-    <div class="qr-container-loading">
-      <img src={qrCodeLoading} alt="QR code" loading="lazy" />
+  {#if qrCode !== ""}
+    <div class="qr-container">
+      <a href={qrCode} class="frame-link">
+        <img src={qrCode} alt="QR code" loading="lazy" />
+      </a>
     </div>
-  {:then qrCode}
-    {#if qrCode}
-      <div class="qr-container">
-        <a href={qrCode} class="frame-link">
-          <img src={qrCode} alt="QR code" loading="lazy" />
-        </a>
-      </div>
-    {/if}
-  {:catch error}
-    <p style="color: red">{error.message}</p>
-  {/await}
+  {/if}
 {/if}
 
 <style>

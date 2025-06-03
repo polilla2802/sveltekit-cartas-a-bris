@@ -15,7 +15,7 @@ export async function getQRCode(baseUrl: string, frameId: string, frameType: Fra
     setTimeout(async () => {
       try {
         const response = await fetch(
-          `${QR_API_URL}${baseUrl}/${frameType}/${frameId}`
+         `${QR_API_URL}${encodeURIComponent(`${baseUrl}/${frameType}/${frameId}`)}&size=300x300`
         );
         resolve(response.url);
       } catch (error) {
@@ -24,4 +24,8 @@ export async function getQRCode(baseUrl: string, frameId: string, frameType: Fra
       }
     }, 500);
   });
+}
+
+export function getQRCodeImage(baseUrl: string, frameId: string, frameType: FrameTypes): string {
+  return `${QR_API_URL}${encodeURIComponent(`${baseUrl}/${frameType}/${frameId}`)}&size=300x300`;
 }

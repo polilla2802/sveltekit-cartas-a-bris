@@ -25,6 +25,39 @@
   });
 </script>
 
+<svelte:head>
+  <title>Cartas a Bris - Inicio</title>
+  <meta
+    name="description"
+    content="Manda cartas personalizadas creadas para esa persona especial."
+  />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cartas a Bris - Inicio" />
+  <meta
+    property="og:description"
+    content="Manda cartas personalizadas creadas para esa persona especial."
+  />
+  <meta
+    property="og:image"
+    content="https://www.cartasabris.com/logos/cartas-logo-pink.png"
+  />
+  <meta property="og:url" content={$page.url.href} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cartas a Bris - Inicio" />
+  <meta
+    name="twitter:description"
+    content="Manda cartas personalizadas creadas para esa persona especial."
+  />
+  <meta
+    name="twitter:image"
+    content="https://www.cartasabris.com/logos/cartas-logo-pink.png"
+  />
+</svelte:head>
+
 <Welcome {title}></Welcome>
 
 {#if loading}
